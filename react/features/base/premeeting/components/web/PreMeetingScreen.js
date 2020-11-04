@@ -85,11 +85,11 @@ export default class PreMeetingScreen extends PureComponent<Props> {
                 className = 'premeeting-screen'
                 id = 'lobby-screen'>
                 <ConnectionStatus />
-                <Preview
-                    videoMuted = { videoMuted }
-                    videoTrack = { videoTrack } />
-                {!videoMuted && <div className = 'preview-overlay' />}
                 <div className = 'content'>
+                    <Preview
+                        videoMuted = { videoMuted }
+                        videoTrack = { videoTrack } />
+                    {videoMuted && <div className = 'preview-overlay' />}
                     {showAvatar && videoMuted && (
                         <Avatar
                             className = 'premeeting-screen-avatar'

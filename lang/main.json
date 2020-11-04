@@ -930,5 +930,10 @@
         "passwordJoinButton": "Join",
         "reject": "Reject",
         "toggleLabel": "Enable lobby"
+    },
+    "threeveta": {
+        "toolbar": {
+            "shareScreen": "Share screen"
+        }
     }
 }

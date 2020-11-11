@@ -30,6 +30,7 @@
 		75635B0A20751D6D00F29C9F /* joined.wav in Resources */ = {isa = PBXBuildFile; fileRef = 75635B0820751D6D00F29C9F /* joined.wav */; };
 		75635B0B20751D6D00F29C9F /* left.wav in Resources */ = {isa = PBXBuildFile; fileRef = 75635B0920751D6D00F29C9F /* left.wav */; };
 		87FE6F3321E52437004A5DC7 /* incomingMessage.wav in Resources */ = {isa = PBXBuildFile; fileRef = 87FE6F3221E52437004A5DC7 /* incomingMessage.wav */; };
+		928F8436254C7103009EE42B /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BCA49631EC4B76D00B793EE /* WebRTC.framework */; };
 		A4414AE020B37F1A003546E6 /* rejected.wav in Resources */ = {isa = PBXBuildFile; fileRef = A4414ADF20B37F1A003546E6 /* rejected.wav */; };
 		A480429C21EE335600289B73 /* AmplitudeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = A480429B21EE335600289B73 /* AmplitudeModule.m */; };
 		A4A934E9212F3ADB001E9388 /* Dropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A934E8212F3ADB001E9388 /* Dropbox.m */; };
@@ -137,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				928F8436254C7103009EE42B /* WebRTC.framework in Frameworks */,
 				0BB9AD791F5EC6D7001C08DB /* Intents.framework in Frameworks */,
 				0BB9AD771F5EC6CE001C08DB /* CallKit.framework in Frameworks */,
 				0F65EECE1D95DA94561BB47E /* libPods-JitsiMeet.a in Frameworks */,
@@ -546,7 +548,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -608,7 +610,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -674,7 +676,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = src/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

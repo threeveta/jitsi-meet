@@ -147,7 +147,7 @@ function _setRoom({ dispatch, getState }, next, action) {
     // the user i.e. the state of base/media. Eventually, practice/reality i.e.
     // the state of base/tracks will or will not agree with the desires.
     dispatch(setAudioMuted(audioMuted));
-    dispatch(setCameraFacingMode(CAMERA_FACING_MODE.USER));
+    // dispatch(setCameraFacingMode(CAMERA_FACING_MODE.USER));
     dispatch(setVideoMuted(videoMuted));
 
     // startAudioOnly

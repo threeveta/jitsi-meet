@@ -119,7 +119,7 @@ type State = {
 /**
  * Maps each device type to a display name and icon.
  */
-const deviceInfoMap = {
+export const deviceInfoMap = {
     BLUETOOTH: {
         icon: IconDeviceBluetooth,
         text: 'audioDevices.bluetooth',

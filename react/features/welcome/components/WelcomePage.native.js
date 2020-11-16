@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
     Animated,
     Keyboard,
@@ -6,35 +6,54 @@ import {
     TextInput,
     TouchableHighlight,
     TouchableOpacity,
-    View
-} from 'react-native';
-
-import { getName } from '../../app/functions';
-import { ColorSchemeRegistry } from '../../base/color-scheme';
-import { translate } from '../../base/i18n';
-import { Icon, IconMenu, IconWarning } from '../../base/icons';
-import { MEDIA_TYPE } from '../../base/media';
-import { Header, LoadingIndicator, Text } from '../../base/react';
-import { connect } from '../../base/redux';
-import { ColorPalette } from '../../base/styles';
+    View,
+    NativeModules,
+} from "react-native";
+import _ from "lodash";
+import { getName } from "../../app/functions";
+import { ColorSchemeRegistry } from "../../base/color-scheme";
+import { translate } from "../../base/i18n";
+import {
+    Icon,
+    IconMenu,
+    IconWarning,
+    IconSwitchCamera,
+    IconDeviceSpeaker,
+    IconArrowDown,
+} from "../../base/icons";
+import {
+    MEDIA_TYPE,
+    toggleCameraFacingMode,
+    VideoTrack,
+} from "../../base/media";
+import { openDialog } from "../../base/dialog";
+import AudioRoutePickerDialog, {
+    deviceInfoMap,
+} from "../../mobile/audio-mode/components/AudioRoutePickerDialog";
+import { Header, LoadingIndicator, Text } from "../../base/react";
+import { connect } from "../../base/redux";
+import { ColorPalette } from "../../base/styles";
 import {
     createDesiredLocalTracks,
-    destroyLocalTracks
-} from '../../base/tracks';
-import { HelpView } from '../../help';
-import { DialInSummary } from '../../invite';
-import { SettingsView } from '../../settings';
-import { setSideBarVisible } from '../actions';
+    destroyLocalTracks,
+    getLocalVideoTrack,
+} from "../../base/tracks";
+import { HelpView } from "../../help";
+import { DialInSummary } from "../../invite";
+import { SettingsView } from "../../settings";
+import { setSideBarVisible } from "../actions";
 
 import {
     AbstractWelcomePage,
-    _mapStateToProps as _abstractMapStateToProps
-} from './AbstractWelcomePage';
-import LocalVideoTrackUnderlay from './LocalVideoTrackUnderlay';
-import VideoSwitch from './VideoSwitch';
-import WelcomePageLists from './WelcomePageLists';
-import WelcomePageSideBar from './WelcomePageSideBar';
-import styles, { PLACEHOLDER_TEXT_COLOR } from './styles';
+    _mapStateToProps as _abstractMapStateToProps,
+} from "./AbstractWelcomePage";
+import LocalVideoTrackUnderlay from "./LocalVideoTrackUnderlay";
+import VideoSwitch from "./VideoSwitch";
+import WelcomePageLists from "./WelcomePageLists";
+import WelcomePageSideBar from "./WelcomePageSideBar";
+import styles, { PLACEHOLDER_TEXT_COLOR } from "./styles";
+
+const { AudioMode } = NativeModules;
 
 /**
  * The native container rendering the welcome page.
@@ -61,6 +80,7 @@ class WelcomePage extends AbstractWelcomePage {
         // Specially bind functions to avoid function definition on render.
         this._onFieldBlur = this._onFieldFocusChange.bind(this, false);
         this._onFieldFocus = this._onFieldFocusChange.bind(this, true);
+        this.getSelectedDevice = this.getSelectedDevice.bind(this);
     }
 
     /**
@@ -78,15 +98,20 @@ class WelcomePage extends AbstractWelcomePage {
 
         const { dispatch } = this.props;
 
+        AudioMode.setMode(AudioMode.VIDEO_CALL).catch((err) =>
+            logger.error(`Failed to set audio mode ${String(mode)}: ${err}`)
+        );
+        AudioMode.updateDeviceList && AudioMode.updateDeviceList();
+
         if (this.props._settings.startAudioOnly) {
             dispatch(destroyLocalTracks());
         } else {
             // Make sure we don't request the permission for the camera from
             // the start. We will, however, create a video track iff the user
             // already granted the permission.
-            navigator.permissions.query({ name: 'camera' }).then(response => {
-                response === 'granted'
-                    && dispatch(createDesiredLocalTracks(MEDIA_TYPE.VIDEO));
+            navigator.permissions.query({ name: "camera" }).then((response) => {
+                response === "granted" &&
+                    dispatch(createDesiredLocalTracks(MEDIA_TYPE.VIDEO));
             });
         }
     }
@@ -113,8 +138,76 @@ class WelcomePage extends AbstractWelcomePage {
             return this._renderReducedUI();
         }
         */
+        const { t } = this.props;
+        const selectedDevice = this.getSelectedDevice(this.props);
 
-        return this._renderFullUI();
+        return (
+            <View style={{ backgroundColor: "white", padding: 20 }}>
+                <View
+                    style={{
+                        width: "100%",
+                        height: 300,
+                        borderRadius: 15,
+                        overflow: "hidden",
+                    }}
+                >
+                    <VideoTrack videoTrack={this.props._localVideoTrack} />
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.dispatch(toggleCameraFacingMode());
+                        }}
+                        style={{
+                            position: "absolute",
+                            top: 15,
+                            right: 15,
+                            backgroundColor: "#00000090",
+                            borderRadius: 8,
+                            padding: 7,
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Icon
+                            src={IconSwitchCamera}
+                            size={25}
+                            style={{ color: "white" }}
+                        />
+                    </TouchableOpacity>
+                </View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        marginTop: 15,
+                        marginBottom: 5,
+                        alignItems: "center",
+                    }}
+                >
+                    <Icon
+                        src={IconDeviceSpeaker}
+                        size={20}
+                        style={{ color: "#1C8FD8", marginRight: 5 }}
+                    />
+                    <Text>SPEAKERS</Text>
+                </View>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.props.dispatch(openDialog(AudioRoutePickerDialog));
+                    }}
+                    style={{
+                        width: "100%",
+                        height: 50,
+                        backgroundColor: "#F4F5FA",
+                        borderRadius: 8,
+                        alignItems: "center",
+                        flexDirection: "row",
+                        paddingHorizontal: 15,
+                    }}
+                >
+                    <Text style={{ flex: 1 }}>{selectedDevice?.text}</Text>
+                    <Icon src={IconArrowDown} size={16} color="#923BBA" />
+                </TouchableOpacity>
+            </View>
+        );
     }
 
     /**
@@ -125,15 +218,17 @@ class WelcomePage extends AbstractWelcomePage {
     _doRenderInsecureRoomNameWarning() {
         return (
             <View
-                style = { [
+                style={[
                     styles.messageContainer,
-                    styles.insecureRoomNameWarningContainer
-                ] }>
+                    styles.insecureRoomNameWarningContainer,
+                ]}
+            >
                 <Icon
-                    src = { IconWarning }
-                    style = { styles.insecureRoomNameWarningIcon } />
-                <Text style = { styles.insecureRoomNameWarningText }>
-                    { this.props.t('security.insecureRoomNameWarning') }
+                    src={IconWarning}
+                    style={styles.insecureRoomNameWarningIcon}
+                />
+                <Text style={styles.insecureRoomNameWarningText}>
+                    {this.props.t("security.insecureRoomNameWarning")}
                 </Text>
             </View>
         );
@@ -150,8 +245,8 @@ class WelcomePage extends AbstractWelcomePage {
             styles.messageContainer,
             styles.hintContainer,
             {
-                opacity: this.state.hintBoxAnimation
-            }
+                opacity: this.state.hintBoxAnimation,
+            },
         ];
     }
 
@@ -164,23 +259,55 @@ class WelcomePage extends AbstractWelcomePage {
      * @returns {void}
      */
     _onFieldFocusChange(focused) {
-        focused
-            && this.setState({
-                _fieldFocused: true
+        focused &&
+            this.setState({
+                _fieldFocused: true,
             });
 
-        Animated.timing(
-            this.state.hintBoxAnimation,
-            {
-                duration: 300,
-                toValue: focused ? 1 : 0
-            })
-            .start(animationState =>
-                animationState.finished
-                    && !focused
-                    && this.setState({
-                        _fieldFocused: false
-                    }));
+        Animated.timing(this.state.hintBoxAnimation, {
+            duration: 300,
+            toValue: focused ? 1 : 0,
+        }).start(
+            (animationState) =>
+                animationState.finished &&
+                !focused &&
+                this.setState({
+                    _fieldFocused: false,
+                })
+        );
+    }
+
+    getSelectedDevice(props) {
+        const { _devices: devices } = props;
+        // console.log("DEVICES", devices);
+        if (!devices) {
+            return null;
+        }
+
+        const audioDevices = [];
+
+        for (const device of devices) {
+            const infoMap = deviceInfoMap[device.type];
+            const text =
+                device.type === "BLUETOOTH" && device.name
+                    ? device.name
+                    : infoMap.text;
+
+            if (infoMap) {
+                const info = {
+                    ...infoMap,
+                    selected: Boolean(device.selected),
+                    text: props.t(text),
+                    uid: device.uid,
+                };
+
+                audioDevices.push(info);
+            }
+        }
+
+        // console.log("AUDIO_DEVICES", audioDevices);
+
+        return _.find(audioDevices, (device) => device.selected);
     }
 
     /**
@@ -205,14 +332,14 @@ class WelcomePage extends AbstractWelcomePage {
             const { t } = this.props;
 
             return (
-                <Animated.View style = { this._getHintBoxStyle() }>
-                    <View style = { styles.hintTextContainer } >
-                        <Text style = { styles.hintText }>
-                            { t('welcomepage.roomnameHint') }
+                <Animated.View style={this._getHintBoxStyle()}>
+                    <View style={styles.hintTextContainer}>
+                        <Text style={styles.hintText}>
+                            {t("welcomepage.roomnameHint")}
                         </Text>
                     </View>
-                    <View style = { styles.hintButtonContainer } >
-                        { this._renderJoinButton() }
+                    <View style={styles.hintButtonContainer}>
+                        {this._renderJoinButton()}
                     </View>
                 </Animated.View>
             );
@@ -231,7 +358,6 @@ class WelcomePage extends AbstractWelcomePage {
         const { t } = this.props;
         let children;
 
-
         if (this.state.joining) {
             // TouchableHighlight is picky about what its children can be, so
             // wrap it in a native component, i.e. View to avoid having to
@@ -239,26 +365,27 @@ class WelcomePage extends AbstractWelcomePage {
             children = (
                 <View>
                     <LoadingIndicator
-                        color = { styles.buttonText.color }
-                        size = 'small' />
+                        color={styles.buttonText.color}
+                        size="small"
+                    />
                 </View>
             );
         } else {
             children = (
-                <Text style = { styles.buttonText }>
-                    { this.props.t('welcomepage.join') }
+                <Text style={styles.buttonText}>
+                    {this.props.t("welcomepage.join")}
                 </Text>
             );
         }
 
         return (
             <TouchableHighlight
-                accessibilityLabel =
-                    { t('welcomepage.accessibilityLabel.join') }
-                onPress = { this._onJoin }
-                style = { styles.button }
-                underlayColor = { ColorPalette.white }>
-                { children }
+                accessibilityLabel={t("welcomepage.accessibilityLabel.join")}
+                onPress={this._onJoin}
+                style={styles.button}
+                underlayColor={ColorPalette.white}
+            >
+                {children}
             </TouchableHighlight>
         );
     }
@@ -269,53 +396,61 @@ class WelcomePage extends AbstractWelcomePage {
      * @returns {ReactElement}
      */
     _renderFullUI() {
-        const roomnameAccLabel = 'welcomepage.accessibilityLabel.roomname';
+        const roomnameAccLabel = "welcomepage.accessibilityLabel.roomname";
         const { _headerStyles, t } = this.props;
 
         return (
-            <LocalVideoTrackUnderlay style = { styles.welcomePage }>
-                <View style = { _headerStyles.page }>
-                    <Header style = { styles.header }>
-                        <TouchableOpacity onPress = { this._onShowSideBar } >
+            <LocalVideoTrackUnderlay style={styles.welcomePage}>
+                <View style={_headerStyles.page}>
+                    <Header style={styles.header}>
+                        <TouchableOpacity onPress={this._onShowSideBar}>
                             <Icon
-                                src = { IconMenu }
-                                style = { _headerStyles.headerButtonIcon } />
+                                src={IconMenu}
+                                style={_headerStyles.headerButtonIcon}
+                            />
                         </TouchableOpacity>
                         <VideoSwitch />
                     </Header>
-                    <SafeAreaView style = { styles.roomContainer } >
-                        <View style = { styles.joinControls } >
-                            <Text style = { styles.enterRoomText }>
-                                { t('welcomepage.roomname') }
+                    <SafeAreaView style={styles.roomContainer}>
+                        <View style={styles.joinControls}>
+                            <Text style={styles.enterRoomText}>
+                                {t("welcomepage.roomname")}
                             </Text>
                             <TextInput
-                                accessibilityLabel = { t(roomnameAccLabel) }
-                                autoCapitalize = 'none'
-                                autoComplete = 'off'
-                                autoCorrect = { false }
-                                autoFocus = { false }
-                                onBlur = { this._onFieldBlur }
-                                onChangeText = { this._onRoomChange }
-                                onFocus = { this._onFieldFocus }
-                                onSubmitEditing = { this._onJoin }
-                                placeholder = { this.state.roomPlaceholder }
-                                placeholderTextColor = { PLACEHOLDER_TEXT_COLOR }
-                                returnKeyType = { 'go' }
-                                style = { styles.textInput }
-                                underlineColorAndroid = 'transparent'
-                                value = { this.state.room } />
-                            {
-                                this._renderInsecureRoomNameWarning()
-                            }
-                            {
-                                this._renderHintBox()
-                            }
+                                accessibilityLabel={t(roomnameAccLabel)}
+                                autoCapitalize="none"
+                                autoComplete="off"
+                                autoCorrect={false}
+                                autoFocus={false}
+                                onBlur={this._onFieldBlur}
+                                onChangeText={this._onRoomChange}
+                                onFocus={this._onFieldFocus}
+                                onSubmitEditing={this._onJoin}
+                                placeholder={this.state.roomPlaceholder}
+                                placeholderTextColor={PLACEHOLDER_TEXT_COLOR}
+                                returnKeyType={"go"}
+                                style={styles.textInput}
+                                underlineColorAndroid="transparent"
+                                value={this.state.room}
+                            />
+                            {this._renderInsecureRoomNameWarning()}
+                            {this._renderHintBox()}
                         </View>
                     </SafeAreaView>
-                    <WelcomePageLists disabled = { this.state._fieldFocused } />
+                    <TouchableOpacity
+                        style={{
+                            width: 50,
+                            height: 50,
+                            backgroundColor: "red",
+                        }}
+                        onPress={() => {
+                            this.props.dispatch(toggleCameraFacingMode());
+                        }}
+                    />
+                    <WelcomePageLists disabled={this.state._fieldFocused} />
                 </View>
                 <WelcomePageSideBar />
-                { this._renderWelcomePageModals() }
+                {this._renderWelcomePageModals()}
             </LocalVideoTrackUnderlay>
         );
     }
@@ -329,9 +464,9 @@ class WelcomePage extends AbstractWelcomePage {
         const { t } = this.props;
 
         return (
-            <View style = { styles.reducedUIContainer }>
-                <Text style = { styles.reducedUIText }>
-                    { t('welcomepage.reducedUIText', { app: getName() }) }
+            <View style={styles.reducedUIContainer}>
+                <Text style={styles.reducedUIText}>
+                    {t("welcomepage.reducedUIText", { app: getName() })}
                 </Text>
             </View>
         );
@@ -344,9 +479,9 @@ class WelcomePage extends AbstractWelcomePage {
      */
     _renderWelcomePageModals() {
         return [
-            <HelpView key = 'helpView' />,
-            <DialInSummary key = 'dialInSummary' />,
-            <SettingsView key = 'settings' />
+            <HelpView key="helpView" />,
+            <DialInSummary key="dialInSummary" />,
+            <SettingsView key="settings" />,
         ];
     }
 }
@@ -360,8 +495,9 @@ class WelcomePage extends AbstractWelcomePage {
 function _mapStateToProps(state) {
     return {
         ..._abstractMapStateToProps(state),
-        _headerStyles: ColorSchemeRegistry.get(state, 'Header')
-
+        _headerStyles: ColorSchemeRegistry.get(state, "Header"),
+        _localVideoTrack: getLocalVideoTrack(state["features/base/tracks"]),
+        _devices: state["features/mobile/audio-mode"].devices,
         // _reducedUI: state['features/base/responsive-ui'].reducedUI
     };
 }

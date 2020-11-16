@@ -12,6 +12,7 @@ import { Platform } from '../../base/react';
 import { DimensionsDetector, clientResized } from '../../base/responsive-ui';
 import { updateSettings } from '../../base/settings';
 import logger from '../logger';
+import { setRoomPasswordPair } from '../../base/conference';
 
 import { AbstractApp } from './AbstractApp';
 import type { Props as AbstractAppProps } from './AbstractApp';
@@ -117,6 +118,16 @@ export class App extends AbstractApp {
                 dispatch(updateSettings({ disableCallIntegration: !callIntegrationEnabled }));
             }
         });
+    }
+
+    componentDidUpdate(prevProps) {
+        super.componentDidUpdate(prevProps)
+        const { dispatch } = this.state.store;
+        if (typeof this.props.url !== 'undefined' && 
+            this.props.url.room && 
+            this.props.url.password) {
+            dispatch(setRoomPasswordPair(this.props.url.room, this.props.url.password));
+        }
     }
 
     /**

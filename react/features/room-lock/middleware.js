@@ -5,7 +5,8 @@ import {
     CONFERENCE_FAILED,
     CONFERENCE_JOINED,
     LOCK_STATE_CHANGED,
-    SET_PASSWORD_FAILED
+    SET_PASSWORD_FAILED,
+    setPassword,
 } from '../base/conference';
 import { hideDialog } from '../base/dialog';
 import { JitsiConferenceErrors } from '../base/lib-jitsi-meet';
@@ -102,7 +103,7 @@ function _conferenceJoined({ dispatch }, next, action) {
  * @private
  * @returns {*}
  */
-function _conferenceFailed({ dispatch }, next, action) {
+function _conferenceFailed({ dispatch, getState }, next, action) {
     const { conference, error } = action;
 
     if (conference && error.name === JitsiConferenceErrors.PASSWORD_REQUIRED) {
@@ -112,7 +113,15 @@ function _conferenceFailed({ dispatch }, next, action) {
             error.recoverable = true;
         }
         if (error.recoverable) {
-            dispatch(_openPasswordRequiredPrompt(conference));
+            const { roomPasswordPair, room, password } = getState()['features/base/conference']
+
+            if (!roomPasswordPair || roomPasswordPair.room !== room || password === roomPasswordPair.password) {
+                dispatch(_openPasswordRequiredPrompt(conference)); 
+            } else {
+                setTimeout(() => {
+                    dispatch(setPassword(conference, conference.join, roomPasswordPair.password));
+                }, 200)
+            }
         }
     } else {
         dispatch(hideDialog(PasswordRequiredPrompt));

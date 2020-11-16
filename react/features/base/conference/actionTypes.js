@@ -177,6 +177,18 @@ export const SET_FOLLOW_ME = 'SET_FOLLOW_ME';
 export const SET_PASSWORD = 'SET_PASSWORD';
 
 /**
+ * The type of (redux) action which sets room password pair for automatic join if the room is locked
+ * {@code JitsiConference}.
+ *
+ * {
+ *     type: SET_ROOM_PASSWORD_PAIR,
+ *     room: string,
+ *     password: string
+ * }
+ */
+export const SET_ROOM_PASSWORD_PAIR = 'SET_ROOM_PASSWORD_PAIR';
+
+/**
  * The type of (redux) action which signals that setting a password on a
  * {@code JitsiConference} failed (with an error).
  *

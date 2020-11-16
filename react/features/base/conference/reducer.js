@@ -19,6 +19,7 @@ import {
     SET_DESKTOP_SHARING_ENABLED,
     SET_FOLLOW_ME,
     SET_PASSWORD,
+    SET_ROOM_PASSWORD_PAIR,
     SET_PENDING_SUBJECT_CHANGE,
     SET_ROOM,
     SET_SIP_GATEWAY_ENABLED,
@@ -34,7 +35,8 @@ const DEFAULT_STATE = {
     locked: undefined,
     membersOnly: undefined,
     password: undefined,
-    passwordRequired: undefined
+    passwordRequired: undefined,
+    roomPasswordPair: undefined,
 };
 
 /**
@@ -87,6 +89,9 @@ ReducerRegistry.register(
 
         case SET_PASSWORD:
             return _setPassword(state, action);
+        
+        case SET_ROOM_PASSWORD_PAIR:
+            return _setRoomPasswordPair(state, action);
 
         case SET_PENDING_SUBJECT_CHANGE:
             return set(state, 'pendingSubjectChange', action.subject);
@@ -403,6 +408,14 @@ function _setPassword(state, { conference, method, password }) {
     }
 
     return state;
+}
+
+function _setRoomPasswordPair(state, action) {
+    let { room, password } = action;
+    return set(state, 'roomPasswordPair', {
+        room,
+        password
+    });
 }
 
 /**

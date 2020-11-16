@@ -49,7 +49,8 @@ import {
     SET_PASSWORD_FAILED,
     SET_ROOM,
     SET_PENDING_SUBJECT_CHANGE,
-    SET_START_MUTED_POLICY
+    SET_START_MUTED_POLICY,
+    SET_ROOM_PASSWORD_PAIR
 } from './actionTypes';
 import {
     AVATAR_URL_COMMAND,
@@ -669,6 +670,26 @@ export function setPassword(
         }
         }
     };
+}
+
+/**
+ * Sets a room name and a password to be used for automatic joining
+ *
+ * @param {(string)} room - the name of the room
+ * @param {(string)} password - the password to be used for automatic joining to this room
+ *
+ * @returns {{
+    *     type: SET_ROOM_PASSWORD_PAIR,
+    *     password: string
+    *     room: string
+    * }}
+    */
+export function setRoomPasswordPair(room: ?string, password: ?string) {
+    return {
+        type: SET_ROOM_PASSWORD_PAIR,
+        room,
+        password
+    }
 }
 
 /**

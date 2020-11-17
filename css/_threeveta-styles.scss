@@ -6,26 +6,27 @@ $main-white: #fff;
 $main-gray: #4F4F4F;
 $inactive-gray: #BDBDBD;
 
-// @mixin preview {
-//     width: 381px;
-//     height: 224px;
-//     position: relative !important;
-//     border-radius: $border-radius-lg;
-//     background-image: linear-gradient(grey, black);
-// }
 
-// .premeeting-screen {
-//     background: $main-white;
-//     flex-direction: row;
-//     .preview-overlay {
-//         @include preview;
-//     }
-// }
+@mixin preview {
+    width: 381px;
+    height: 224px;
+    position: relative !important;
+    border-radius: $border-radius-lg;
+    background-image: linear-gradient(grey, black);
+}
 
-// #preview {
-//     @include preview;
-//     overflow: hidden;
-// }
+.premeeting-screen {
+    background: $main-white;
+    flex-direction: row;
+    .preview-overlay {
+        @include preview;
+    }
+}
+
+#preview {
+    @include preview;
+    overflow: hidden;
+}
 
 // MAIN VIDEO AREA
 #largeVideoContainer {

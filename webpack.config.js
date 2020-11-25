@@ -8,11 +8,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
  * The URL of the Jitsi Meet deployment to be proxy to in the context of
  * development with webpack-dev-server.
  */
-const devServerProxyTarget = 'https://alpha.jitsi.net';
-
-// 'https://alpha.jitsi.net'; // 'https://jitsi.3veta.com'; // 'https://localhost:8443';
-
-// process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://alpha.jitsi.net';
+const devServerProxyTarget = process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://alpha.jitsi.net';
 
 const analyzeBundle = process.argv.indexOf('--analyze-bundle') !== -1;
 const detectCircularDeps = process.argv.indexOf('--detect-circular-deps') !== -1;

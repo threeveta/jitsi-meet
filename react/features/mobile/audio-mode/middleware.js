@@ -140,11 +140,12 @@ function _updateAudioMode({ getState }, next, action) {
     const { enabled: audioOnly } = state['features/base/audio-only'];
     let mode;
 
-    if (conference) {
+    // We need to set auido mode even if not in call because of our threeveta waiting room
+    // if (conference) {
         mode = audioOnly ? AudioMode.AUDIO_CALL : AudioMode.VIDEO_CALL;
-    } else {
-        mode = AudioMode.DEFAULT;
-    }
+    // } else {
+    //     mode = AudioMode.DEFAULT;
+    // }
 
     AudioMode.setMode(mode).catch(err => logger.error(`Failed to set audio mode ${String(mode)}: ${err}`));
 

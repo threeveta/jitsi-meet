@@ -108,7 +108,10 @@ export class App extends AbstractApp {
                     }
                 }
             }
-
+            dispatch(updateSettings({
+                startWithVideoMuted: this.props.url?.config?.startWithVideoMuted || false,
+                startWithAudioMuted: this.props.url?.config?.startWithAudioMuted || false,
+            }))
             dispatch(updateSettings(this.props.userInfo || {}));
 
             // Update settings with feature-flag.
@@ -127,6 +130,16 @@ export class App extends AbstractApp {
             this.props.url.room && 
             this.props.url.password) {
             dispatch(setRoomPasswordPair(this.props.url.room, this.props.url.password));
+        }
+
+        if (this.props.url?.config?.startWithVideoMuted !== 
+            prevProps.url?.config?.startWithVideoMuted || 
+            this.props.url?.config?.startWithAudioMuted !== 
+            prevProps.url?.config?.startWithAudioMuted) {
+            dispatch(updateSettings({
+                startWithVideoMuted: this.props.url?.config?.startWithVideoMuted || false,
+                startWithAudioMuted: this.props.url?.config?.startWithAudioMuted || false,
+            }))
         }
     }
 

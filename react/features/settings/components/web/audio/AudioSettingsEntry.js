@@ -39,7 +39,8 @@ export default function AudioSettingsEntry({ children, hasError, isSelected }: P
             {isSelected && (
                 <Icon
                     className = 'audio-preview-icon audio-preview-icon--check'
-                    color = '#1C2025'
+
+                    // color = '#1C2025'
                     size = { 14 }
                     src = { IconCheck } />
             )}

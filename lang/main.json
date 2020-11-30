@@ -933,7 +933,9 @@
     },
     "threeveta": {
         "toolbar": {
-            "shareScreen": "Share screen"
+            "shareScreen": "Share screen",
+            "enterFullScreen": "View Full Screen",
+            "exitFullScreen": "Exit Full Screen"
         }
     }
 }

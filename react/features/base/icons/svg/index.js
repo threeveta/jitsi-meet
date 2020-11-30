@@ -12,13 +12,15 @@ export { default as IconAudioOnlyOff } from './visibility-off.svg';
 export { default as IconAudioRoute } from './volume.svg';
 export { default as IconBlurBackground } from './blur-background.svg';
 export { default as IconPlusCalendar } from './calendar-plus.svg';
-export { default as IconCamera } from './camera.svg';
-export { default as IconCameraDisabled } from './camera-disabled.svg';
+
+// export { default as IconCamera } from './camera.svg';
+// export { default as IconCameraDisabled } from './camera-disabled.svg';
 export { default as IconCancelSelection } from './cancel.svg';
 export { default as IconChat } from './chat.svg';
 export { default as IconChatSend } from './send.svg';
 export { default as IconChatUnread } from './chat-unread.svg';
-export { default as IconCheck } from './check.svg';
+
+// export { default as IconCheck } from './check.svg';
 export { default as IconClose } from './close.svg';
 export { default as IconCloseX } from './close-x.svg';
 export { default as IconClosedCaption } from './closed_caption.svg';
@@ -42,9 +44,11 @@ export { default as IconExclamation } from './exclamation.svg';
 export { default as IconExclamationSolid } from './exclamation-solid.svg';
 export { default as IconExitFullScreen } from './exit-full-screen.svg';
 export { default as IconFeedback } from './feedback.svg';
-export { default as IconFullScreen } from './full-screen.svg';
+
+// export { default as IconFullScreen } from './full-screen.svg';
 export { default as IconGoogle } from './google.svg';
-export { default as IconHangup } from './hangup.svg';
+
+// export { default as IconHangup } from './hangup.svg';
 export { default as IconHelp } from './help.svg';
 export { default as IconInfo } from './info.svg';
 export { default as IconInviteMore } from './user-plus.svg';
@@ -54,13 +58,17 @@ export { default as IconMeetingLocked } from './meeting-locked.svg';
 export { default as IconMeetingUnlocked } from './meeting-unlocked.svg';
 export { default as IconMenu } from './menu.svg';
 export { default as IconMenuDown } from './menu-down.svg';
-export { default as IconMenuThumb } from './thumb-menu.svg';
+
+// export { default as IconMenuThumb } from './thumb-menu.svg';
 export { default as IconMenuUp } from './menu-up.svg';
 export { default as IconMessage } from './message.svg';
-export { default as IconMeter } from './meter.svg';
-export { default as IconMicDisabled } from './mic-disabled.svg';
-export { default as IconMicrophone } from './microphone.svg';
-export { default as IconMicrophoneEmpty } from './microphone-empty.svg';
+
+// export { default as IconMeter } from './meter.svg';
+
+// export { default as IconMicDisabled } from './mic-disabled.svg';
+
+// export { default as IconMicrophone } from './microphone.svg';
+// export { default as IconMicrophoneEmpty } from './microphone-empty.svg';
 export { default as IconModerator } from './star.svg';
 export { default as IconMuteEveryone } from './mute-everyone.svg';
 export { default as IconMuteEveryoneElse } from './mute-everyone-else.svg';
@@ -70,7 +78,8 @@ export { default as IconOutlook } from './office365.svg';
 export { default as IconPhone } from './phone.svg';
 export { default as IconPin } from './enlarge.svg';
 export { default as IconPresentation } from './presentation.svg';
-export { default as IconRaisedHand } from './raised-hand.svg';
+
+// export { default as IconRaisedHand } from './raised-hand.svg';
 export { default as IconRec } from './rec.svg';
 export { default as IconRemoteControlStart } from './play.svg';
 export { default as IconRemoteControlStop } from './stop.svg';
@@ -81,16 +90,19 @@ export { default as IconRoomUnlock } from './security-locked.svg';
 export { default as IconSecurityOff } from './security-off.svg';
 export { default as IconSecurityOn } from './security-on.svg';
 export { default as IconSearch } from './search.svg';
-export { default as IconSettings } from './settings.svg';
+
+// export { default as IconSettings } from './settings.svg';
 export { default as IconSignalLevel0 } from './signal_cellular_0.svg';
 export { default as IconSignalLevel1 } from './signal_cellular_1.svg';
 export { default as IconSignalLevel2 } from './signal_cellular_2.svg';
 export { default as IconShare } from './share.svg';
-export { default as IconShareDesktop } from './share-desktop.svg';
+
+// export { default as IconShareDesktop } from './share-desktop.svg';
 export { default as IconShareDoc } from './share-doc.svg';
 export { default as IconShareVideo } from './shared-video.svg';
 export { default as IconSwitchCamera } from './switch-camera.svg';
-export { default as IconTileView } from './tiles-many.svg';
+
+// export { default as IconTileView } from './tiles-many.svg';
 export { default as IconToggleRecording } from './camera-take-picture.svg';
 export { default as IconTrash } from './trash.svg';
 export { default as IconVideoQualityAudioOnly } from './AUD.svg';
@@ -98,7 +110,8 @@ export { default as IconVideoQualityHD } from './HD.svg';
 export { default as IconVideoQualityLD } from './LD.svg';
 export { default as IconVideoQualitySD } from './SD.svg';
 export { default as IconVolume } from './volume.svg';
-export { default as IconVolumeEmpty } from './volume-empty.svg';
+
+// export { default as IconVolumeEmpty } from './volume-empty.svg';
 export { default as IconVolumeOff } from './volume-off.svg';
 export { default as IconWarning } from './warning.svg';
 export { default as IconWifi1Bar } from './wifi-1.svg';
@@ -106,6 +119,23 @@ export { default as IconWifi2Bars } from './wifi-2.svg';
 export { default as IconWifi3Bars } from './wifi-3.svg';
 export { default as IconYahoo } from './yahoo.svg';
 
-// Threeveta additional icons
-
-export { default as IconTvtShareScreen } from './tvt-share-screen.svg';
+// Threeveta icons override
+export { default as IconRaisedHand } from '../../../../../threeveta/icons/RiseHand.svg';
+export { default as IconShareDesktop } from '../../../../../threeveta/icons/ShareScreen.svg';
+export { default as IconMenuThumb } from '../../../../../threeveta/icons/Options.svg';
+export { default as IconTileView } from '../../../../../threeveta/icons/TileView.svg';
+export { default as IconTileViewToggled } from '../../../../../threeveta/icons/TileViewToggled.svg';
+export { default as IconFullScreen } from '../../../../../threeveta/icons/FullScreen.svg';
+export { default as IconSettings } from '../../../../../threeveta/icons/Settings.svg';
+export { default as IconMicrophone } from '../../../../../threeveta/icons/Microphone.svg';
+export { default as IconMicDisabled } from '../../../../../threeveta/icons/MicDisabled.svg';
+export { default as IconHangup } from '../../../../../threeveta/icons/Hangup.svg';
+export { default as IconCamera } from '../../../../../threeveta/icons/Camera.svg';
+export { default as IconCameraDisabled } from '../../../../../threeveta/icons/CameraDisabled.svg';
+export { default as IconCheck } from '../../../../../threeveta/icons/Check.svg';
+export { default as IconMicrophoneEmpty } from '../../../../../threeveta/icons/MicPurpleEmpty.svg';
+export { default as IconVolumeEmpty } from '../../../../../threeveta/icons/VolumeEmpty.svg';
+export { default as IconMeter } from '../../../../../threeveta/icons/Meter.svg';
+export { default as IconVolumeEmptySmall } from '../../../../../threeveta/icons/VolumeEmptySmall.svg';
+export { default as IconMicEmptySmall } from '../../../../../threeveta/icons/MicEmptySmall.svg';
+export { default as IconCameraEmptySmall } from '../../../../../threeveta/icons/CameraEmptySmall.svg';

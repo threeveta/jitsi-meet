@@ -22,10 +22,8 @@ import {
     IconPresentation,
     IconRaisedHand,
     IconRec,
-
-    // IconShareDesktop,
-    IconShareVideo,
-    IconTvtShareScreen
+    IconShareDesktop,
+    IconShareVideo
 } from '../../../base/icons';
 import JitsiMeetJS from '../../../base/lib-jitsi-meet';
 import {
@@ -954,7 +952,7 @@ class Toolbox extends Component<Props, State> {
                         accessibilityLabel
                             = { t('toolbar.accessibilityLabel.shareYourScreen') }
                         disabled = { _desktopSharingEnabled }
-                        icon = { IconTvtShareScreen }
+                        icon = { IconShareDesktop }
                         iconId = 'share-desktop'
                         key = 'desktop'
                         text = {
@@ -963,8 +961,8 @@ class Toolbox extends Component<Props, State> {
                                     ? 'stopScreenSharing' : 'startScreenSharing'}`
                             )
                         } />
-                    {/* threeveta.toolbar.shareScreen */}
-                    <div className = 'tvt-btn-text'>{ t('toolbar.accessibilityLabel.shareYourScreen') }</div>
+                    {/* threeveta chane: ex -> toolbar.accessibilityLabel.shareYourScreen */}
+                    {/* <div className = 'tvt-btn-text'>{ t('threeveta.toolbar.shareScreen') }</div> */}
                 </div>
             );
         }
@@ -974,18 +972,15 @@ class Toolbox extends Component<Props, State> {
                 ? 'dialog.shareYourScreen' : _desktopSharingDisabledTooltipKey);
 
         return (
-            <div
-                className = 'tvt-share-screen-btn-wrapper'
-                onClick = { this._onToolbarToggleScreenshare }>
-                <ToolbarButton
-                    accessibilityLabel
-                        = { t('toolbar.accessibilityLabel.shareYourScreen') }
-                    disabled = { !_desktopSharingEnabled }
-                    icon = { IconTvtShareScreen }
-                    toggled = { _screensharing }
-                    tooltip = { tooltip } />
-                <div className = 'tvt-btn-text'>{ t('toolbar.accessibilityLabel.shareYourScreen') }</div>
-            </div>
+            <ToolbarButton
+                accessibilityLabel
+                    = { t('toolbar.accessibilityLabel.shareYourScreen') }
+                disabled = { !_desktopSharingEnabled }
+                icon = { IconShareDesktop }
+                label = { t('threeveta.toolbar.shareScreen') }
+                onClick = { this._onToolbarToggleScreenshare }
+                toggled = { _screensharing }
+                tooltip = { tooltip } />
         );
     }
 
@@ -1037,7 +1032,9 @@ class Toolbox extends Component<Props, State> {
                     icon = { _fullScreen ? IconExitFullScreen : IconFullScreen }
                     key = 'fullscreen'
                     onClick = { this._onToolbarToggleFullScreen }
-                    text = { _fullScreen ? t('toolbar.exitFullScreen') : t('toolbar.enterFullScreen') } />,
+                    text = { _fullScreen
+                        ? t('threeveta.toolbar.exitFullScreen')
+                        : t('threeveta.toolbar.enterFullScreen') } />,
             <LiveStreamButton
                 key = 'livestreaming'
                 showLabel = { true } />,

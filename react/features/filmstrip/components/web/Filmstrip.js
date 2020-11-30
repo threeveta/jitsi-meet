@@ -195,11 +195,11 @@ class Filmstrip extends Component <Props> {
             remoteVideosWrapperClassName += ' hide-scrollbar';
         }
 
-        let toolbar = null;
+        const toolbar = null;
 
-        if (!this.props._hideToolbar) {
-            toolbar = this._renderToggleButton();
-        }
+        // if (!this.props._hideToolbar) {
+        //     toolbar = this._renderToggleButton();
+        // }
 
         return (
             <div
@@ -374,7 +374,7 @@ function _mapStateToProps(state) {
         _currentLayout: getCurrentLayout(state),
         _filmstripWidth: filmstripWidth,
         _hideScrollbar: Boolean(iAmSipGateway),
-        _hideToolbar: Boolean(iAmSipGateway),
+        _hideToolbar: false, // Boolean(iAmSipGateway),
         _hovered: hovered,
         _rows: gridDimensions.rows,
         _videosClassName: videosClassName,

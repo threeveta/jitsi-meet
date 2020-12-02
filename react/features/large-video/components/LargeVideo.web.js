@@ -122,8 +122,12 @@ class LargeVideo extends Component<Props> {
 
         styles.backgroundColor = _customBackgroundColor || interfaceConfig.DEFAULT_BACKGROUND;
 
-        if (_customBackgroundImageUrl) {
-            styles.backgroundImage = `url(${_customBackgroundImageUrl})`;
+        // Threeveta custom background image
+        // passed through the interfaceConfig
+        const tvtBg = interfaceConfig.DEFAULT_BACKGROUND_IMAGE || _customBackgroundImageUrl;
+
+        if (tvtBg) {
+            styles.backgroundImage = `url(${tvtBg})`;
             styles.backgroundSize = 'cover';
         }
 

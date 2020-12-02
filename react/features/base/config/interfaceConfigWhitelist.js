@@ -5,6 +5,13 @@
  * @type Array
  */
 export default [
+
+    // Threeveta added custom config properties
+
+    'DEFAULT_BACKGROUND_IMAGE',
+    'DEFAULT_TVT_LOGO_URL',
+    'DEFAULT_WATERMARK_URL',
+
     'AUDIO_LEVEL_PRIMARY_COLOR',
     'AUDIO_LEVEL_SECONDARY_COLOR',
     'AUTO_PIN_LATEST_SCREEN_SHARE',

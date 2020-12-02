@@ -141,6 +141,10 @@ export class App extends AbstractApp {
                 startWithAudioMuted: this.props.url?.config?.startWithAudioMuted || false,
             }))
         }
+        
+        if (this.props.flags !== prevProps.flags) {
+            dispatch(updateFlags(this.props.flags));
+        }
     }
 
     /**

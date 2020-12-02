@@ -1,0 +1,30 @@
+// Connection indicator
+.videocontainer__toptoolbar .connection-indicator,
+.videocontainer__toptoolbar .indicator {
+    border: 0px solid transparent;
+    margin-left: 12px !important;
+    margin-top: 9px !important;
+    width: $small-icon-size;
+    height: $small-icon-size;
+}
+.videocontainer__toptoolbar .connection-indicator {
+    font-size: 8px !important;
+}
+
+.connection-indicator {
+    &.status-high {
+        background: #63CC81;
+    }
+
+    &.status-med {
+        background: #E9DA59;
+    }
+
+    &.status-lost {
+        background: $inactive-gray;
+    }
+
+    &.status-low {
+        background: #FF4848;
+    }
+}

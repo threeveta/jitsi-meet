@@ -1,0 +1,204 @@
+@mixin select-items-wrapper {
+    background-color: $gray-lighten2;
+    border: none;
+    padding: 0 4px;
+    border-radius: 5px;
+    top: -5px;
+    position: relative;
+
+}
+@mixin select-item {
+    border: none;
+    border-radius: 5px;
+    color: $gray-lighten;
+    font-size: 12px;
+    margin: 3px 0;
+    &:hover {
+        background-color: $main-white;
+    }
+}
+@mixin selector-trigger {
+    background-color: $gray-lighten2;
+    border: none;
+    color: $gray-lighten !important;
+    font-size: 13px;
+    & svg path {
+        fill: $accent;
+    }
+}
+// Settings dialog
+.eoRGoR {
+    background-color: $main-white !important;
+    border-radius: 15px !important;
+    color: #4a4a4a !important;
+    .jUctfm {
+        font-size: 19px;
+        font-weight: bold;
+    }
+    .settings-dialog {
+        // Bottom underline, whole width
+        .ybfvp {
+            background-color: $accent-lighten1;
+        }
+        // Navigation tabs container
+        .bZoCUn {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            & div {
+                flex-grow: 1;
+                text-align: center;
+                // Selected tab
+                &.iqNwPx {
+                    color: $accent;
+                    &:focus {
+                        outline: none !important;
+                    }
+                    & span.bHNyBH {
+                        background-color: $accent;
+                        color: $accent;
+                    }
+                }
+                // Not selected tab
+                &.oQiLZ {
+                    color: $accent-lighten1;
+                }
+            }
+        }
+        .settings-pane {
+            .device-selection {
+                width: 100%;
+                margin-top: 12px;
+                .device-selection-column.column-video {
+                    width: 50%;
+                    .device-selection-video-container {
+                        height: 216px;
+                        width: 100%;
+                        .video-input-preview {
+                            border-radius: 20px;
+                            overflow: hidden;
+                            position: relative;
+                            width: 100%;
+                            height: 100%;
+                            .video-input-preview-display {
+                                position: absolute;
+                                top: 0%;
+                                right: -22%;
+                                width: auto;
+                                height: 100%;
+                            }
+                        }
+                    }
+                }
+                .device-selection-column.column-selectors {
+                    margin-left: 9px;
+                    width: 47%;
+                    .device-selector-label {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        position: relative;
+                        right: 6px;
+                        & span {
+                            font-size: 12px;
+                            text-transform: uppercase;
+                        }
+                    }
+                    .device-selectors {
+                        & > div {
+                            margin-bottom: 7px;
+                            .device-selector-trigger {
+                                @include selector-trigger;
+                            }
+                            // Select items wrapper
+                            .cksvax {
+                                @include select-items-wrapper;
+                                // Item
+                                .hWFSra {
+                                    @include select-item;
+                                }
+                            }
+                            .threeveta-audio-input-preview {
+                                width: 100%;
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: center;
+                                margin-top: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .settings-sub-pane.language-settings {
+            margin-bottom: 75px;
+            // Language select label
+            .mock-atlaskit-label {
+                font-size: 12px;
+                text-transform: uppercase;
+            }
+            // Selector trigger
+            .fVIYGn, .fCyuzu, .ikapcf, .fVhpUt, .ubgwW,
+            .fVIYGn:hover, .fCyuzu:hover, .ivkQet {
+                @include selector-trigger;
+                text-align: left;
+            }
+            // Itmes wrapper
+            .cksvax {
+                @include select-items-wrapper;
+                // Item
+                .jXQlZM {
+                    @include select-item;
+                    background: transparent;
+                }
+            }
+        }
+    }
+    // Bottom buttons container
+    .kVdufx {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        & > div {
+            max-width: 175px;
+            min-width: 44%;
+            & > button {
+                width: 100%;
+                border-radius: 10px;
+                display: flex;
+                justify-content: center;
+                padding: 17px 0px;
+                border: 1px solid $brand;
+            }
+            &:first-child {
+                button {
+                    background: $brand;
+                    span {
+                        color: $main-white;
+                    }
+                    &:hover {
+                        box-shadow: 0 0 0 1pt $brand;
+                        background: $brand;
+                    }
+                }
+            }
+            &:last-child {
+                margin-left: 7px;
+                button {
+                    background: $main-white;
+                    span {
+                        color: $brand;
+                    }
+                    &:hover {
+                        box-shadow: 0 0 0 1pt $brand;
+                        background: $main-white;
+                    }
+                }
+            }
+        }
+    }
+}

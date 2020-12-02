@@ -195,11 +195,11 @@ class Filmstrip extends Component <Props> {
             remoteVideosWrapperClassName += ' hide-scrollbar';
         }
 
-        const toolbar = null;
+        let toolbar = null;
 
-        // if (!this.props._hideToolbar) {
-        //     toolbar = this._renderToggleButton();
-        // }
+        if (!this.props._hideToolbar) {
+            toolbar = this._renderToggleButton();
+        }
 
         return (
             <div

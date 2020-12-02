@@ -1,0 +1,130 @@
+$video-width: 148px;
+$video-height: 110px;
+$vido-border-radius: 10px;
+
+@mixin video-container {
+    padding-top: 0 !important;
+    height: $video-height !important;
+    border-radius: $vido-border-radius;
+    overflow: hidden;
+    display: inline-block;
+}
+
+// Filmstrip toggle button
+#toggleFilmstripButton {
+    left: 11px;
+    position: relative;
+}
+
+// Participants right strip
+.vertical-filmstrip {
+    .filmstrip {
+        right: 15px;
+        .filmstrip__videos {
+            width: $video-width;
+            // Provider and cliet video containters
+            & .videocontainer {
+                @include video-container;
+                .displayname {
+                    top: 92px;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    font-size: 9px;
+                    line-height: 12px;
+                    letter-spacing: 0.67px;
+                }
+                .moderator-icon {
+                    display: none;
+                }
+                .remotevideomenu {
+                    display: none;
+                }
+                .videoContainerFocused {
+                    border: 1px solid $blue-lighten;
+                    box-shadow: inset 0 0 2px $blue-lighten, 0 0 2px $blue-lighten;
+                }
+                .avatar-container {
+                    width: 40px !important;
+                    height: 40px !important;
+                }
+                .popover-trigger {
+                    pointer-events: none;
+                }
+                .indicator-icon-container.toolbar-icon {
+                    position: absolute;
+                    bottom: 85px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    width: 16px;
+                    height: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    &.videoMuted {
+                        right: 63px;
+                    }
+                    &.audioMuted {
+                        right: 81px;
+                    }
+                }
+                &:hover {
+                    .indicator-icon-container.toolbar-icon {
+                        background: #fff;
+                        & svg path {
+                            fill: $main-gray;
+                        }
+                    } 
+                }
+            }
+            #filmstripLocalVideo {
+                margin-bottom: 0px;
+                #filmstripLocalVideoThumbnail {
+                    height: $video-height;
+                    margin-bottom: 15px;
+                    #localDisplayName {
+                        pointer-events: none !important;
+                    }
+                }
+            }
+            #filmstripRemoteVideos {
+                flex-direction: column !important;
+                .remote-videos-container {
+                    flex-direction: column !important;
+                    padding-top: 17px;
+                    &::before {
+                        content: ' ';
+                        height: 1px;
+                        background: $main-white;
+                        width: 96%;
+                        top: -16px;
+                        left: 7px;
+                        position: relative;
+                        opacity: 0.5;
+                    }
+                }
+                & .videocontainer {
+                    margin-bottom: 8px;
+                    // The top toolbar container
+                    .tOoji {
+                        // do nothing on hover
+                        position: absolute;
+                    }
+                    video {
+                        opacity: 1;
+                        &:hover {
+                            opacity: 0.4;
+                        }
+                    }
+                    .displayname {
+                        opacity: 0;
+                    }
+                    &:hover {
+                        .displayname {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

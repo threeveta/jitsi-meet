@@ -1,0 +1,28 @@
+// Main video area
+#largeVideoContainer {
+    .subject {
+        .subject-text {display: none;}
+        .subject-conference-timer {
+            width: 41px;
+            height: 23px;
+            left: 51px;
+            top: 43px;
+
+            // font-family: Source Sans Pro;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 20px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+    }
+}
+.tile-view {
+    #filmstripRemoteVideosContainer {
+        .videocontainer {
+            border-radius: $border-radius-lg !important;
+            overflow: hidden !important;
+        }
+    }
+}

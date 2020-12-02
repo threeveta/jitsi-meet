@@ -1,0 +1,38 @@
+// Messages wrapper
+.hDUXUW {
+    position: relative;
+    left: -58px;
+    bottom: 43px;
+    .drVnbx {
+        background-color: $main-white !important;
+        border-radius: 5px !important;
+        color: $main-gray !important;
+        font-size: 12px !important;
+        // The close button
+        .RycQf {
+            color: $main-gray !important;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+        }
+        // The icon container
+        .jdkWJB {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            display: block;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        // The text message
+        .cmRPpI {
+            color: $main-gray !important;
+        }
+        // The sub message link container
+        .cUfYQe {
+            padding-top: 0px !important;
+        }
+    }
+}

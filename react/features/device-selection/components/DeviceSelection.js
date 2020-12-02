@@ -222,7 +222,7 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
      */
     render() {
         const {
-            hideAudioInputPreview,
+            // hideAudioInputPreview,
             hideAudioOutputSelect,
             selectedAudioOutputId
         } = this.props;
@@ -235,9 +235,6 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
                             error = { this.state.previewVideoTrackError }
                             track = { this.state.previewVideoTrack } />
                     </div>
-                    { !hideAudioInputPreview
-                        && <AudioInputPreview
-                            track = { this.state.previewAudioTrack } /> }
                 </div>
                 <div className = 'device-selection-column column-selectors'>
                     <div className = 'device-selectors'>
@@ -344,6 +341,8 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
      * @returns {ReactElement}
      */
     _renderSelector(deviceSelectorProps) {
+        const { hideAudioInputPreview } = this.props;
+
         return (
             <div key = { deviceSelectorProps.label }>
                 <div className = 'device-selector-label'>
@@ -352,6 +351,10 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
                     <span>{ this.props.t(deviceSelectorProps.label) }</span>
                 </div>
                 <DeviceSelector { ...deviceSelectorProps } />
+                {deviceSelectorProps.key === 'audioInput' && !hideAudioInputPreview
+                        && <AudioInputPreview
+                            track = { this.state.previewAudioTrack } />
+                }
             </div>
         );
     }
@@ -371,7 +374,8 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
             {
                 devices: availableDevices.videoInput,
                 hasPermission: hasVideoPermission,
-                icon: 'icon-camera',
+
+                // icon: 'icon-camera',
                 isDisabled: this.props.disableDeviceChange,
                 key: 'videoInput',
                 label: 'settings.selectCamera',
@@ -388,7 +392,8 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
             {
                 devices: availableDevices.audioInput,
                 hasPermission: hasAudioPermission,
-                icon: 'icon-microphone',
+
+                // icon: 'icon-microphone',
                 isDisabled: this.props.disableAudioInputChange
                     || this.props.disableDeviceChange,
                 key: 'audioInput',
@@ -409,7 +414,8 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
             configurations.push({
                 devices: availableDevices.audioOutput,
                 hasPermission: hasAudioPermission || hasVideoPermission,
-                icon: 'icon-speaker',
+
+                // icon: 'icon-speaker',
                 isDisabled: this.props.disableDeviceChange,
                 key: 'audioOutput',
                 label: 'settings.selectAudioOutput',

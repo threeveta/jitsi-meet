@@ -699,7 +699,9 @@ export default class SmallVideo {
                                     alwaysVisible = { showConnectionIndicator }
                                     iconSize = { iconSize }
                                     isLocalVideo = { this.isLocal }
-                                    enableStatsDisplay = { true }
+
+                                    // Threeveta disable stats popup
+                                    enableStatsDisplay = { false }
                                     participantId = { this.id }
                                     statsPopoverPosition = { statsPopoverPosition } />
                                 : null }

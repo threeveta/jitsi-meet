@@ -1350,6 +1350,11 @@ class Toolbox extends Component<Props, State> {
                 <div className = 'button-group-center'>
                     { this._renderAudioButton() }
                     <HangupButton
+
+                        // Threeveta, in order to render single hangyp button in the
+                        // center group with red background we need to add
+                        // a custom class to select it
+                        className = 'tvt-hangup-button'
                         visible = { this._shouldShowButton('hangup') } />
                     { this._renderVideoButton() }
                 </div>

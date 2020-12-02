@@ -1,0 +1,180 @@
+// Bottom controls
+$button-padding: 6px;
+.button-group-left,
+.button-group-right {
+    .toolbox-icon  {
+        border-radius: 50% !important;
+        background: $main-white;
+        padding: $button-padding;
+        font-size: 11px !important;
+        &.toggled, &:hover {
+            background: $inactive-gray !important;
+        }
+        svg {
+            fill: none !important;
+        }
+        &.labeled {
+            flex-direction: row;
+            align-items: center;
+            border-radius: 30px !important;
+            color: $main-gray;
+            text-transform: uppercase;
+            font-weight: bold;
+            width: fit-content;
+            padding: $button-padding ($button-padding * 3);
+            .tvt-icon-label {
+                margin-left: 1em;
+            }
+        }
+        @media only screen and (max-width: 700px) {
+            &.labeled {
+                padding: $button-padding;
+                .tvt-icon-label {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+.button-group-center {
+    .toolbox-icon  {
+        padding: $button-padding;
+    }
+    .toolbox-button.tvt-hangup-button {
+        .toolbox-icon {
+            background-color: $error-color !important;
+            border: 1px solid $error-color !important;
+        }
+    }
+}
+
+// Bottom controls popup container
+$popup-radous: 15px;
+.toolbox-button-wth-dialog,
+.audio-preview,
+.video-preview {
+    .dOAAnq {
+        background: transparent;
+        border-radius: $popup-radous;
+        box-shadow: none;
+        overflow: hidden;
+    }
+}
+
+
+@mixin popup {
+    background: $main-white;
+    border-radius: $popup-radous;
+    color: $main-gray !important;
+    font-size: 16px;
+}
+@mixin popup-item {
+    border-radius: 10px;
+    background: $main-white !important;
+    color: $main-gray !important;
+    &:hover {
+        background: $light-gray !important;
+    }
+}
+
+// Central bottom settings popup
+.audio-preview-content {
+    @include popup;
+    padding: 0 13px;
+    .audio-preview-header {
+        color: $main-gray;
+        &:last-child {
+            position: relative;
+            &:before {
+                content: ' ';
+                border-top: 1px solid $main-gray;
+                width: 80%;
+                left: 10%;
+                top: 0px;
+                position: absolute;
+            }
+        }
+    }
+    .audio-preview-speaker,
+    .audio-preview-microphone {
+        @include popup-item;
+        &:hover {
+            .audio-preview-entry {
+                margin-left: 48px; 
+            }
+        }
+        .audio-preview-entry {
+            background: transparent !important;
+            padding: 8px 0;
+            .audio-preview-entry-text {
+                color: $main-gray !important;
+                font-size: 14px;
+            }
+            &:last-child {
+                margin-bottom: 6px;
+            }
+            &.audio-preview-entry--selected {
+                margin-left: 21px;
+            }
+        }
+        .audio-preview-test-button {
+            border: 1px solid $brand;
+            border-radius: 9px;
+            font-size: 9px;
+            padding: 3px 16px;
+            line-height: 16px;
+            color: $brand;
+            text-transform: uppercase;
+            top: 8px;
+            right: 10px;
+        }
+        .audio-preview-meter-mic {
+            top: 14px;
+            &.jitsi-icon.metr > svg {
+                fill: #E1E3EA;
+            }
+        }
+        .audio-preview-icon--check {
+            background: transparent;
+        }
+    }
+    .audio-preview-speaker:last-child {
+        margin-bottom: 10px;
+    }
+}
+// Video preview dialog of the bottom center video settings button
+.video-preview-container {
+    @include popup;
+    padding: 15px;
+    .video-preview {
+        border-radius: 15px;
+        .video-preview-entry {
+            border-radius: 13px;
+            &.video-preview-entry--selected {
+                border: 3px solid $brand;
+            }
+            .video-preview-label {
+                border-radius: 10px 10px 0px 0px;
+            }
+            .video-preview-overlay {
+                border-radius: 10px;
+            }
+            .video-preview-video {
+                border-radius: 10px;
+            }
+        }
+    }
+}
+
+// Right side bottom popup
+.new-toolbox .toolbox-content .overflow-menu {
+    @include popup;
+    padding: 5px;
+    .overflow-menu-item {
+        @include popup-item;
+        padding: 7px 12px;
+        &:hover {
+            background: $light-gray !important;
+        }
+    }
+}

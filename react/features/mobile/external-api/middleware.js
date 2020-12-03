@@ -22,6 +22,8 @@ import { MiddlewareRegistry } from '../../base/redux';
 import { ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture';
 
 import { sendEvent } from './functions';
+import { OPEN_CHAT } from '../../chat';
+import { OPEN_PARTICIPANTS } from '../../base/participants';
 
 /**
  * Event which will be emitted on the native side to indicate the conference
@@ -41,6 +43,12 @@ MiddlewareRegistry.register(store => next => action => {
     const { type } = action;
 
     switch (type) {
+    case OPEN_CHAT:
+        sendEvent(store, OPEN_CHAT, {});
+        break;
+    case OPEN_PARTICIPANTS:
+        sendEvent(store, OPEN_PARTICIPANTS, {});
+        break;
     case CONFERENCE_FAILED: {
         const { error, ...data } = action;
 

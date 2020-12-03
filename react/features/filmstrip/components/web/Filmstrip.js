@@ -201,6 +201,12 @@ class Filmstrip extends Component <Props> {
             toolbar = this._renderToggleButton();
         }
 
+        // Threeveta added logic - we need to hide the filmstripn when
+        // the meeting is large audience
+        if (interfaceConfig.MEETING_IS_LARGE_AUDIENCE) {
+            filmstripStyle.display = 'none';
+        }
+
         return (
             <div
                 className = { `filmstrip ${this.props._className}` }

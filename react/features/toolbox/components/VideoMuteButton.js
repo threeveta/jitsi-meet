@@ -192,7 +192,8 @@ function _mapStateToProps(state): Object {
         _audioOnly: Boolean(audioOnly),
         _videoDisabled: isVideoMuteButtonDisabled(state),
         _videoMediaType: getLocalVideoType(tracks),
-        _videoMuted: isLocalCameraTrackMuted(tracks)
+        _videoMuted: isLocalCameraTrackMuted(tracks),
+        visible: !state['features/base/settings'].startWithVideoMuted
     };
 }
 

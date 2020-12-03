@@ -4,7 +4,8 @@ import {
     ADD_MESSAGE,
     CLEAR_MESSAGES,
     SEND_MESSAGE,
-    SET_PRIVATE_MESSAGE_RECIPIENT
+    SET_PRIVATE_MESSAGE_RECIPIENT,
+    OPEN_CHAT
 } from './actionTypes';
 
 /**
@@ -81,5 +82,19 @@ export function setPrivateMessageRecipient(participant: Object) {
     return {
         participant,
         type: SET_PRIVATE_MESSAGE_RECIPIENT
+    };
+}
+
+
+/**
+ * Sends message to native code
+ *
+ * @returns {{
+ *     type: OPEN_CHAT
+ * }}
+ */
+export function openChat() {
+    return {
+        type: OPEN_CHAT
     };
 }

@@ -6,6 +6,7 @@ import { CALLING, INVITED } from '../../presence-status';
 import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../app';
 import {
     CONFERENCE_WILL_JOIN,
+    CONFERENCE_JOINED,
     forEachConference,
     getCurrentConference
 } from '../conference';
@@ -30,7 +31,8 @@ import {
     localParticipantLeft,
     participantLeft,
     participantUpdated,
-    setLoadableAvatarUrl
+    setLoadableAvatarUrl,
+    pinParticipant
 } from './actions';
 import {
     LOCAL_PARTICIPANT_DEFAULT_ID,
@@ -43,9 +45,13 @@ import {
     getParticipantById,
     getParticipantCount,
     getParticipantDisplayName,
-    figureOutMutedWhileDisconnectedStatus
+    figureOutMutedWhileDisconnectedStatus,
+    getModeratorParticipant,
+    isParticipantModerator,
+    getAnotherModerator
 } from './functions';
 import { PARTICIPANT_JOINED_FILE, PARTICIPANT_LEFT_FILE } from './sounds';
+import { getFeatureFlag, ALWAYS_PIN_MODERATOR_ENABLED } from '../flags';
 
 declare var APP: Object;
 
@@ -57,6 +63,9 @@ declare var APP: Object;
  * @returns {Function}
  */
 MiddlewareRegistry.register(store => next => action => {
+    const alwaysPinModerator = getFeatureFlag(store.getState(), ALWAYS_PIN_MODERATOR_ENABLED, false);
+    const moderator = getModeratorParticipant(store.getState());
+
     switch (action.type) {
     case APP_WILL_MOUNT:
         _registerSounds(store);
@@ -70,6 +79,17 @@ MiddlewareRegistry.register(store => next => action => {
 
     case CONFERENCE_WILL_JOIN:
         store.dispatch(localParticipantIdChanged(action.conference.myUserId()));
+        break;
+
+    case CONFERENCE_JOINED:
+        if (alwaysPinModerator) {
+            if (moderator) {
+                store.dispatch(pinParticipant(moderator.id));
+            } else {
+                const localParticipant = getLocalParticipant(store.getState());
+                store.dispatch(pinParticipant(localParticipant.id));
+            }
+        }
         break;
 
     case DOMINANT_SPEAKER_CHANGED: {
@@ -132,6 +152,19 @@ MiddlewareRegistry.register(store => next => action => {
 
     case PARTICIPANT_LEFT:
         _maybePlaySounds(store, action);
+
+        // check if the leaving participant is moderator 
+        // because conference moderator is not yet updated
+        const leftParticipant = getParticipantById(store.getState(), action.participant.id);
+        if (alwaysPinModerator && isParticipantModerator(leftParticipant)) {
+            const anotherModerator = getAnotherModerator(store.getState(), leftParticipant.id);
+            if (anotherModerator) {
+                store.dispatch(pinParticipant(anotherModerator.id));
+            } else {
+                const localParticipant = getLocalParticipant(store.getState());
+                store.dispatch(pinParticipant(localParticipant.id));
+            }
+        }
         break;
 
     case PARTICIPANT_UPDATED:
@@ -414,6 +447,11 @@ function _participantJoinedOrUpdated(store, next, action) {
 
         // Force update of local video getting a new id.
         APP.UI.refreshAvatarDisplay(currentKnownId);
+    }
+
+    const alwaysPinModerator = getFeatureFlag(store.getState(), ALWAYS_PIN_MODERATOR_ENABLED, false);
+    if (alwaysPinModerator && isParticipantModerator(action.participant)) {
+        dispatch(pinParticipant(id))
     }
 
     return result;

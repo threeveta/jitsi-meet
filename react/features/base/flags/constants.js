@@ -135,3 +135,9 @@ export const WELCOME_PAGE_ENABLED = 'welcomepage.enabled';
  * Default: enabled (true).
  */
 export const FILMSTRIP_ENABLED = 'filmstrip.enabled';
+
+/**
+ * Flag indicating if moderator should always be pinned.
+ * Default: disabled (false).
+ */
+export const ALWAYS_PIN_MODERATOR_ENABLED = 'always-pin-moderator.enabled';

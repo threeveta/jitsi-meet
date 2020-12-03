@@ -1,14 +1,15 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-
+import { View, Text } from 'react-native';
 import { ColorSchemeRegistry } from '../../base/color-scheme';
-import { ParticipantView, getParticipantById } from '../../base/participants';
+import { ParticipantView, getParticipantById, isParticipantModerator } from '../../base/participants';
 import { connect } from '../../base/redux';
 import { StyleType } from '../../base/styles';
 import { isLocalVideoTrackDesktop } from '../../base/tracks/functions';
 
-import { AVATAR_SIZE } from './styles';
+import styles, { AVATAR_SIZE } from './styles';
+import { getFeatureFlag, ALWAYS_PIN_MODERATOR_ENABLED } from '../../base/flags';
 
 /**
  * The type of the React {@link Component} props of {@link LargeVideo}.
@@ -121,20 +122,29 @@ class LargeVideo extends PureComponent<Props, State> {
             _disableVideo,
             _participantId,
             _styles,
+            _waitingForModerator,
             onClick
         } = this.props;
 
         return (
-            <ParticipantView
-                avatarSize = { avatarSize }
-                disableVideo = { _disableVideo }
-                onPress = { onClick }
-                participantId = { _participantId }
-                style = { _styles.largeVideo }
-                testHintId = 'org.jitsi.meet.LargeVideo'
-                useConnectivityInfoLabel = { useConnectivityInfoLabel }
-                zOrder = { 0 }
-                zoomEnabled = { true } />
+            <View style={styles.largeVideoContainer}>
+                <ParticipantView
+                    avatarSize = { avatarSize }
+                    disableVideo = { _disableVideo }
+                    onPress = { onClick }
+                    participantId = { _participantId }
+                    style = { _styles.largeVideo }
+                    testHintId = 'org.jitsi.meet.LargeVideo'
+                    useConnectivityInfoLabel = { useConnectivityInfoLabel }
+                    zOrder = { 0 }
+                    zoomEnabled = { true } />
+                {_waitingForModerator && (
+                    <View style={styles.waitingMessageContainer}>
+                        {/* TODO translate */}
+                        <Text style={styles.waitingMessageText}>Waiting for meeting host...</Text>
+                    </View>
+                )}
+            </View>
         );
     }
 }
@@ -149,6 +159,7 @@ class LargeVideo extends PureComponent<Props, State> {
 function _mapStateToProps(state) {
     const { participantId } = state['features/large-video'];
     const participant = getParticipantById(state, participantId);
+    const alwaysPinModerator = getFeatureFlag(state, ALWAYS_PIN_MODERATOR_ENABLED, false);
     const { clientHeight: height, clientWidth: width } = state['features/base/responsive-ui'];
     let disableVideo = false;
 
@@ -161,7 +172,8 @@ function _mapStateToProps(state) {
         _height: height,
         _participantId: participantId,
         _styles: ColorSchemeRegistry.get(state, 'LargeVideo'),
-        _width: width
+        _width: width,
+        _waitingForModerator: alwaysPinModerator && !isParticipantModerator(participant),
     };
 }
 

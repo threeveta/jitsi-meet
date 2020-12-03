@@ -222,6 +222,14 @@ export function getParticipants(stateful: Object | Function) {
     return _getAllParticipants(stateful).filter(p => !p.isFakeParticipant);
 }
 
+export function getModeratorParticipant(stateful: Object | Function) {
+    return getParticipants(stateful).find(p => isParticipantModerator(p));
+}
+
+export function getAnotherModerator(stateful: Object | Function, currentModeratorId) {
+    return getParticipants(stateful).find(p => isParticipantModerator(p) && p.id !== currentModeratorId);
+}
+
 /**
  * Returns the participant which has its pinned state set to truthy.
  *

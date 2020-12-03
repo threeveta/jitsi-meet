@@ -141,16 +141,17 @@
                 text-transform: uppercase;
             }
             // Selector trigger
-            .fVIYGn, .fCyuzu, .ikapcf, .fVhpUt, .ubgwW,
-            .fVIYGn:hover, .fCyuzu:hover, .ivkQet {
-                @include selector-trigger;
-                text-align: left;
+            [class^="Droplist__Trigger"] {
+                & button, & button:hover {
+                    @include selector-trigger;
+                    text-align: left;
+                }
             }
             // Itmes wrapper
-            .cksvax {
+            [class^='Droplist__Content'] {
                 @include select-items-wrapper;
                 // Item
-                .jXQlZM {
+                [class^="Item"] {
                     @include select-item;
                     background: transparent;
                 }
@@ -158,44 +159,46 @@
         }
     }
     // Bottom buttons container
-    .kVdufx {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
+    [class^="Content__Footer"] {
         & > div {
-            max-width: 175px;
-            min-width: 44%;
-            & > button {
-                width: 100%;
-                border-radius: 10px;
-                display: flex;
-                justify-content: center;
-                padding: 17px 0px;
-                border: 1px solid $brand;
-            }
-            &:first-child {
-                button {
-                    background: $brand;
-                    span {
-                        color: $main-white;
-                    }
-                    &:hover {
-                        box-shadow: 0 0 0 1pt $brand;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            & > div {
+                max-width: 175px;
+                min-width: 44%;
+                & > button {
+                    width: 100%;
+                    border-radius: 10px;
+                    display: flex;
+                    justify-content: center;
+                    padding: 17px 0px;
+                    border: 1px solid $brand;
+                }
+                &:first-child {
+                    button {
                         background: $brand;
+                        span {
+                            color: $main-white;
+                        }
+                        &:hover {
+                            box-shadow: 0 0 0 1pt $brand;
+                            background: $brand;
+                        }
                     }
                 }
-            }
-            &:last-child {
-                margin-left: 7px;
-                button {
-                    background: $main-white;
-                    span {
-                        color: $brand;
-                    }
-                    &:hover {
-                        box-shadow: 0 0 0 1pt $brand;
+                &:last-child {
+                    margin-left: 7px;
+                    button {
                         background: $main-white;
+                        span {
+                            color: $brand;
+                        }
+                        &:hover {
+                            box-shadow: 0 0 0 1pt $brand;
+                            background: $main-white;
+                        }
                     }
                 }
             }

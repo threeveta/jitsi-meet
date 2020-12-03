@@ -49,13 +49,12 @@ $button-padding: 6px;
 }
 
 // Bottom controls popup container
-$popup-radous: 15px;
+$popup-radius: 15px;
 .toolbox-button-wth-dialog,
 .audio-preview,
 .video-preview {
-    .dOAAnq {
-        background: transparent;
-        border-radius: $popup-radous;
+    div div {
+        border-radius: $popup-radius;
         box-shadow: none;
         overflow: hidden;
     }
@@ -64,7 +63,7 @@ $popup-radous: 15px;
 
 @mixin popup {
     background: $main-white;
-    border-radius: $popup-radous;
+    border-radius: $popup-radius;
     color: $main-gray !important;
     font-size: 16px;
 }

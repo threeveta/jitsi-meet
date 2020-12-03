@@ -38,6 +38,7 @@ import Labels from './Labels';
 import LonelyMeetingExperience from './LonelyMeetingExperience';
 import NavigationBar from './NavigationBar';
 import styles, { NAVBAR_GRADIENT_COLORS } from './styles';
+import ToggleCameraButton from './ToggleCameraButton';
 
 
 /**
@@ -304,11 +305,6 @@ class Conference extends AbstractConference<Props, *> {
                     <LonelyMeetingExperience />
 
                     {/*
-                      * The Toolbox is in a stacking layer below the Filmstrip.
-                      */}
-                    <Toolbox />
-
-                    {/*
                       * The Filmstrip is in a stacking layer above the
                       * LargeVideo. The LargeVideo and the Filmstrip form what
                       * the Web/React app calls "videospace". Presumably, the
@@ -318,6 +314,12 @@ class Conference extends AbstractConference<Props, *> {
                       */
                         _shouldDisplayTileView ? undefined : <Filmstrip />
                     }
+
+                    {/*
+                      * The Toolbox is in a stacking layer below the Filmstrip.
+                      */}
+                    <Toolbox />
+
                 </SafeAreaView>
 
                 <SafeAreaView
@@ -329,6 +331,10 @@ class Conference extends AbstractConference<Props, *> {
                 </SafeAreaView>
 
                 <TestConnectionInfo />
+
+                <SafeAreaView style={ styles.toggleCameraContainer } >
+                    <ToggleCameraButton />
+                </SafeAreaView>
 
                 { this._renderConferenceNotification() }
 

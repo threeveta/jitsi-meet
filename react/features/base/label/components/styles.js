@@ -44,7 +44,7 @@ export default {
     },
 
     expandedLabelWrapper: {
-        alignItems: 'flex-end',
+        // alignItems: 'flex-end',
         flexDirection: 'column'
     },
 

@@ -58,7 +58,7 @@ type Props = {
  * @private
  * @type {number}
  */
-const MARGIN = 10;
+const MARGIN = 0;
 
 /**
  * The aspect ratio the tiles should display in.
@@ -101,7 +101,7 @@ class TileView extends Component<Props> {
      */
     render() {
         const { _height, _width, onClick } = this.props;
-        const rowElements = this._groupIntoRows(this._renderThumbnails(), this._getColumnCount());
+        const rowElements = this._groupIntoRows(this._getSortedParticipants(), this._getColumnCount());
 
         return (
             <ScrollView
@@ -166,7 +166,7 @@ class TileView extends Component<Props> {
             }
         }
 
-        localParticipant && participants.push(localParticipant);
+        localParticipant && participants.unshift(localParticipant);
 
         return participants;
     }
@@ -180,7 +180,7 @@ class TileView extends Component<Props> {
     _getTileDimensions() {
         const { _height, _participants, _width } = this.props;
         const columns = this._getColumnCount();
-        const participantCount = _participants.length;
+        let participantCount = _participants.length;
         const heightToUse = _height - (MARGIN * 2);
         const widthToUse = _width - (MARGIN * 2);
         let tileWidth;
@@ -188,14 +188,21 @@ class TileView extends Component<Props> {
         // If there is going to be at least two rows, ensure that at least two
         // rows display fully on screen.
         if (participantCount / columns > 1) {
-            tileWidth = Math.min(widthToUse / columns, heightToUse / 2);
+            tileWidth = Math.min(widthToUse / columns, heightToUse);
         } else {
             tileWidth = Math.min(widthToUse / columns, heightToUse);
         }
 
+        if (participantCount % 2 !== 0) {
+            participantCount++            
+        }
+
+        let tileHeight = heightToUse / (participantCount / columns)
+
         return {
-            height: tileWidth / TILE_ASPECT_RATIO,
-            width: tileWidth
+            height: tileHeight,
+            width: tileWidth,
+            aspectRatio: tileWidth / tileHeight
         };
     }
 
@@ -220,7 +227,7 @@ class TileView extends Component<Props> {
                     <View
                         key = { rowElements.length }
                         style = { styles.tileViewRow }>
-                        { thumbnailsInRow }
+                        { this._renderThumbnails(thumbnailsInRow) }
                     </View>
                 );
             }
@@ -236,15 +243,19 @@ class TileView extends Component<Props> {
      * @private
      * @returns {ReactElement[]}
      */
-    _renderThumbnails() {
+    _renderThumbnails(rowThumbnails) {
+        const { _width } = this.props;
+        const { aspectRatio, height, width } = this._getTileDimensions()
         const styleOverrides = {
-            aspectRatio: TILE_ASPECT_RATIO,
+            aspectRatio: rowThumbnails.length === 1 ? _width / height : aspectRatio,
             flex: 0,
-            height: this._getTileDimensions().height,
-            width: null
+            height: height,
+            width: rowThumbnails.length === 1 ? _width : width,
+            borderRadius: 0,
+            margin: 0,
         };
 
-        return this._getSortedParticipants()
+        return rowThumbnails
             .map(participant => (
                 <Thumbnail
                     disableTint = { true }

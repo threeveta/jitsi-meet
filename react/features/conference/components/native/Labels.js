@@ -276,7 +276,7 @@ class Labels extends AbstractLabels<Props, State> {
 
                 // This calculation has to be changed if the labels are not
                 // positioned right anymore.
-                const right = containerLayout.width - labelLayout.x;
+                const right = labelLayout.x;
 
                 visibleExpandedLabel
                     = visibleExpandedLabel === label ? undefined : label;

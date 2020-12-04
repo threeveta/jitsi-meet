@@ -8,9 +8,9 @@ import { connect } from '../../../base/redux';
 import { getTrackByMediaTypeAndParticipant, isLocalTrackMuted, isRemoteTrackMuted } from '../../../base/tracks';
 import { getCurrentLayout, LAYOUTS } from '../../../video-layout';
 
-import AudioMutedIndicator from './AudioMutedIndicator';
 import ModeratorIndicator from './ModeratorIndicator';
 import ScreenShareIndicator from './ScreenShareIndicator';
+import TvtAudioIndicator from './TvtAudioIndicator';
 import VideoMutedIndicator from './VideoMutedIndicator';
 
 declare var interfaceConfig: Object;
@@ -86,7 +86,10 @@ class StatusIndicators extends Component<Props> {
 
         return (
             <div>
-                { _showAudioMutedIndicator ? <AudioMutedIndicator tooltipPosition = { tooltipPosition } /> : null }
+                <TvtAudioIndicator
+                    isModerator = { _showModeratorIndicator }
+                    muted = { _showAudioMutedIndicator }
+                    tooltipPosition = { tooltipPosition } />
                 { _showScreenShareIndicator ? <ScreenShareIndicator tooltipPosition = { tooltipPosition } /> : null }
                 { _showVideoMutedIndicator ? <VideoMutedIndicator tooltipPosition = { tooltipPosition } /> : null }
                 { _showModeratorIndicator ? <ModeratorIndicator tooltipPosition = { tooltipPosition } /> : null }

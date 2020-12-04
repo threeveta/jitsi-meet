@@ -53,7 +53,7 @@ $popup-radius: 15px;
 .toolbox-button-wth-dialog,
 .audio-preview,
 .video-preview {
-    div div:not(.jitsi-icon ) {
+    div div:not(.jitsi-icon) {
         border-radius: $popup-radius;
         box-shadow: none;
         overflow: hidden;

@@ -52,28 +52,26 @@ $vido-border-radius: 10px;
                 }
                 .indicator-icon-container.toolbar-icon {
                     position: absolute;
-                    bottom: 85px;
+                    bottom: 84px;
                     border-radius: 50%;
                     overflow: hidden;
-                    width: 16px;
-                    height: 16px;
+                    width: 17px;
+                    height: 17px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    &.videoMuted {
-                        right: 63px;
-                    }
                     &.audioMuted {
-                        right: 81px;
-                    }
-                }
-                &:hover {
-                    .indicator-icon-container.toolbar-icon {
-                        background: #fff;
-                        & svg path {
-                            fill: $main-gray;
+                        right: 77px;
+                        &.canBeMuted:hover {
+                            background: #fff;
+                            & svg path {
+                                fill: $main-gray;
+                            }
                         }
-                    } 
+                    }
+                    &.videoMuted {
+                        display: none;
+                    }
                 }
             }
             #filmstripLocalVideo {

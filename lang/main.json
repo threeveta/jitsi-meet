@@ -936,6 +936,9 @@
             "shareScreen": "Share screen",
             "enterFullScreen": "View Full Screen",
             "exitFullScreen": "Exit Full Screen"
+        },
+        "videothumbnail": {
+            "audioAvailable": "Participant audio is available"
         }
     }
 }

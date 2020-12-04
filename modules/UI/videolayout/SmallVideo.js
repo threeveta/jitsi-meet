@@ -31,6 +31,7 @@ import {
     RaisedHandIndicator,
     StatusIndicators
 } from '../../../react/features/filmstrip';
+import { muteRemote } from '../../../react/features/remote-video-menu/actions';
 import {
     LAYOUTS,
     getCurrentLayout,
@@ -220,7 +221,38 @@ export default class SmallVideo {
                         participantID = { this.id } />
                 </I18nextProvider>
             </Provider>,
-            statusBarContainer);
+            statusBarContainer,
+
+            // Threeveta added logic. In this logic we are handling
+            // the custom 'TvtAudioIndicator' click eveent, available
+            // for providers/moderators, in order to mute the remote
+            // participants.
+            () => {
+                // If this.id is undefined it is the local participant and we do not need to add mute functionaliny.
+                // The local user can mute him/her self from the main bottom controls.
+                if (!this.id || !interfaceConfig.PARTICIPANT_IS_PROVIDER) {
+                    return;
+                }
+
+                statusBarContainer.addEventListener('click', e => {
+                    // We need to concat the e.path in order to make it iterable
+                    const filtered = [].concat(e.path).filter(ell => {
+                        if (!ell.className || typeof ell.className !== 'string') {
+                            return false;
+                        }
+
+                        // We search for the canBeMuted Threeveta added custom class
+                        // Look for it's assignment logic in the
+                        // react/features/filmstrip/components/web/TvtAudioIndicator.js
+                        // component row: 17
+                        return ell.className.indexOf('canBeMuted') > -1;
+                    });
+
+                    if (filtered.length) {
+                        APP.store.dispatch(muteRemote(this.id));
+                    }
+                });
+            });
     }
 
     /**

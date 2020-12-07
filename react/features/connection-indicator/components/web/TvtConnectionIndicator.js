@@ -99,12 +99,6 @@ type Props = AbstractProps & {
     isLocalVideo: boolean,
 
     /**
-     * Relative to the icon from where the popover for more connection details
-     * should display.
-     */
-    statsPopoverPosition: string,
-
-    /**
      * Invoked to obtain translated strings.
      */
     t: Function,

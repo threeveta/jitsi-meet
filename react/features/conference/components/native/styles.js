@@ -1,8 +1,12 @@
-import { ColorSchemeRegistry, schemeColor } from '../../../base/color-scheme';
-import { BoxModel, ColorPalette, fixAndroidViewClipping } from '../../../base/styles';
-import { FILMSTRIP_SIZE } from '../../../filmstrip';
+import { ColorSchemeRegistry, schemeColor } from "../../../base/color-scheme";
+import {
+    BoxModel,
+    ColorPalette,
+    fixAndroidViewClipping,
+} from "../../../base/styles";
+import { FILMSTRIP_SIZE } from "../../../filmstrip";
 
-export const NAVBAR_GRADIENT_COLORS = [ '#000000FF', '#00000000' ];
+export const NAVBAR_GRADIENT_COLORS = ["#000000FF", "#00000000"];
 export const INSECURE_ROOM_NAME_LABEL_COLOR = ColorPalette.warning;
 
 // From brand guideline
@@ -13,44 +17,43 @@ const DEFAULT_GRADIENT_SIZE = 140;
  * The styles of the feature conference.
  */
 export default {
-
     bottomGradient: {
         bottom: 0,
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
+        flexDirection: "column",
+        justifyContent: "flex-end",
         minHeight: DEFAULT_GRADIENT_SIZE,
         left: 0,
-        position: 'absolute',
-        right: 0
+        position: "absolute",
+        right: 0,
     },
 
     /**
      * {@code Conference} style.
      */
     conference: fixAndroidViewClipping({
-        alignSelf: 'stretch',
+        alignSelf: "stretch",
         backgroundColor: ColorPalette.appBackground,
-        flex: 1
+        flex: 1,
     }),
 
     displayNameContainer: {
-        margin: 10
+        margin: 10,
     },
 
     gradient: {
-        position: 'absolute',
+        position: "absolute",
         top: 0,
         left: 0,
         right: 0,
-        flex: 1
+        flex: 1,
     },
 
     gradientStretchBottom: {
-        height: BOTTOM_GRADIENT_HEIGHT
+        height: BOTTOM_GRADIENT_HEIGHT,
     },
 
     gradientStretchTop: {
-        height: DEFAULT_GRADIENT_SIZE
+        height: DEFAULT_GRADIENT_SIZE,
     },
 
     /**
@@ -58,100 +61,105 @@ export default {
      */
     indicatorContainer: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        margin: BoxModel.margin
+        flexDirection: "row",
+        // justifyContent: "flex-end",
+        margin: BoxModel.margin,
     },
 
     /**
      * Indicator container for wide aspect ratio.
      */
     indicatorContainerWide: {
-        marginRight: FILMSTRIP_SIZE + BoxModel.margin
+        marginLeft: FILMSTRIP_SIZE + BoxModel.margin,
     },
 
     labelWrapper: {
-        flexDirection: 'column',
-        position: 'absolute',
-        right: 0,
-        top: 0
+        flexDirection: "column",
+        position: "absolute",
+        left: 0,
+        top: 0,
     },
 
     lonelyButton: {
-        alignItems: 'center',
+        alignItems: "center",
         borderRadius: 24,
-        flexDirection: 'row',
+        flexDirection: "row",
         height: 48,
-        justifyContent: 'space-around',
-        paddingHorizontal: 12
+        justifyContent: "space-around",
+        paddingHorizontal: 12,
     },
 
     lonelyButtonComponents: {
-        marginHorizontal: 6
+        marginHorizontal: 6,
     },
 
     lonelyMeetingContainer: {
-        alignSelf: 'stretch',
-        alignItems: 'center',
-        padding: BoxModel.padding * 2
+        alignSelf: "stretch",
+        alignItems: "center",
+        padding: BoxModel.padding * 2,
     },
 
     lonelyMessage: {
-        paddingVertical: 12
+        paddingVertical: 12,
     },
 
     navBarButton: {
         iconStyle: {
             color: ColorPalette.white,
-            fontSize: 24
+            fontSize: 24,
         },
 
-        underlayColor: 'transparent'
+        underlayColor: "transparent",
     },
 
     navBarContainer: {
-        flexDirection: 'column',
+        flexDirection: "column",
         left: 0,
-        position: 'absolute',
+        position: "absolute",
         right: 0,
-        top: 0
+        top: 0,
     },
 
     navBarSafeView: {
         left: 0,
-        position: 'absolute',
+        position: "absolute",
         right: 0,
-        top: 0
+        top: 0,
     },
 
     navBarWrapper: {
-        alignItems: 'center',
+        alignItems: "center",
         flex: 1,
-        flexDirection: 'row',
+        flexDirection: "row",
         height: 44,
-        justifyContent: 'space-between',
-        paddingHorizontal: 14
+        justifyContent: "space-between",
+        paddingHorizontal: 14,
     },
 
     roomTimer: {
         color: ColorPalette.white,
         fontSize: 15,
-        opacity: 0.6
+        paddingVertical: 3,
+        paddingHorizontal: 6,
+        marginTop: 5,
+        borderRadius: 4,
+        overflow: 'hidden',
+        backgroundColor: "#22222277"
     },
 
     roomName: {
         color: ColorPalette.white,
         fontSize: 17,
-        fontWeight: '400'
+        fontWeight: "400",
     },
 
     roomNameWrapper: {
-        flexDirection: 'column',
-        alignItems: 'center',
+        flexDirection: "column",
+        alignItems: "center",
         left: 0,
         paddingHorizontal: 48,
-        position: 'absolute',
-        right: 0
+        position: "absolute",
+        right: 0,
     },
 
     /**
@@ -161,30 +169,53 @@ export default {
      */
     toolboxAndFilmstripContainer: {
         bottom: 0,
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
+        flexDirection: "column",
+        justifyContent: "flex-end",
         left: 0,
         paddingBottom: BoxModel.padding,
-        position: 'absolute',
+        position: "absolute",
         right: 0,
 
         // Both on Android and iOS there is the status bar which may be visible.
         // On iPhone X there is the notch. In the two cases BoxModel.margin is
         // not enough.
-        top: BoxModel.margin * 3
+        top: BoxModel.margin * 3,
     },
 
     insecureRoomNameLabel: {
-        backgroundColor: INSECURE_ROOM_NAME_LABEL_COLOR
+        backgroundColor: INSECURE_ROOM_NAME_LABEL_COLOR,
+    },
+
+    toggleCameraBtn: {
+        width: 42,
+        height: 42,
+        borderRadius: 6,
+        backgroundColor: "#FEFFFE",
+        alignItems: "center",
+        justifyContent: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        marginTop: 15,
+        elevation: 4,
+    },
+    toggleCameraContainer: {
+        position: "absolute",
+        right: 15,
+        top: 0,
     }
 };
 
-ColorSchemeRegistry.register('Conference', {
+ColorSchemeRegistry.register("Conference", {
     lonelyButton: {
-        backgroundColor: schemeColor('inviteButtonBackground')
+        backgroundColor: schemeColor("inviteButtonBackground"),
     },
 
     lonelyMessage: {
-        color: schemeColor('onVideoText')
-    }
+        color: schemeColor("onVideoText"),
+    },
 });

@@ -154,7 +154,8 @@ function _mapStateToProps(state): Object {
 
     return {
         _audioMuted,
-        _disabled
+        _disabled,
+        visible: !state['features/base/settings'].startWithAudioMuted
     };
 }
 

@@ -171,3 +171,12 @@ export const HIDDEN_PARTICIPANT_LEFT = 'HIDDEN_PARTICIPANT_LEFT';
  */
 export const SET_LOADABLE_AVATAR_URL = 'SET_LOADABLE_AVATAR_URL';
 
+/**
+ * The type of Redux action which fires native event indicating that participants screen needs to open
+ *
+ * {
+ *     type: OPEN_PARTICIPANTS,
+ * }
+ */
+export const OPEN_PARTICIPANTS = 'OPEN_PARTICIPANTS';
+

@@ -55,4 +55,18 @@
  */
 - (void)enterPictureInPicture:(NSDictionary *)data;
 
+/**
+ * Called when chat button is clicked
+ *
+ * The `data` dictionary is empty.
+ */
+- (void)openChat:(NSDictionary *)data;
+
+/**
+* Called when ParticipantsButton is clicked in the OverflowMenu.
+*
+* The `data` dictionary is empty.
+*/
+- (void)openParticipants:(NSDictionary *)data;
+
 @end

@@ -158,9 +158,17 @@ function Thumbnail(props: Props) {
                 tintStyle = { _styles.activeThumbnailTint }
                 zOrder = { 1 } />
 
-            { renderDisplayName && <Container style = { styles.displayNameContainer }>
-                <DisplayNameLabel participantId = { participantId } />
-            </Container> }
+            { renderDisplayName && !participant.isFakeParticipant && (
+                <Container style = { styles.displayNameContainer }>
+                    <DisplayNameLabel participantId = { participantId } />
+                    { audioMuted
+                        && <AudioMutedIndicator /> }
+                    { videoMuted
+                        && <VideoMutedIndicator /> }
+                    { isScreenShare
+                        && <ScreenShareIndicator /> }
+                </Container> 
+            )}
 
             { renderModeratorIndicator
                 && <View style = { styles.moderatorIndicatorContainer }>
@@ -184,14 +192,14 @@ function Thumbnail(props: Props) {
                 <ConnectionIndicator participantId = { participant.id } />
             </View> }
 
-            { !participant.isFakeParticipant && <Container style = { styles.thumbnailIndicatorContainer }>
+            {/* { !participant.isFakeParticipant && <Container style = { styles.thumbnailIndicatorContainer }>
                 { audioMuted
                     && <AudioMutedIndicator /> }
                 { videoMuted
                     && <VideoMutedIndicator /> }
                 { isScreenShare
                     && <ScreenShareIndicator /> }
-            </Container> }
+            </Container> } */}
 
         </Container>
     );

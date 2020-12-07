@@ -12,6 +12,7 @@ import {
 import { openDisplayNamePrompt } from '../../../display-name';
 import { CHAT_VIEW_MODAL_ID } from '../../constants';
 import { getUnreadCount } from '../../functions';
+import { openChat } from '../../actions.any';
 
 type Props = AbstractButtonProps & {
 
@@ -55,13 +56,14 @@ class ChatButton extends AbstractButton<Props, *> {
      * @returns {void}
      */
     _handleClick() {
-        if (this.props._showNamePrompt) {
-            this.props._displayNameInputDialog(() => {
-                this.props._displayChat();
-            });
-        } else {
-            this.props._displayChat();
-        }
+        this.props._openChat()
+        // if (this.props._showNamePrompt) {
+        //     this.props._displayNameInputDialog(() => {
+        //         this.props._displayChat();
+        //     });
+        // } else {
+        //     this.props._displayChat();
+        // }
     }
 
     /**
@@ -106,6 +108,16 @@ function _mapDispatchToProps(dispatch: Function) {
          */
         _displayNameInputDialog(onPostSubmit) {
             dispatch(openDisplayNamePrompt(onPostSubmit));
+        },
+
+        /**
+         * Opens threeveta chat through native code
+         *
+         * @private
+         * @returns {void}
+         */
+        _openChat() {
+            dispatch(openChat())
         }
     };
 }
@@ -119,7 +131,7 @@ function _mapDispatchToProps(dispatch: Function) {
  */
 function _mapStateToProps(state, ownProps) {
     const localParticipant = getLocalParticipant(state);
-    const enabled = getFeatureFlag(state, CHAT_ENABLED, true);
+    const enabled = true; //getFeatureFlag(state, CHAT_ENABLED, true);
     const { visible = enabled } = ownProps;
 
     return {

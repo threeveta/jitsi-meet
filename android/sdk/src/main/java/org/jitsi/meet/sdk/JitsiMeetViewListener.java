@@ -47,4 +47,18 @@ public interface JitsiMeetViewListener {
      * @param data Map with a "url" key with the conference URL.
      */
     void onConferenceWillJoin(Map<String, Object> data);
+
+    /**
+     * Fired when chat button is clicked.
+     *
+     * @param data is empty.
+     */
+    void onOpenChat(Map<String, Object> data);
+
+    /**
+     * Fired when participants is clicked in the OverflowMenu.
+     *
+     * @param data is empty.
+     */
+    void onOpenParticipants(Map<String, Object> data);
 }

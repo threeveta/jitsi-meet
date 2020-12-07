@@ -27,6 +27,7 @@ import RaiseHandButton from './RaiseHandButton';
 import ScreenSharingButton from './ScreenSharingButton.js';
 import ToggleCameraButton from './ToggleCameraButton';
 import styles from './styles';
+import ParticipantsButton from './ParticipantsButton';
 
 /**
  * The type of the React {@code Component} props of {@link OverflowMenu}.
@@ -128,15 +129,16 @@ class OverflowMenu extends PureComponent<Props, State> {
                 onCancel = { this._onCancel }
                 onSwipe = { this._onSwipe }
                 renderHeader = { this._renderMenuExpandToggle }>
+                <ParticipantsButton { ...buttonProps } />
                 <AudioRouteButton { ...buttonProps } />
                 <InviteButton { ...buttonProps } />
                 <AudioOnlyButton { ...buttonProps } />
                 <RaiseHandButton { ...buttonProps } />
                 <LobbyModeButton { ...buttonProps } />
-                <ScreenSharingButton { ...buttonProps } />
-                <MoreOptionsButton { ...moreOptionsButtonProps } />
-                <Collapsible collapsed = { !showMore }>
-                    <ToggleCameraButton { ...buttonProps } />
+                {/* <ScreenSharingButton { ...buttonProps } /> */}
+                {/* <MoreOptionsButton { ...moreOptionsButtonProps } /> */}
+                {/* <Collapsible collapsed = { !showMore }> */}
+                    {/* <ToggleCameraButton { ...buttonProps } /> */}
                     <TileViewButton { ...buttonProps } />
                     <RecordButton { ...buttonProps } />
                     <LiveStreamButton { ...buttonProps } />
@@ -146,7 +148,7 @@ class OverflowMenu extends PureComponent<Props, State> {
                     <SharedDocumentButton { ...buttonProps } />
                     <MuteEveryoneButton { ...buttonProps } />
                     <HelpButton { ...buttonProps } />
-                </Collapsible>
+                {/* </Collapsible> */}
             </BottomSheet>
         );
     }

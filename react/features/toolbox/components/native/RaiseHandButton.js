@@ -11,7 +11,8 @@ import { translate } from '../../../base/i18n';
 import { IconRaisedHand } from '../../../base/icons';
 import {
     getLocalParticipant,
-    participantUpdated
+    participantUpdated,
+    PARTICIPANT_ROLE
 } from '../../../base/participants';
 import { connect } from '../../../base/redux';
 import { AbstractButton, type AbstractButtonProps } from '../../../base/toolbox/components';
@@ -103,12 +104,14 @@ class RaiseHandButton extends AbstractButton<Props, *> {
 function _mapStateToProps(state, ownProps): Object {
     const _localParticipant = getLocalParticipant(state);
     const enabled = getFeatureFlag(state, RAISE_HAND_ENABLED, true);
+    const isModerator = _localParticipant.role === PARTICIPANT_ROLE.MODERATOR;
+    
     const { visible = enabled } = ownProps;
 
     return {
         _localParticipant,
         _raisedHand: _localParticipant.raisedHand,
-        visible
+        visible: visible && !isModerator
     };
 }
 

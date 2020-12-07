@@ -18,11 +18,12 @@ export default {
      * The display name container.
      */
     displayNameContainer: {
-        alignSelf: 'center',
-        bottom: 0,
+        alignItems: 'center',
+        bottom: 10,
         flex: 1,
-        margin: 4,
-        position: 'absolute'
+        margin: 5,
+        position: 'absolute',
+        flexDirection: 'row',
     },
 
     /**
@@ -33,7 +34,8 @@ export default {
         flexDirection: 'row',
         flexGrow: 0,
         justifyContent: 'flex-end',
-        height: FILMSTRIP_SIZE
+        height: FILMSTRIP_SIZE,
+        marginBottom: 10,
     },
 
     /**
@@ -48,7 +50,7 @@ export default {
         flexDirection: 'column',
         flexGrow: 0,
         position: 'absolute',
-        right: 0,
+        left: 0,
         top: 0
     },
 
@@ -83,14 +85,14 @@ export default {
     thumbnail: {
         alignItems: 'stretch',
         backgroundColor: ColorPalette.appBackground,
-        borderColor: '#424242',
-        borderRadius: 3,
-        borderStyle: 'solid',
-        borderWidth: 1,
+        // borderColor: '#424242',
+        borderRadius: 10,
+        // borderStyle: 'solid',
+        // borderWidth: 1,
         flex: 1,
         height: 80,
         justifyContent: 'center',
-        margin: 2,
+        margin: 4,
         overflow: 'hidden',
         position: 'relative',
         width: 80

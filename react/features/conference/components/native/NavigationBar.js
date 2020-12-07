@@ -52,19 +52,13 @@ class NavigationBar extends Component<Props> {
         }
 
         return [
-            <LinearGradient
-                colors = { NAVBAR_GRADIENT_COLORS }
-                key = { 1 }
-                pointerEvents = 'none'
-                style = { styles.gradient }>
-                <SafeAreaView>
-                    <View style = { styles.gradientStretchTop } />
-                </SafeAreaView>
-            </LinearGradient>,
             <View
                 key = { 2 }
                 pointerEvents = 'box-none'
                 style = { styles.navBarWrapper }>
+                {
+                    this.props._conferenceTimerEnabled && <ConferenceTimer />
+                }
                 <PictureInPictureButton
                     styles = { styles.navBarButton } />
                 <View
@@ -77,9 +71,6 @@ class NavigationBar extends Component<Props> {
                             style = { styles.roomName }>
                             { this.props._meetingName }
                         </Text>
-                    }
-                    {
-                        this.props._conferenceTimerEnabled && <ConferenceTimer />
                     }
                 </View>
             </View>

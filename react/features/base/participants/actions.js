@@ -14,7 +14,8 @@ import {
     PARTICIPANT_LEFT,
     PARTICIPANT_UPDATED,
     PIN_PARTICIPANT,
-    SET_LOADABLE_AVATAR_URL
+    SET_LOADABLE_AVATAR_URL,
+    OPEN_PARTICIPANTS
 } from './actionTypes';
 import {
     getLocalParticipant,
@@ -497,5 +498,18 @@ export function setLoadableAvatarUrl(participantId, url) {
             id: participantId,
             loadableAvatarUrl: url
         }
+    };
+}
+
+/**
+ * Create an action which fires a native event to open participants screen.
+ *
+ * @returns {{
+ *     type: OPEN_PARTICIPANTS,
+ * }}
+*/
+export function openParticipants() {
+    return {
+        type: OPEN_PARTICIPANTS,
     };
 }

@@ -129,3 +129,15 @@ export const VIDEO_SHARE_BUTTON_ENABLED = 'video-share.enabled';
  * Default: disabled (false).
  */
 export const WELCOME_PAGE_ENABLED = 'welcomepage.enabled';
+
+/**
+ * Flag indicating if the filmstrip in a conference should be enabled.
+ * Default: enabled (true).
+ */
+export const FILMSTRIP_ENABLED = 'filmstrip.enabled';
+
+/**
+ * Flag indicating if moderator should always be pinned.
+ * Default: disabled (false).
+ */
+export const ALWAYS_PIN_MODERATOR_ENABLED = 'always-pin-moderator.enabled';

@@ -1,5 +1,19 @@
 .videocontainer {
     .subject {
         padding: 19px 0px 0px 24px;
+        .subject-conference-timer {
+            height: auto !important;
+            color: $main-gray;
+            background: $main-white;
+            font-size: 16px !important;
+            line-height: 15px !important;
+            padding: 4px 8px;
+            border-radius: 17px;
+        }
+        .tvt-indicator-container {
+            position: relative;
+            margin-top: 6px;
+            left: 0px;
+        }
     }
 }

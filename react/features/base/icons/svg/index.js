@@ -142,3 +142,5 @@ export { default as IconVolumeEmptySmall } from '../../../../../threeveta/icons/
 export { default as IconMicEmptySmall } from '../../../../../threeveta/icons/MicEmptySmall.svg';
 export { default as IconCameraEmptySmall } from '../../../../../threeveta/icons/CameraEmptySmall.svg';
 export { default as IconConnectionActive } from '../../../../../threeveta/icons/ConnectionActive.svg';
+export { default as IconTvtInfo } from '../../../../../threeveta/icons/Info.svg';
+export { default as IconTvtWarning } from '../../../../../threeveta/icons/Warning.svg';

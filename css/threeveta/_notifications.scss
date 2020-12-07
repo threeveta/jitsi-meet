@@ -1,38 +1,71 @@
 // Messages wrapper
-.hDUXUW {
-    position: relative;
-    left: -58px;
-    bottom: 43px;
-    .drVnbx {
-        background-color: $main-white !important;
-        border-radius: 5px !important;
-        color: $main-gray !important;
-        font-size: 12px !important;
-        // The close button
-        .RycQf {
+.atlaskit-portal-container {
+    // Messages container
+    & > div > div > div {
+        position: relative;
+        left: -58px;
+        bottom: 43px;
+        // Single message container
+        & > div > div {
+            background-color: $main-white !important;
+            border-radius: 5px !important;
             color: $main-gray !important;
-            position: absolute;
-            top: 8px;
-            right: 8px;
+            font-size: 12px !important;
+            padding-left: 67px;
+            padding-right: 33px;
+            & > div:nth-child(1) {
+                // The icon container
+                & > div {
+                    width: 0px;
+                    .jitsi-icon {
+                        width: 35px;
+                        position: absolute;
+                        top: 0;
+                        left: 20px;
+                        bottom: 0;
+                        display: block;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        .tvt-icon-warning {
+                            width: 32px !important;
+                            height: 32px !important;
+                        }
+                    }
+                }
+                // The text message
+                & > span {
+                    color: $main-gray !important;
+                }
+                // The close button
+                button {
+                    color: $main-gray !important;
+                    position: absolute;
+                    top: 8px;
+                    right: 8px;
+                }
+            }
+
+            // The sub message link container
+            & > div:nth-child(2) {
+                padding-left: 0px !important;
+                padding-top: 0px !important;
+                & > div > div:nth-child(2) {
+                    & > div {
+                        margin-right: 10px;
+                        button {
+                            @include tvt-button-empty($accent);
+                            &:hover {
+                                text-decoration: none;
+                                span {
+                                    text-decoration: none;
+                                }
+                            } 
+                        }
+                    }
+                }
+            }
         }
-        // The icon container
-        .jdkWJB {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            display: block;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        // The text message
-        .cmRPpI {
-            color: $main-gray !important;
-        }
-        // The sub message link container
-        .cUfYQe {
-            padding-top: 0px !important;
-        }
-    }
+    } 
 }

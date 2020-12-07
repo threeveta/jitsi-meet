@@ -9,7 +9,7 @@ import AbstractNotificationsContainer, {
     type Props as AbstractProps
 } from '../AbstractNotificationsContainer';
 
-import Notification from './Notification';
+import Notification from './TvtNotification';
 
 type Props = AbstractProps & {
 

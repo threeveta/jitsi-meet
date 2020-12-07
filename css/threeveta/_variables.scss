@@ -16,3 +16,16 @@ $accent: #9141B8;
 $accent-lighten1: #bb93ce7a;
 $blue-lighten: #64b9f0;
 $error-color: #FF4848;
+
+@mixin tvt-button-empty($color) {
+    color: $color;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 17px 0px;
+    border: 1px solid $color;
+    text-transform: uppercase;
+    &:hover {
+        box-shadow: 0 0 0 1pt $color;
+    }
+}

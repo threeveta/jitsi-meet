@@ -25,7 +25,8 @@ export { default as IconClose } from './close.svg';
 export { default as IconCloseX } from './close-x.svg';
 export { default as IconClosedCaption } from './closed_caption.svg';
 export { default as IconCodeBlock } from './code-block.svg';
-export { default as IconConnectionActive } from './gsm-bars.svg';
+
+// export { default as IconConnectionActive } from './gsm-bars.svg';
 export { default as IconConnectionInactive } from './ninja.svg';
 export { default as IconCopy } from './copy.svg';
 export { default as IconCrown } from './crown.svg';
@@ -140,3 +141,4 @@ export { default as IconMeter } from '../../../../../threeveta/icons/Meter.svg';
 export { default as IconVolumeEmptySmall } from '../../../../../threeveta/icons/VolumeEmptySmall.svg';
 export { default as IconMicEmptySmall } from '../../../../../threeveta/icons/MicEmptySmall.svg';
 export { default as IconCameraEmptySmall } from '../../../../../threeveta/icons/CameraEmptySmall.svg';
+export { default as IconConnectionActive } from '../../../../../threeveta/icons/ConnectionActive.svg';

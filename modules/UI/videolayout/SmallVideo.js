@@ -24,7 +24,7 @@ import {
     isLocalTrackMuted,
     isRemoteTrackMuted
 } from '../../../react/features/base/tracks';
-import { ConnectionIndicator } from '../../../react/features/connection-indicator';
+import { TvtConnectionIndicator } from '../../../react/features/connection-indicator';
 import { DisplayName } from '../../../react/features/display-name';
 import {
     DominantSpeakerIndicator,
@@ -235,6 +235,8 @@ export default class SmallVideo {
                 }
 
                 statusBarContainer.addEventListener('click', e => {
+                    e.stopPropagation();
+
                     // We need to concat the e.path in order to make it iterable
                     const filtered = [].concat(e.path).filter(ell => {
                         if (!ell.className || typeof ell.className !== 'string') {
@@ -727,7 +729,7 @@ export default class SmallVideo {
                     <div>
                         <AtlasKitThemeProvider mode = 'dark'>
                             { this._showConnectionIndicator
-                                ? <ConnectionIndicator
+                                ? <TvtConnectionIndicator
                                     alwaysVisible = { showConnectionIndicator }
                                     iconSize = { iconSize }
                                     isLocalVideo = { this.isLocal }

@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { getConferenceName } from '../../../base/conference/functions';
 import { getParticipantCount } from '../../../base/participants/functions';
 import { connect } from '../../../base/redux';
+import { TvtConnectionIndicator } from '../../../connection-indicator/components/web';
 import { isToolboxVisible } from '../../../toolbox/functions.web';
 import ConferenceTimer from '../ConferenceTimer';
 
@@ -53,6 +54,11 @@ class Subject extends Component<Props> {
                 <span className = 'subject-text'>{ _subject }</span>
                 { _showParticipantCount && <ParticipantsCount /> }
                 <ConferenceTimer />
+                <TvtConnectionIndicator
+                    alwaysVisible = { true }
+                    iconSize = { 16.5 }
+                    isLocalVideo = { true }
+                    showLogs = { true } />
             </div>
         );
     }

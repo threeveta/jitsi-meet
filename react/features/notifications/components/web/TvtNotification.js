@@ -27,7 +27,8 @@ class TvtNotification extends AbstractNotification<Props> {
     render() {
         const {
             appearance,
-            hideErrorSupportLink,
+
+            // hideErrorSupportLink,
             isDismissAllowed,
             onDismissed,
             t,
@@ -36,7 +37,7 @@ class TvtNotification extends AbstractNotification<Props> {
             titleKey,
             uid
         } = this.props;
-        const testIcon = this._mapAppearanceToIcon();
+        const hideErrorSupportLink = !interfaceConfig.SUPPORT_URL;
 
         return (
             <Flag

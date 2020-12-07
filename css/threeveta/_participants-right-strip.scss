@@ -148,6 +148,8 @@ $vido-border-radius: 10px;
         .videocontainer__toptoolbar {
             .tvt-connection-indicator {
                 font-size: 12px !important;
+                margin-left: 13px !important;
+                margin-top: 14px !important;
             }
         }
         @include video-container-mixin;
@@ -155,10 +157,10 @@ $vido-border-radius: 10px;
             display: none;
         }
         .videocontainer__toolbar{
-            top: 10px;
+            top: 15px;
             left: 0;
             .audioMuted {
-                left: 40px;
+                left: 42px;
                 width: 19px !important;
                 height: 19px !important;
                 padding: 2px;

@@ -1,11 +1,20 @@
 .leftwatermark {
-    left: 5%;
-    top: 5%;
+    left: 57px;
+    top: 50px;
+    &.watermark {
+        border-radius: 20px;
+        background-color: #ffffff4a;
+        padding: 0px 10px;
+        background-position: center;
+    }
 }
 
 @media only screen and (max-width: 700px) {
     .desktop-browser .watermark {
-        width: 10% !important;
-        height: 10% !important;
-  }
+        left: 17px;
+        top: 15px;
+        width: 94px !important;
+        height: 33px !important;
+        padding: 0px;
+    }
 }

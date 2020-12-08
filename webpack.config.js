@@ -9,7 +9,9 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
  * development with webpack-dev-server.
  */
 const devServerProxyTarget
-    = process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://alpha.jitsi.net';
+    = process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://meet.staging.3veta.com/';
+
+// 'https://alpha.jitsi.net'; // ;'https://meet.staging.3veta.com/'
 
 const analyzeBundle = process.argv.indexOf('--analyze-bundle') !== -1;
 const detectCircularDeps = process.argv.indexOf('--detect-circular-deps') !== -1;
@@ -298,8 +300,8 @@ function devServerProxyBypass({ path }) {
             || path.startsWith('/lang/')
             || path.startsWith('/sounds/')
             || path.startsWith('/static/')
+            || path.endsWith('77144053.png')
             || path.endsWith('.wasm')) {
-
         return path;
     }
 

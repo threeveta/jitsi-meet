@@ -1,5 +1,10 @@
 .videocontainer {
     .subject {
+        top: -57px;
+        height: 115px;
+        .tvt-conference-timer-wrapper {
+            min-height: 25px;
+        }
         padding: 19px 0px 0px 24px;
         .subject-conference-timer {
             height: auto !important;
@@ -11,10 +16,29 @@
             padding: 4px 8px;
             border-radius: 17px;
         }
-        .tvt-indicator-container {
+        .tvt-subject-indicator-watermarks-wrapper {
             position: relative;
-            margin-top: 6px;
+            top: 32px;
             left: 0px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            @include transition(top .3s ease-in);
+            .tvt-connection-indicator {
+                margin-right: 7px;
+            }
+            .watermark {
+                position: relative;
+                top: 0px;
+                left: 0px;
+            }
+        }
+        &.visible {
+            top: 0px;
+            .tvt-subject-indicator-watermarks-wrapper {
+                top: 6px;
+            }
         }
     }
 }

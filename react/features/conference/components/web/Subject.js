@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 
 import { getConferenceName } from '../../../base/conference/functions';
 import { getParticipantCount } from '../../../base/participants/functions';
+import Watermarks from '../../../base/react/components/web/Watermarks';
 import { connect } from '../../../base/redux';
 import { TvtConnectionIndicator } from '../../../connection-indicator/components/web';
 import { isToolboxVisible } from '../../../toolbox/functions.web';
@@ -53,12 +54,25 @@ class Subject extends Component<Props> {
             <div className = { `subject ${_visible ? 'visible' : ''}` }>
                 <span className = 'subject-text'>{ _subject }</span>
                 { _showParticipantCount && <ParticipantsCount /> }
-                <ConferenceTimer />
-                <TvtConnectionIndicator
-                    alwaysVisible = { true }
-                    iconSize = { 16.5 }
-                    isLocalVideo = { true }
-                    showLogs = { true } />
+                {/*
+                    Threeveta added wrapper.
+                    We need the wrapper in order to set min height of
+                    the timer.
+                    The min-height serves to position the TvtConnectionIndicator
+                    before the timer is rendered. Otherways the TvtConnectionIndicator
+                    is jumping up after the timer renders.
+                */}
+                <div className = 'tvt-conference-timer-wrapper'>
+                    <ConferenceTimer />
+                </div>
+                <div className = 'tvt-subject-indicator-watermarks-wrapper'>
+                    <TvtConnectionIndicator
+                        alwaysVisible = { true }
+                        iconSize = { 16.5 }
+                        isLocalVideo = { true }
+                        showLogs = { true } />
+                    <Watermarks />
+                </div>
             </div>
         );
     }

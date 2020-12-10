@@ -162,17 +162,19 @@ class TvtConnectionIndicator extends AbstractConnectionIndicator<Props, State> {
 
         // Bind event handlers so they are only bound once for every instance.
         this._onToggleShowMore = this._onToggleShowMore.bind(this);
-        this._sendNotifications = this._sendNotifications.bind(this);
+        this._tvtOnColorClassChange = this._tvtOnColorClassChange.bind(this);
     }
 
     /**
-     * Initializes a new {@code ConnectionIndicator} instance.
+     * Method used to send low connection participant notification and
+     * send the new connection indicator class to the paret compoennt if
+     * onConnectionStatusUpdate prop is passed.
      *
      * @param {string} colorClass - The read-only properties with which the new
      * instance is to be initialized.
      * @returns {void}
      */
-    _sendNotifications(colorClass) {
+    _tvtOnColorClassChange(colorClass) {
         if (!this.props.onConnectionStatusUpdate) {
             return;
         }
@@ -220,8 +222,8 @@ class TvtConnectionIndicator extends AbstractConnectionIndicator<Props, State> {
         // Threeveta added logic.
         // In order to send the Connection status to the parent component
         // and send notification message for low connection of the participant
-        // we are calling hte _sendNotifications method.
-        this._sendNotifications(colorClass);
+        // we are calling hte _tvtOnColorClassChange method.
+        this._tvtOnColorClassChange(colorClass);
 
         const indicatorContainerClassNames
             = `tvt-connection-indicator tvt-indicator ${colorClass}`;

@@ -26,6 +26,12 @@ import { OPEN_CHAT } from '../../chat';
 import { OPEN_PARTICIPANTS, PARTICIPANT_JOINED, PARTICIPANT_LEFT, getParticipants, isParticipantModerator } from '../../base/participants';
 import { getTrackByMediaTypeAndParticipant, TRACK_UPDATED } from '../../base/tracks';
 import { MEDIA_TYPE } from '../../base/media';
+import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../../base/app';
+import { NativeEventEmitter, NativeModules } from 'react-native';
+
+const { ExternalAPI } = NativeModules;
+const ExternalAPIEmitter = new NativeEventEmitter(ExternalAPI);
+let ExternalAPIListener
 
 /**
  * Event which will be emitted on the native side to indicate the conference
@@ -151,10 +157,35 @@ MiddlewareRegistry.register(store => next => action => {
     case SET_ROOM:
         _maybeTriggerEarlyConferenceWillJoin(store, action);
         break;
+    case APP_WILL_MOUNT:
+        _addNativeDispatchSubscription(store)
+        break;
+    case APP_WILL_UNMOUNT:
+        _removeAllNativeDispatchSubscriptions()
+        break;
     }
 
     return result;
 });
+
+function _addNativeDispatchSubscription(store) {
+    if (ExternalAPIListener) {
+        ExternalAPIListener.remove();
+    }
+    ExternalAPIListener = ExternalAPIEmitter.addListener(
+        ExternalAPI.DISPATCH_REDUX_ACTION, 
+        store.dispatch, 
+        store
+    )
+}
+
+function _removeAllNativeDispatchSubscriptions() {
+    if (ExternalAPIListener) {
+        ExternalAPIListener.remove();
+        ExternalAPIListener = null
+    }
+    ExternalAPIEmitter.removeAllListeners(ExternalAPI.DISPATCH_REDUX_ACTION);
+}
 
 /**
  * Returns a {@code String} representation of a specific error {@code Object}.

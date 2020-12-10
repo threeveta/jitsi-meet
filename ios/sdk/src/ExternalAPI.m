@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-#import <React/RCTBridgeModule.h>
-
 #import "JitsiMeetView+Private.h"
-
-@interface ExternalAPI : NSObject<RCTBridgeModule>
-@end
+#import "ExternalAPI.h"
 
 @implementation ExternalAPI
 
@@ -31,6 +27,12 @@ RCT_EXPORT_MODULE();
 - (dispatch_queue_t)methodQueue {
     return dispatch_get_main_queue();
 }
+
+- (NSDictionary *)constantsToExport {
+    return @{
+        @"DISPATCH_REDUX_ACTION": DISPATCH_REDUX_ACTION
+    };
+};
 
 /**
  * Dispatches an event that occurred on JavaScript to the view's delegate.

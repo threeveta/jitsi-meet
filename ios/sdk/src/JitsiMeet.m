@@ -23,6 +23,7 @@
 #import "RCTBridgeWrapper.h"
 #import "ReactUtils.h"
 #import "RNSplashScreen.h"
+#import "ExternalAPI.h"
 
 #import <RNGoogleSignin/RNGoogleSignin.h>
 #import <WebRTC/RTCLogging.h>
@@ -186,6 +187,10 @@
 
 - (void)showSplashScreen:(UIView*)rootView {
     [RNSplashScreen showSplash:@"LaunchScreen" inRootView:rootView];
+}
+
+- (void)dispatchReduxAction:(NSDictionary *)data {
+    [[[self getReactBridge] moduleForClass:[ExternalAPI class]] sendEventWithName:DISPATCH_REDUX_ACTION body:data];
 }
 
 #pragma mark - Property getter / setters

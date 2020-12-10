@@ -939,6 +939,9 @@
         },
         "videothumbnail": {
             "audioAvailable": "Participant audio is available"
+        },
+        "notify": {
+            "participantConnectionLowTitle": "{{participantDisplayName}} connection is extremely poor."
         }
     }
 }

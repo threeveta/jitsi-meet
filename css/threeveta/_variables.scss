@@ -15,7 +15,10 @@ $brand: #FF6A34;
 $accent: #9141B8;
 $accent-lighten1: #bb93ce7a;
 $blue-lighten: #64b9f0;
+$blue-lighten1: rgba(100,185,240, 0.5);
 $error-color: #FF4848;
+$error-lighten: rgba(255,72,72, 0.8);
+$error-lighten1: rgba(255,72,72, 0.5);
 
 @mixin tvt-button-empty($color) {
     color: $color;

@@ -3,11 +3,12 @@
 import React from 'react';
 import type { Dispatch } from 'redux';
 
+import { NOTIFICATION_TYPE, showNotification, hideNotification } from '../../../../../react/features/notifications';
 import { translate } from '../../../base/i18n';
 import { Icon, IconConnectionActive, IconConnectionInactive } from '../../../base/icons';
 import { JitsiParticipantConnectionStatus } from '../../../base/lib-jitsi-meet';
 import { MEDIA_TYPE } from '../../../base/media';
-import { getLocalParticipant, getParticipantById } from '../../../base/participants';
+import { getLocalParticipant, getParticipantById, getParticipantDisplayName } from '../../../base/participants';
 import { connect } from '../../../base/redux';
 import { getTrackByMediaTypeAndParticipant } from '../../../base/tracks';
 import { saveLogs } from '../../actions';
@@ -111,7 +112,18 @@ type Props = AbstractProps & {
     /**
      * Invoked to save the conference logs.
      */
-    _onSaveLogs: Function
+    _onSaveLogs: Function,
+
+    /**
+     * Invoked to show low connection status message.
+     */
+    _tvtSendConnectionLowNotification: Function,
+
+    /**
+     * Invoked to remove allready shown low connection status message,
+     * before the new one is displayed.
+     */
+    _tvtClearConnectionNotification: Function
 };
 
 /**
@@ -150,6 +162,49 @@ class TvtConnectionIndicator extends AbstractConnectionIndicator<Props, State> {
 
         // Bind event handlers so they are only bound once for every instance.
         this._onToggleShowMore = this._onToggleShowMore.bind(this);
+        this._sendNotifications = this._sendNotifications.bind(this);
+    }
+
+    /**
+     * Initializes a new {@code ConnectionIndicator} instance.
+     *
+     * @param {string} colorClass - The read-only properties with which the new
+     * instance is to be initialized.
+     * @returns {void}
+     */
+    _sendNotifications(colorClass) {
+        if (!this.props.onConnectionStatusUpdate) {
+            return;
+        }
+
+        // Threeveta added logic.
+        // We need to set the SmallVideo .videocontainer box-shadow
+        // to red if the connection is poor. So we are passing update
+        // function in order to listen for chantes.
+        this.props.onConnectionStatusUpdate({ colorClass });
+
+        const connectionIsLow = [ 'status-low', 'status-other', 'status-lost' ].indexOf(colorClass) > -1;
+
+        if (!connectionIsLow && this._notificationAction) {
+            this.props._tvtClearConnectionNotification(this._notificationAction.uid);
+            this._notificationAction = null;
+        }
+        if (connectionIsLow && !this._notificationAction) {
+            if (this._notificationAction) {
+                this.props._tvtClearConnectionNotification(this._notificationAction.uid);
+            }
+
+            this._notificationAction = showNotification({
+                appearance: NOTIFICATION_TYPE.ERROR,
+                hideErrorSupportLink: true,
+                titleKey: 'threeveta.notify.participantConnectionLowTitle',
+                titleArguments: {
+                    participantDisplayName: this.props._participantDisplayName
+                }
+            });
+
+            this.props._tvtSendConnectionLowNotification(this._notificationAction);
+        }
     }
 
     /**
@@ -160,8 +215,14 @@ class TvtConnectionIndicator extends AbstractConnectionIndicator<Props, State> {
      */
     render() {
         const rootClassNames = 'tvt-indicator-container';
-
         const colorClass = this._getConnectionColorClass();
+
+        // Threeveta added logic.
+        // In order to send the Connection status to the parent component
+        // and send notification message for low connection of the participant
+        // we are calling hte _sendNotifications method.
+        this._sendNotifications(colorClass);
+
         const indicatorContainerClassNames
             = `tvt-connection-indicator tvt-indicator ${colorClass}`;
 
@@ -307,6 +368,28 @@ export function _mapDispatchToProps(dispatch: Dispatch<any>) {
          */
         _onSaveLogs() {
             dispatch(saveLogs());
+        },
+
+        /**
+         * Sends low connection message.
+         *
+         * @param {Object} notificationAction - Notification to send.
+         * @returns {void}
+         */
+        _tvtSendConnectionLowNotification(notificationAction) {
+            if (!interfaceConfig.MEETING_IS_WAITING_ROOM) {
+                dispatch(notificationAction);
+            }
+        },
+
+        /**
+         * Removes the low connection message if we have one allready shown.
+         *
+         * @param {number} uid - Uid of the notification to remove.
+         * @returns {void}
+         */
+        _tvtClearConnectionNotification(uid) {
+            dispatch(hideNotification(uid));
         }
     };
 }
@@ -324,9 +407,14 @@ export function _mapStateToProps(state: Object, ownProps: Props) {
     const conference = state['features/base/conference'].conference;
     const participant
         = typeof participantId === 'undefined' ? getLocalParticipant(state) : getParticipantById(state, participantId);
+    const participantDisplayName = participant && participant.id
+        ? getParticipantDisplayName(state, participant.id)
+        : '';
+
     const props = {
         _connectionStatus: participant?.connectionStatus,
-        enableSaveLogs: state['features/base/config'].enableSaveLogs
+        enableSaveLogs: state['features/base/config'].enableSaveLogs,
+        _participantDisplayName: participantDisplayName
     };
 
     if (conference) {

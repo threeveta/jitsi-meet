@@ -24,6 +24,9 @@ import com.facebook.react.module.annotations.ReactModule;
 
 import org.jitsi.meet.sdk.log.JitsiMeetLogger;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Module implementing an API for sending events from JavaScript to native code.
  */
@@ -34,6 +37,8 @@ class ExternalAPIModule
     public static final String NAME = "ExternalAPI";
 
     private static final String TAG = NAME;
+
+    public static final String DISPATCH_REDUX_ACTION = "DISPATCH_REDUX_ACTION";
 
     /**
      * Initializes a new module instance. There shall be a single instance of
@@ -54,6 +59,13 @@ class ExternalAPIModule
     @Override
     public String getName() {
         return NAME;
+    }
+
+    @Override
+    public Map<String, Object> getConstants() {
+        Map<String, Object> constants = new HashMap<>();
+        constants.put(DISPATCH_REDUX_ACTION, DISPATCH_REDUX_ACTION);
+        return constants;
     }
 
     /**

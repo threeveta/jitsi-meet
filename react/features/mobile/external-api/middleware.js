@@ -23,13 +23,27 @@ import { ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture';
 
 import { sendEvent } from './functions';
 import { OPEN_CHAT } from '../../chat';
-import { OPEN_PARTICIPANTS } from '../../base/participants';
+import { OPEN_PARTICIPANTS, PARTICIPANT_JOINED, PARTICIPANT_LEFT, getParticipants, isParticipantModerator } from '../../base/participants';
+import { getTrackByMediaTypeAndParticipant, TRACK_UPDATED } from '../../base/tracks';
+import { MEDIA_TYPE } from '../../base/media';
+import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../../base/app';
+import { NativeEventEmitter, NativeModules } from 'react-native';
+
+const { ExternalAPI } = NativeModules;
+const ExternalAPIEmitter = new NativeEventEmitter(ExternalAPI);
+let ExternalAPIListener
 
 /**
  * Event which will be emitted on the native side to indicate the conference
  * has ended either by user request or because an error was produced.
  */
 const CONFERENCE_TERMINATED = 'CONFERENCE_TERMINATED';
+
+/**
+ * Event which will be emitted on the native side to indicate that list of participants
+ * has changed.
+ */
+const PARTICIPANTS_CHANGED = 'PARTICIPANTS_CHANGED';
 
 /**
  * Middleware that captures Redux actions and uses the ExternalAPI module to
@@ -43,6 +57,27 @@ MiddlewareRegistry.register(store => next => action => {
     const { type } = action;
 
     switch (type) {
+    case PARTICIPANT_JOINED:
+    case PARTICIPANT_LEFT:
+    case TRACK_UPDATED:
+        const state = store.getState()
+        const jitsiParticipants = getParticipants(state)
+        const tracks = state['features/base/tracks'];
+        const participants = jitsiParticipants.map(p => {
+            const audioTrack = getTrackByMediaTypeAndParticipant(tracks, MEDIA_TYPE.AUDIO, p.id)
+            const videoTrack = getTrackByMediaTypeAndParticipant(tracks, MEDIA_TYPE.VIDEO, p.id)
+            return {
+                id: p.id,
+                name: p.name,
+                avatarURL: p.avatarURL,
+                isLocal: p.local,
+                isModerator: isParticipantModerator(p),
+                audioMuted: audioTrack?.muted ?? true,
+                videoMuted: !videoTrack || videoTrack.muted
+            }
+        })
+        sendEvent(store, PARTICIPANTS_CHANGED, { participants: JSON.stringify(participants) })
+        break;
     case OPEN_CHAT:
         sendEvent(store, OPEN_CHAT, {});
         break;
@@ -122,10 +157,35 @@ MiddlewareRegistry.register(store => next => action => {
     case SET_ROOM:
         _maybeTriggerEarlyConferenceWillJoin(store, action);
         break;
+    case APP_WILL_MOUNT:
+        _addNativeDispatchSubscription(store)
+        break;
+    case APP_WILL_UNMOUNT:
+        _removeAllNativeDispatchSubscriptions()
+        break;
     }
 
     return result;
 });
+
+function _addNativeDispatchSubscription(store) {
+    if (ExternalAPIListener) {
+        ExternalAPIListener.remove();
+    }
+    ExternalAPIListener = ExternalAPIEmitter.addListener(
+        ExternalAPI.DISPATCH_REDUX_ACTION, 
+        store.dispatch, 
+        store
+    )
+}
+
+function _removeAllNativeDispatchSubscriptions() {
+    if (ExternalAPIListener) {
+        ExternalAPIListener.remove();
+        ExternalAPIListener = null
+    }
+    ExternalAPIEmitter.removeAllListeners(ExternalAPI.DISPATCH_REDUX_ACTION);
+}
 
 /**
  * Returns a {@code String} representation of a specific error {@code Object}.

@@ -237,4 +237,9 @@ public class JitsiMeetActivity extends FragmentActivity
     public void onOpenParticipants(Map<String, Object> data) {
 
     }
+
+    @Override
+    public void onParticipantsChanged(Map<String, Object> data) {
+
+    }
 }

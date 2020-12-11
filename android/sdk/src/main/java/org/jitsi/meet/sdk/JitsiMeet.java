@@ -21,9 +21,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 
 import org.devio.rn.splashscreen.SplashScreen;
 import org.jitsi.meet.sdk.log.JitsiMeetLogger;
+
+import androidx.annotation.Nullable;
 
 public class JitsiMeet {
 
@@ -65,6 +70,10 @@ public class JitsiMeet {
         }
 
         return new Bundle();
+    }
+
+    public static void dispatchReduxAction(Object action) {
+        ReactInstanceManagerHolder.emitEvent(ExternalAPIModule.DISPATCH_REDUX_ACTION, action);
     }
 
     /**

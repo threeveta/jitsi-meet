@@ -69,4 +69,11 @@
 */
 - (void)openParticipants:(NSDictionary *)data;
 
+/**
+* Called when there is any change in the current participants list.
+*
+* The `data` dictionary contains the updated `participants` list.
+*/
+- (void)participantsChanged:(NSDictionary *)data;
+
 @end

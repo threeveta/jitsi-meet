@@ -69,4 +69,6 @@
 
 - (void)showSplashScreen:(UIView * _Nonnull) rootView;
 
+- (void)dispatchReduxAction:(NSDictionary *)data;
+
 @end

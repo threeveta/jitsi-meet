@@ -338,6 +338,17 @@ class Toolbox extends Component<Props, State> {
         if (this.props._chatOpen !== prevProps._chatOpen) {
             this._onResize();
         }
+
+        // Threeveta addition.
+        // In order to restyle the notifications containter styling,
+        // we need to toggle its toolbox-opened class.
+        const notificationsCont = document.querySelector('.atlaskit-portal-container');
+
+        if (notificationsCont) {
+            notificationsCont.classList[
+                this.props._visible ? 'add' : 'remove'
+            ]('toolbox-opened');
+        }
     }
 
     /**

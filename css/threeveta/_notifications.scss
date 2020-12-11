@@ -1,76 +1,104 @@
 // Messages wrapper
 .atlaskit-portal-container {
     // Messages container
-    & > div > div:not([class^="Modal__FillScreen"])  {
+    & > div > div:not([class^="Modal__FillScreen"]):not([class^="styled__Tooltip"]) {
+        left: 24px;
+        bottom: 24px;
+        transition: bottom 0.3s ease-in;
         & > div {
             position: relative;
-            left: -58px;
-            bottom: 43px;
+            left: 0px;
+            bottom: 0px;
             // Single message container
-            & > div > div {
-                background-color: $main-white !important;
-                border-radius: 5px !important;
-                color: $main-gray !important;
-                font-size: 12px !important;
-                padding-left: 67px;
-                padding-right: 33px;
-                & > div:nth-child(1) {
-                    // The icon container
+            & > div {
+                position: relative;
+                transform: none;
+                -webkit-transform: none;
+                overflow: hidden;
+                transition: max-height 0.7s ease-in-out;
+                &:nth-child(1) {
+                    margin-bottom: 5px;
+                }
+                &:nth-child(2) {
+                    max-height: 200px;
                     & > div {
-                        width: 0px;
-                        .jitsi-icon {
-                            width: 35px;
-                            position: absolute;
-                            top: 0;
-                            left: 20px;
-                            bottom: 0;
-                            display: block;
-                            height: 100%;
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            .tvt-icon-warning {
-                                width: 32px !important;
-                                height: 32px !important;
-                            }
-                        }
-                    }
-                    // The text message
-                    & > span {
-                        color: $main-gray !important;
-                    }
-                    // The close button
-                    button {
-                        color: $main-gray !important;
-                        position: absolute;
-                        top: 8px;
-                        right: 8px;
+                        box-shadow: none;
                     }
                 }
-
-                // The sub message link container
-                & > div:nth-child(2) {
-                    padding-left: 0px !important;
-                    padding-top: 0px !important;
-                    // Buttons container
-                    & > div > div:nth-child(2) {
-                        justify-content: center;
-                        // Button container
+                &:nth-child(n + 3) {
+                    max-height: 0px;
+                }
+                & > div {
+                    position: relative;
+                    background-color: $main-white !important;
+                    border-radius: 5px !important;
+                    color: $main-gray !important;
+                    font-size: 12px !important;
+                    padding-left: 67px;
+                    padding-right: 33px;
+                    & > div:nth-child(1) {
+                        // The icon container
                         & > div {
-                            margin-right: 10px;
-                            button {
-                                @include tvt-button-empty($accent);
-                                &:hover {
-                                    text-decoration: none;
-                                    span {
+                            width: 0px;
+                            .jitsi-icon {
+                                width: 35px;
+                                position: absolute;
+                                top: 0;
+                                left: 20px;
+                                bottom: 0;
+                                display: block;
+                                height: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                .tvt-icon-warning {
+                                    width: 32px !important;
+                                    height: 32px !important;
+                                }
+                            }
+                        }
+                        // The text message
+                        & > span {
+                            color: $main-gray !important;
+                        }
+                        // The close button
+                        button {
+                            color: $main-gray !important;
+                            position: absolute;
+                            top: 8px;
+                            right: 8px;
+                        }
+                    }
+
+                    // The sub message link container
+                    & > div:nth-child(2) {
+                        padding-left: 0px !important;
+                        padding-top: 0px !important;
+                        // Buttons container
+                        & > div > div:nth-child(2) {
+                            justify-content: center;
+                            // Button container
+                            & > div {
+                                margin-right: 10px;
+                                button {
+                                    @include tvt-button-empty($accent);
+                                    &:hover {
                                         text-decoration: none;
-                                    }
-                                } 
+                                        span {
+                                            text-decoration: none;
+                                        }
+                                    } 
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+    }
+    &.toolbox-opened {
+        & > div > div:not([class^="Modal__FillScreen"]):not([class^="styled__Tooltip"])  {
+            bottom: 97px;
         }
     }
 }

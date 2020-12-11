@@ -26,45 +26,56 @@
         fill: $accent;
     }
 }
+
 // Settings dialog
-.eoRGoR {
+.atlaskit-portal-container [class^="Modal__Dialog"] {
     background-color: $main-white !important;
-    border-radius: 15px !important;
+    border-radius: 5px !important;
     color: #4a4a4a !important;
-    .jUctfm {
+    [class^="Content__Title"] {
         font-size: 19px;
         font-weight: bold;
     }
     .settings-dialog {
         // Bottom underline, whole width
-        .ybfvp {
-            background-color: $accent-lighten1;
+        [class^="styled__NavLine"] {
+            background-color: transparent;
+            &:after {
+                content: ' ';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                border-bottom: 1px solid $accent2;
+            }
         }
         // Navigation tabs container
-        .bZoCUn {
+        [class^="styled__Nav"] {
             width: 100%;
             display: flex;
             flex-direction: row;
             font-size: 14px;
             font-weight: bold;
-            text-transform: uppercase;
-            & div {
+            & [class^="styled__NavItem"] {
                 flex-grow: 1;
-                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 // Selected tab
-                &.iqNwPx {
-                    color: $accent;
+                &[aria-selected="true"] {
+                    color: $accent2;
                     &:focus {
                         outline: none !important;
                     }
                     & span.bHNyBH {
-                        background-color: $accent;
-                        color: $accent;
+                        background-color: $accent2;
+                        color: $accent2;
                     }
                 }
                 // Not selected tab
-                &.oQiLZ {
-                    color: $accent-lighten1;
+                &[aria-selected="false"] {
+                    color: $accent2;
+                    font-weight: normal;
                 }
             }
         }
@@ -78,14 +89,15 @@
                         height: 216px;
                         width: 100%;
                         .video-input-preview {
-                            border-radius: 20px;
+                            border-radius: 5px;
                             overflow: hidden;
                             position: relative;
                             width: 100%;
                             height: 100%;
                             .video-input-preview-display {
                                 position: absolute;
-                                top: 0%;
+                                top: 0px;
+                                left: 0px;
                                 right: -22%;
                                 width: auto;
                                 height: 100%;
@@ -94,8 +106,8 @@
                     }
                 }
                 .device-selection-column.column-selectors {
-                    margin-left: 9px;
-                    width: 47%;
+                    margin-left: 20px;
+                    width: 45%;
                     .device-selector-label {
                         display: flex;
                         flex-direction: row;
@@ -105,6 +117,7 @@
                         & span {
                             font-size: 12px;
                             text-transform: uppercase;
+                            display: none;
                         }
                     }
                     .device-selectors {
@@ -130,6 +143,11 @@
                             }
                         }
                     }
+                    .audio-output-preview {
+                        a {
+                            color: $accent2;
+                        }
+                    }
                 }
             }
         }
@@ -138,7 +156,8 @@
             // Language select label
             .mock-atlaskit-label {
                 font-size: 12px;
-                text-transform: uppercase;
+                color: $gray-lighten3;
+                font-weight: normal;
             }
             // Selector trigger
             [class^="Droplist__Trigger"] {
@@ -166,25 +185,25 @@
             flex-direction: row;
             justify-content: center;
             & > div {
-                max-width: 175px;
-                min-width: 44%;
+                max-width: 121px;
+                min-width: 121px;
                 & > button {
                     width: 100%;
-                    border-radius: 10px;
+                    border-radius: 3px;
                     display: flex;
                     justify-content: center;
-                    padding: 17px 0px;
-                    border: 1px solid $brand;
+                    padding: 15px 0px;
+                    border: 1px solid $accent2;
                 }
                 &:first-child {
                     button {
-                        background: $brand;
+                        background: $accent2;
                         span {
                             color: $main-white;
                         }
                         &:hover {
-                            box-shadow: 0 0 0 1pt $brand;
-                            background: $brand;
+                            box-shadow: 0 0 0 1pt $accent2;
+                            background: $accent2;
                         }
                     }
                 }
@@ -193,10 +212,10 @@
                     button {
                         background: $main-white;
                         span {
-                            color: $brand;
+                            color: $accent2;
                         }
                         &:hover {
-                            box-shadow: 0 0 0 1pt $brand;
+                            box-shadow: 0 0 0 1pt $accent2;
                             background: $main-white;
                         }
                     }

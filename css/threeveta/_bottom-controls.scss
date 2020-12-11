@@ -1,5 +1,6 @@
 // Bottom controls
 $button-padding: 6px;
+
 .button-group-left,
 .button-group-right {
     .toolbox-icon  {
@@ -166,14 +167,23 @@ $popup-radius: 15px;
 }
 
 // Right side bottom popup
-.new-toolbox .toolbox-content .overflow-menu {
-    @include popup;
-    padding: 5px;
-    .overflow-menu-item {
-        @include popup-item;
-        padding: 7px 12px;
-        &:hover {
-            background: $light-gray !important;
+.new-toolbox {
+    .toolbox-background {
+        background-image: linear-gradient(to top, rgb(0 0 0 / 81%), rgb(0 0 0 / 0%));
+        z-index: 615;
+    }
+    .toolbox-content {
+        z-index: 616;
+        .overflow-menu {
+            @include popup;
+            padding: 5px;
+            .overflow-menu-item {
+                @include popup-item;
+                padding: 7px 12px;
+                &:hover {
+                    background: $light-gray !important;
+                }
+            }
         }
     }
 }

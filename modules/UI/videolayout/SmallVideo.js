@@ -124,6 +124,8 @@ export default class SmallVideo {
         this.updateView = this.updateView.bind(this);
 
         this._onContainerClick = this._onContainerClick.bind(this);
+
+        this._onConnectionStatusUpdate = this._onConnectionStatusUpdate.bind(this);
     }
 
     /**
@@ -507,6 +509,20 @@ export default class SmallVideo {
     }
 
     /**
+     * Threeveta added logic.
+     * Sents the color class to the container in order to show colored box-shodow
+     * if the connection is low
+     *
+     * @param colorClass indicates the connection strength
+     */
+    _onConnectionStatusUpdate({ colorClass }) {
+        console.log('Small Video colorClass:', colorClass);
+        this.$container.removeClass((index, classNames) =>
+            classNames.split(' ').filter(name => name.startsWith('tvt-connection-')));
+        this.$container.addClass(`tvt-connection-${colorClass}`);
+    }
+
+    /**
      * Updates the css classes of the thumbnail based on the current state.
      */
     updateView() {
@@ -736,6 +752,10 @@ export default class SmallVideo {
 
                                     // Threeveta disable stats popup
                                     enableStatsDisplay = { false }
+
+                                    // Threeveta adds inernet connection
+                                    // status updates propagation
+                                    onConnectionStatusUpdate = { this._onConnectionStatusUpdate }
                                     participantId = { this.id }
                                     statsPopoverPosition = { statsPopoverPosition } />
                                 : null }

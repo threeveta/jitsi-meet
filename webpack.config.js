@@ -300,7 +300,6 @@ function devServerProxyBypass({ path }) {
             || path.startsWith('/lang/')
             || path.startsWith('/sounds/')
             || path.startsWith('/static/')
-            || path.endsWith('77144053.png')
             || path.endsWith('.wasm')) {
         return path;
     }

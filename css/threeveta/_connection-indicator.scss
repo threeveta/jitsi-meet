@@ -26,14 +26,14 @@
         &_empty,
         &_lost
         {
-            color: #8B8B8B;/*#FFFFFF*/
+            color: #8B8B8B;
             overflow: hidden;
         }
 
         &_full
         {
             @include topLeft();
-            color: #FFFFFF;/*#15A1ED*/
+            color: #FFFFFF;
             overflow: hidden;
         }
 
@@ -64,13 +64,13 @@
 
     &.status-med {
         background: #E9DA59;
+        font-size: 10px !important;
     }
-
-    &.status-lost {
-        background: $inactive-gray;
-    }
-
+    
+    &.status-other,
+    &.status-lost,
     &.status-low {
+        font-size: 12px !important;
         $low-status-red: #FF4848;
         background: $low-status-red;
         &::after {
@@ -96,6 +96,27 @@
             box-shadow: 0 0 11px 3px #ff4848d4;
             opacity: 0;
             animation: status-low-pulsate 2s infinite;
+        }
+    }
+}
+
+.tile-view {
+    .videocontainer {
+        .videocontainer__toptoolbar {
+            .tvt-connection-indicator {
+                font-size: 12px !important;
+                margin-left: 16px !important;
+                margin-top: 14px !important;
+                &.status-med {
+                    font-size: 14px !important;
+                }
+                &.status-other,
+                &.status-lost,
+                &.status-low {
+                    font-size: 16px !important;
+                }
+
+            }
         }
     }
 }

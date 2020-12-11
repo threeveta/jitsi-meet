@@ -8,7 +8,8 @@ $button-padding: 6px;
         background: $main-white;
         padding: $button-padding;
         font-size: 11px !important;
-        &.toggled, &:hover {
+        &.toggled,
+        &:hover {
             background: $inactive-gray !important;
         }
         svg {
@@ -40,11 +41,27 @@ $button-padding: 6px;
 .button-group-center {
     .toolbox-icon  {
         padding: $button-padding;
+        &:hover {
+            background: $gray-lighten4 !important;
+            border: 1px solid transparent !important;
+        }
+        &.toggled, {
+            background: $main-gray !important;
+            border: 1px solid transparent !important;
+            &:hover {
+                background: $gray-lighten !important;
+            }
+        }
     }
     .toolbox-button.tvt-hangup-button {
         .toolbox-icon {
             background-color: $error-color !important;
             border: 1px solid $error-color !important;
+        }
+    }
+    .settings-button-small-icon {
+        &:hover {
+            background-color: $gray-lighten4;
         }
     }
 }

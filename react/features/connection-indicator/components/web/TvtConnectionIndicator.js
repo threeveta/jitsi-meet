@@ -407,13 +407,16 @@ export function _mapDispatchToProps(dispatch: Dispatch<any>) {
 export function _mapStateToProps(state: Object, ownProps: Props) {
     const { participantId } = ownProps;
     const conference = state['features/base/conference'].conference;
+    const hasParticipantId = typeof participantId !== 'undefined';
     const participant
-        = typeof participantId === 'undefined' ? getLocalParticipant(state) : getParticipantById(state, participantId);
+        = hasParticipantId ? getParticipantById(state, participantId) : getLocalParticipant(state);
     const participantDisplayName = participant && participant.id
         ? getParticipantDisplayName(state, participant.id)
         : '';
+    const _participantId = hasParticipantId ? participantId : participant.id;
 
     const props = {
+        participantId: _participantId,
         _connectionStatus: participant?.connectionStatus,
         enableSaveLogs: state['features/base/config'].enableSaveLogs,
         _participantDisplayName: participantDisplayName
@@ -421,9 +424,9 @@ export function _mapStateToProps(state: Object, ownProps: Props) {
 
     if (conference) {
         const firstVideoTrack = getTrackByMediaTypeAndParticipant(
-            state['features/base/tracks'], MEDIA_TYPE.VIDEO, participantId);
+            state['features/base/tracks'], MEDIA_TYPE.VIDEO, _participantId);
         const firstAudioTrack = getTrackByMediaTypeAndParticipant(
-            state['features/base/tracks'], MEDIA_TYPE.AUDIO, participantId);
+            state['features/base/tracks'], MEDIA_TYPE.AUDIO, _participantId);
 
         return {
             ...props,

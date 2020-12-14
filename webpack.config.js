@@ -333,4 +333,13 @@ function devServerProxyBypass({ path }) {
     if (path.startsWith('/libs/')) {
         return path;
     }
+
+    if (path.endsWith('external_api.min.map')) {
+        return '/threeveta/exports/external_api.min.map';
+    }
+    if (path.endsWith('external_api.js')) {
+        console.log('path:', path);
+
+        return '/threeveta/exports/external_api.js';
+    }
 }

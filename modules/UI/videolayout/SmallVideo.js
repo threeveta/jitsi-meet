@@ -516,7 +516,6 @@ export default class SmallVideo {
      * @param colorClass indicates the connection strength
      */
     _onConnectionStatusUpdate({ colorClass }) {
-        console.log('Small Video colorClass:', colorClass);
         this.$container.removeClass((index, classNames) =>
             classNames.split(' ').filter(name => name.startsWith('tvt-connection-')));
         this.$container.addClass(`tvt-connection-${colorClass}`);

@@ -104,7 +104,7 @@ export default class ToolboxButtonWithIcon extends Component<Props, State> {
         } = this.props;
 
         const iconProps = {};
-        let size = 9;
+        const size = 9;
 
         if (iconDisabled) {
             iconProps.className
@@ -113,10 +113,13 @@ export default class ToolboxButtonWithIcon extends Component<Props, State> {
             iconProps.className = 'settings-button-small-icon';
             iconProps.onClick = onIconClick;
 
-            if (this.state.isHovered) {
-                iconProps.className = `${iconProps.className} settings-button-small-icon--hovered`;
-                size = 11;
-            }
+            // Threeveta change.
+            // In order to disable the button nad icon hover restyling,
+            // we are commenting the hover logic.
+            // if (this.state.isHovered) {
+            //     iconProps.className = `${iconProps.className} settings-button-small-icon--hovered`;
+            //     size = 11;
+            // }
         }
 
         return (

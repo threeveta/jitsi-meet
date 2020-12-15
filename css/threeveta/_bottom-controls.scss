@@ -8,7 +8,8 @@ $button-padding: 6px;
         background: $main-white;
         padding: $button-padding;
         font-size: 11px !important;
-        &.toggled, &:hover {
+        &.toggled,
+        &:hover {
             background: $inactive-gray !important;
         }
         svg {
@@ -40,6 +41,17 @@ $button-padding: 6px;
 .button-group-center {
     .toolbox-icon  {
         padding: $button-padding;
+        &:hover {
+            background: $gray-lighten4 !important;
+            border: 1px solid transparent !important;
+        }
+        &.toggled, {
+            background: $main-gray !important;
+            border: 1px solid transparent !important;
+            &:hover {
+                background: $gray-lighten !important;
+            }
+        }
     }
     .toolbox-button.tvt-hangup-button {
         .toolbox-icon {
@@ -47,10 +59,15 @@ $button-padding: 6px;
             border: 1px solid $error-color !important;
         }
     }
+    .settings-button-small-icon {
+        &:hover {
+            background-color: $gray-lighten4;
+        }
+    }
 }
 
 // Bottom controls popup container
-$popup-radius: 15px;
+$popup-radius: 5px;
 .toolbox-button-wth-dialog,
 .audio-preview,
 .video-preview {
@@ -69,20 +86,21 @@ $popup-radius: 15px;
     font-size: 16px;
 }
 @mixin popup-item {
-    border-radius: 10px;
+    border-radius: 3px;
     background: $main-white !important;
     color: $main-gray !important;
     &:hover {
-        background: $light-gray !important;
+        background: $gray-lighten5 !important;
     }
 }
 
 // Central bottom settings popup
 .audio-preview-content {
     @include popup;
-    padding: 0 13px;
+    padding: 9px 20px;
     .audio-preview-header {
         color: $main-gray;
+        padding-left: 0px;
         &:last-child {
             position: relative;
             &:before {
@@ -92,6 +110,11 @@ $popup-radius: 15px;
                 left: 10%;
                 top: 0px;
                 position: absolute;
+            }
+        }
+        & .audio-preview-header-icon {
+            svg {
+                transform: scale(0.85);
             }
         }
     }
@@ -118,20 +141,22 @@ $popup-radius: 15px;
             }
         }
         .audio-preview-test-button {
-            border: 1px solid $brand;
-            border-radius: 9px;
+            border: 1px solid $accent2;
+            border-radius: 3px;
             font-size: 9px;
             padding: 3px 16px;
             line-height: 16px;
-            color: $brand;
+            color: $accent2;
             text-transform: uppercase;
             top: 8px;
             right: 10px;
         }
         .audio-preview-meter-mic {
             top: 14px;
+            right: 10px;
             &.jitsi-icon.metr > svg {
                 fill: #E1E3EA;
+                transform: scale(1.5);
             }
         }
         .audio-preview-icon--check {
@@ -143,24 +168,28 @@ $popup-radius: 15px;
     }
 }
 // Video preview dialog of the bottom center video settings button
+$video-previw-border-radius: 5px;
 .video-preview-container {
     @include popup;
-    padding: 15px;
+    padding: 10px;
     .video-preview {
-        border-radius: 15px;
+        border-radius: $video-previw-border-radius;
         .video-preview-entry {
-            border-radius: 13px;
+            border-radius: $video-previw-border-radius;
             &.video-preview-entry--selected {
-                border: 3px solid $brand;
+                border: 3px solid $accent2;
             }
             .video-preview-label {
-                border-radius: 10px 10px 0px 0px;
+                border-radius: $video-previw-border-radius;
+                text-align: start;
+                bottom: 0px;
+                font-weight: bold;
             }
             .video-preview-overlay {
-                border-radius: 10px;
+                border-radius: 0px;
             }
             .video-preview-video {
-                border-radius: 10px;
+                border-radius: $video-previw-border-radius;
             }
         }
     }
@@ -176,12 +205,12 @@ $popup-radius: 15px;
         z-index: 616;
         .overflow-menu {
             @include popup;
-            padding: 5px;
+            padding: 7px;
             .overflow-menu-item {
                 @include popup-item;
                 padding: 7px 12px;
                 &:hover {
-                    background: $light-gray !important;
+                    background: $gray-lighten5 !important;
                 }
             }
         }

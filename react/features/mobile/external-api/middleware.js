@@ -24,7 +24,7 @@ import { ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture';
 import { sendEvent } from './functions';
 import { OPEN_CHAT } from '../../chat';
 import { OPEN_PARTICIPANTS, PARTICIPANT_JOINED, PARTICIPANT_LEFT, getParticipants, isParticipantModerator } from '../../base/participants';
-import { getTrackByMediaTypeAndParticipant, TRACK_UPDATED } from '../../base/tracks';
+import { getTrackByMediaTypeAndParticipant, TRACK_UPDATED, destroyLocalTracks } from '../../base/tracks';
 import { MEDIA_TYPE } from '../../base/media';
 import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../../base/app';
 import { NativeEventEmitter, NativeModules } from 'react-native';
@@ -162,6 +162,7 @@ MiddlewareRegistry.register(store => next => action => {
         break;
     case APP_WILL_UNMOUNT:
         _removeAllNativeDispatchSubscriptions()
+        store.dispatch(destroyLocalTracks())
         break;
     }
 

@@ -135,7 +135,7 @@ export { default as IconHangup } from '../../../../../threeveta/icons/Hangup.svg
 export { default as IconCamera } from '../../../../../threeveta/icons/Camera.svg';
 export { default as IconCameraDisabled } from '../../../../../threeveta/icons/CameraDisabled.svg';
 export { default as IconCheck } from '../../../../../threeveta/icons/Check.svg';
-export { default as IconMicrophoneEmpty } from '../../../../../threeveta/icons/MicPurpleEmpty.svg';
+export { default as IconMicrophoneEmpty } from '../../../../../threeveta/icons/MicEmpty.svg';
 export { default as IconVolumeEmpty } from '../../../../../threeveta/icons/VolumeEmpty.svg';
 export { default as IconMeter } from '../../../../../threeveta/icons/Meter.svg';
 export { default as IconVolumeEmptySmall } from '../../../../../threeveta/icons/VolumeEmptySmall.svg';

@@ -118,7 +118,7 @@ export default class SmallVideo {
          * @private
          * @type {boolean}
          */
-        this._showRaisedHand = false;
+        this._showRaisedHand = interfaceConfig.SHOW_RISE_HAND_INDICATOR || false;
 
         // Bind event handlers so they are only bound once for every instance.
         this.updateView = this.updateView.bind(this);
@@ -641,7 +641,7 @@ export default class SmallVideo {
             return;
         }
 
-        this._showRaisedHand = show;
+        this._showRaisedHand = interfaceConfig.SHOW_RISE_HAND_INDICATOR && show;
         this.updateIndicators();
     }
 
@@ -753,16 +753,17 @@ export default class SmallVideo {
                                     // Threeveta disable stats popup
                                     enableStatsDisplay = { false }
 
-                                    // Threeveta adds inernet connection
+                                    // Threeveta adds internet connection
                                     // status updates propagation
                                     onConnectionStatusUpdate = { this._onConnectionStatusUpdate }
                                     participantId = { this.id }
                                     statsPopoverPosition = { statsPopoverPosition } />
                                 : null }
-                            <RaisedHandIndicator
+                            {this._showRaisedHand
+                            && <RaisedHandIndicator
                                 iconSize = { iconSize }
                                 participantId = { this.id }
-                                tooltipPosition = { tooltipPosition } />
+                                tooltipPosition = { tooltipPosition } />}
                             { this._showDominantSpeaker && participantCount > 2
                                 ? <DominantSpeakerIndicator
                                     iconSize = { iconSize }

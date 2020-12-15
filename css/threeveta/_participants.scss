@@ -25,6 +25,7 @@ $vido-border-radius: 10px;
 
 @mixin video-container-mixin {
     border: 1px solid transparent !important;
+    &.active-speaker,
     &.videoContainerFocused {
         @include video-container-box-shadow($blue-lighten);
     }

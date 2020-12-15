@@ -1,6 +1,6 @@
-$video-width: 148px;
-$video-height: 110px;
-$vido-border-radius: 10px;
+$video-width: 160px;
+$video-height: 90px;
+$vido-border-radius: 5px;
 
 @mixin video-container {
     padding-top: 0 !important;
@@ -105,7 +105,7 @@ $vido-border-radius: 10px;
                     height: 40px !important;
                 }
                 .indicator-icon-container.toolbar-icon {
-                    bottom: 84px;
+                    bottom: 64px;
                     &.audioMuted {
                         left: 30px;
                     }
@@ -180,7 +180,11 @@ $vido-border-radius: 10px;
 
 .tile-view {
     .videocontainer {
+        border-radius: 5px;
         @include video-container-mixin;
+        & > video {
+            object-fit: fill;
+        }
         .remotevideomenu {
             display: none;
         }
@@ -218,5 +222,16 @@ $vido-border-radius: 10px;
                 }            
             }
         } 
+    }
+}
+
+.tile-view {
+    #filmstripRemoteVideosContainer {
+        .videocontainer {
+            overflow: hidden !important;
+            video {
+                object-fit: fill !important;
+            }
+        }
     }
 }

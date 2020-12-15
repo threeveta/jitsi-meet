@@ -333,15 +333,4 @@ function devServerProxyBypass({ path }) {
     if (path.startsWith('/libs/')) {
         return path;
     }
-
-    // Uncomment when developing in order to not have the dev-server con not proxy the
-    // external_api.js/map files
-    //     if (path.endsWith('external_api.min.map')) {
-    //         return '/threeveta/exports/external_api.min.map';
-    //     }
-    //     if (path.endsWith('external_api.js')) {
-    //         console.log('path:', path);
-
-    //         return '/threeveta/exports/external_api.js';
-    //     }
 }

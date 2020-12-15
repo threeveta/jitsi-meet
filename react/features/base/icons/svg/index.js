@@ -43,7 +43,8 @@ export { default as IconEmail } from './envelope.svg';
 export { default as IconEventNote } from './event_note.svg';
 export { default as IconExclamation } from './exclamation.svg';
 export { default as IconExclamationSolid } from './exclamation-solid.svg';
-export { default as IconExitFullScreen } from './exit-full-screen.svg';
+
+// export { default as IconExitFullScreen } from './exit-full-screen.svg';
 export { default as IconFeedback } from './feedback.svg';
 
 // export { default as IconFullScreen } from './full-screen.svg';
@@ -144,3 +145,4 @@ export { default as IconCameraEmptySmall } from '../../../../../threeveta/icons/
 export { default as IconConnectionActive } from '../../../../../threeveta/icons/ConnectionActive.svg';
 export { default as IconTvtInfo } from '../../../../../threeveta/icons/Info.svg';
 export { default as IconTvtWarning } from '../../../../../threeveta/icons/Warning.svg';
+export { default as IconExitFullScreen } from '../../../../../threeveta/icons/ExitFullScreen.svg';

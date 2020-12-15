@@ -168,24 +168,28 @@ $popup-radius: 5px;
     }
 }
 // Video preview dialog of the bottom center video settings button
+$video-previw-border-radius: 5px;
 .video-preview-container {
     @include popup;
-    padding: 15px;
+    padding: 10px;
     .video-preview {
-        border-radius: 15px;
+        border-radius: $video-previw-border-radius;
         .video-preview-entry {
-            border-radius: 13px;
+            border-radius: $video-previw-border-radius;
             &.video-preview-entry--selected {
                 border: 3px solid $accent2;
             }
             .video-preview-label {
-                border-radius: 10px 10px 0px 0px;
+                border-radius: $video-previw-border-radius;
+                text-align: start;
+                bottom: 0px;
+                font-weight: bold;
             }
             .video-preview-overlay {
-                border-radius: 10px;
+                border-radius: 0px;
             }
             .video-preview-video {
-                border-radius: 10px;
+                border-radius: $video-previw-border-radius;
             }
         }
     }
@@ -201,12 +205,12 @@ $popup-radius: 5px;
         z-index: 616;
         .overflow-menu {
             @include popup;
-            padding: 5px;
+            padding: 7px;
             .overflow-menu-item {
                 @include popup-item;
                 padding: 7px 12px;
                 &:hover {
-                    background: $light-gray !important;
+                    background: $gray-lighten5 !important;
                 }
             }
         }

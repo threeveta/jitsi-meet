@@ -12,6 +12,8 @@ import ConferenceTimer from '../ConferenceTimer';
 
 import ParticipantsCount from './ParticipantsCount';
 
+declare var interfaceConfig: Object;
+
 /**
  * The type of the React {@code Component} props of {@link Subject}.
  */
@@ -63,7 +65,8 @@ class Subject extends Component<Props> {
                     is jumping up after the timer renders.
                 */}
                 <div className = 'tvt-conference-timer-wrapper'>
-                    <ConferenceTimer />
+                    {!interfaceConfig.MEETING_IS_WAITING_ROOM
+                    && <ConferenceTimer />}
                 </div>
                 <div className = 'tvt-subject-indicator-watermarks-wrapper'>
                     <TvtConnectionIndicator

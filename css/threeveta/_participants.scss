@@ -25,11 +25,10 @@ $vido-border-radius: 5px;
 
 @mixin video-container-mixin {
     border: 1px solid transparent !important;
-    &.active-speaker,
     &.videoContainerFocused {
         @include video-container-box-shadow($blue-lighten);
     }
-    &:hover:not(.videoContainerFocused) {
+    &:hover:not(.videoContainerFocused):not(.active-speaker) {
         @include video-container-box-shadow($blue-lighten1);
     }
     &.tvt-connection-status-low,
@@ -179,6 +178,9 @@ $vido-border-radius: 5px;
 }
 
 .tile-view {
+    .active-speaker {
+        @include video-container-box-shadow($blue-lighten);
+    }
     .videocontainer {
         border-radius: 5px;
         @include video-container-mixin;

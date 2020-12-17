@@ -14,7 +14,7 @@ import {
 } from '../../react/features/base/conference';
 import { parseJWTFromURLParams } from '../../react/features/base/jwt';
 import JitsiMeetJS, { JitsiRecordingConstants } from '../../react/features/base/lib-jitsi-meet';
-import { pinParticipant } from '../../react/features/base/participants';
+import { kickParticipant, muteRemoteParticipant, pinParticipant } from '../../react/features/base/participants';
 import {
     processExternalDeviceRequest
 } from '../../react/features/device-selection/functions';
@@ -27,6 +27,7 @@ import {
     selectParticipantInLargeVideo
 } from '../../react/features/large-video/actions';
 import { toggleLobbyMode } from '../../react/features/lobby/actions.web';
+import { NOTIFICATION_TYPE, showNotification } from '../../react/features/notifications';
 import { RECORDING_TYPES } from '../../react/features/recording/constants';
 import { getActiveSession } from '../../react/features/recording/functions';
 import { muteAllParticipants } from '../../react/features/remote-video-menu/actions';
@@ -73,6 +74,14 @@ let videoAvailable = true;
  */
 function initCommands() {
     commands = {
+        'kick-participant': id => {
+            logger.debug('Kick participant command received');
+            APP.store.dispatch(kickParticipant(id));
+        },
+        'mute-participant': id => {
+            logger.debug('Mute participant command received');
+            APP.store.dispatch(muteRemoteParticipant(id));
+        },
         'display-name': displayName => {
             sendAnalytics(createApiEvent('display.name.changed'));
             APP.conference.changeLocalDisplayName(displayName);

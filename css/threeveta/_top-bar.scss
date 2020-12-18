@@ -2,6 +2,7 @@
     .subject {
         top: -57px;
         height: 115px;
+        overflow: visible;
         .tvt-conference-timer-wrapper {
             min-height: 25px;
         }
@@ -34,10 +35,30 @@
                 left: 0px;
             }
         }
+        .tvt-status-indicators-wrapper {
+            position: relative;
+            width: fit-content;
+            top: 33px;
+            @include transition(top .3s ease-in);
+            & > div {
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                .indicator-container {
+                    margin-right: 4px;
+                    .moderator-icon {
+                        display: none;
+                    }
+                }
+            }
+        }
         &.visible {
             top: 0px;
             .tvt-subject-indicator-watermarks-wrapper {
                 top: 6px;
+            }
+            .tvt-status-indicators-wrapper {
+                top: 7px;
             }
         }
     }

@@ -2,8 +2,9 @@
 
 import React, { Component } from 'react';
 
+import { StatusIndicators } from '../../../../../react/features/filmstrip';
 import { getConferenceName } from '../../../base/conference/functions';
-import { getParticipantCount } from '../../../base/participants/functions';
+import { getLocalParticipant, getParticipantCount } from '../../../base/participants/functions';
 import Watermarks from '../../../base/react/components/web/Watermarks';
 import { connect } from '../../../base/redux';
 import { TvtConnectionIndicator } from '../../../connection-indicator/components/web';
@@ -33,7 +34,12 @@ type Props = {
     /**
      * Indicates whether the component should be visible or not.
      */
-    _visible: boolean
+    _visible: boolean,
+
+    /**
+     * The local participant.
+     */
+    _localParticipant: Object
 };
 
 /**
@@ -50,7 +56,7 @@ class Subject extends Component<Props> {
      * @returns {ReactElement}
      */
     render() {
-        const { _showParticipantCount, _subject, _visible } = this.props;
+        const { _localParticipant, _showParticipantCount, _subject, _visible } = this.props;
 
         return (
             <div className = { `subject ${_visible ? 'visible' : ''}` }>
@@ -76,6 +82,12 @@ class Subject extends Component<Props> {
                         showLogs = { true } />
                     <Watermarks />
                 </div>
+
+                {!interfaceConfig.MEETING_IS_WAITING_ROOM
+                && <div className = 'tvt-status-indicators-wrapper'>
+                    <StatusIndicators
+                        participantID = { _localParticipant.id } />
+                </div>}
             </div>
         );
     }
@@ -94,11 +106,13 @@ class Subject extends Component<Props> {
  */
 function _mapStateToProps(state) {
     const participantCount = getParticipantCount(state);
+    const _localParticipant = getLocalParticipant(state);
 
     return {
         _showParticipantCount: participantCount > 2,
         _subject: getConferenceName(state),
-        _visible: isToolboxVisible(state) && participantCount > 1
+        _visible: isToolboxVisible(state) && participantCount > 1,
+        _localParticipant
     };
 }
 

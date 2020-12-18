@@ -366,7 +366,7 @@ export default {
     localVideTrackContainer: {
         width: "100%",
         height: 300,
-        borderRadius: 15,
+        borderRadius: 10,
         overflow: "hidden",
     },
 
@@ -381,7 +381,7 @@ export default {
         width: "100%",
         height: 50,
         backgroundColor: "#F4F5FA",
-        borderRadius: 8,
+        borderRadius: 5,
         alignItems: "center",
         flexDirection: "row",
         paddingHorizontal: 15,

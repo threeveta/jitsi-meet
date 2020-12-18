@@ -13,23 +13,6 @@ export default {
         alignItems: "center",
         justifyContent: "center",
     },
-    waitingMessageContainer: {
-        position: "absolute",
-        padding: 15,
-        backgroundColor: "#FF6926",
-        borderRadius: 5,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    waitingMessageText: {
-        color: 'white',
-    },
 };
 
 /**

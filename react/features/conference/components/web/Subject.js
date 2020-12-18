@@ -108,8 +108,6 @@ function _mapStateToProps(state) {
     const participantCount = getParticipantCount(state);
     const _localParticipant = getLocalParticipant(state);
 
-    console.log('GGP_localParticipant:', _localParticipant);
-
     return {
         _showParticipantCount: participantCount > 2,
         _subject: getConferenceName(state),

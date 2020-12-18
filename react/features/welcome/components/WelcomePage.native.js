@@ -34,6 +34,7 @@ import {
     _mapStateToProps as _abstractMapStateToProps,
 } from "./AbstractWelcomePage";
 import styles from "./styles";
+import { ColorSchemeRegistry } from "../../base/color-scheme";
 
 const { AudioMode } = NativeModules;
 
@@ -173,7 +174,7 @@ class WelcomePage extends AbstractWelcomePage {
                         style={styles.spekaersSelector}
                     >
                         <Text style={{ flex: 1 }}>{selectedDevice?.text}</Text>
-                        <Icon src={IconArrowDown} size={16} color="#923BBA" />
+                        <Icon src={IconArrowDown} size={16} color={this.props._iconColor} />
                     </TouchableOpacity>
                     <View style={styles.speakersDropDown}>
                         <Collapsible
@@ -189,7 +190,7 @@ class WelcomePage extends AbstractWelcomePage {
 
     _renderDevice(device) {
         const { icon, selected, text } = device;
-        const selectedStyle = selected ? styles.selectedText : {};
+        const selectedStyle = selected ? { color: this.props._iconColor } : {};
 
         return (
             <TouchableHighlight
@@ -250,6 +251,7 @@ function _mapStateToProps(state) {
         ..._abstractMapStateToProps(state),
         _localVideoTrack: getLocalVideoTrack(state["features/base/tracks"]),
         _devices: state["features/mobile/audio-mode"].devices,
+        _iconColor: ColorSchemeRegistry._getColor(state, '', 'icon'),
         // _reducedUI: state['features/base/responsive-ui'].reducedUI
     };
 }

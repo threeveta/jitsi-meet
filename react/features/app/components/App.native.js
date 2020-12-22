@@ -4,6 +4,7 @@ import React from 'react';
 import SplashScreen from 'react-native-splash-screen';
 
 import { setColorScheme } from '../../base/color-scheme';
+import { i18next } from '../../base/i18n'
 import { DialogContainer } from '../../base/dialog';
 import { updateFlags } from '../../base/flags/actions';
 import { CALL_INTEGRATION_ENABLED, SERVER_URL_CHANGE_ENABLED } from '../../base/flags/constants';
@@ -114,6 +115,10 @@ export class App extends AbstractApp {
             }))
             dispatch(updateSettings(this.props.userInfo || {}));
 
+            if (this.props.url?.config?.language) {
+                i18next.changeLanguage(this.props.url?.config?.language)
+            }
+
             // Update settings with feature-flag.
             const callIntegrationEnabled = this.props.flags[CALL_INTEGRATION_ENABLED];
 
@@ -144,6 +149,10 @@ export class App extends AbstractApp {
         
         if (this.props.flags !== prevProps.flags) {
             dispatch(updateFlags(this.props.flags));
+        }
+
+        if (this.props.url?.config?.language !== prevProps.url?.config?.language) {
+            i18next.changeLanguage(this.props.url?.config?.language)
         }
     }
 

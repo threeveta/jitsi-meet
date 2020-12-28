@@ -7,7 +7,8 @@ import {
     ADD_MESSAGE,
     CLEAR_MESSAGES,
     SET_PRIVATE_MESSAGE_RECIPIENT,
-    TOGGLE_CHAT
+    TOGGLE_CHAT,
+    SET_UNREAD_MESSAGES_COUNT
 } from './actionTypes';
 import { CHAT_VIEW_MODAL_ID } from './constants';
 
@@ -15,7 +16,8 @@ const DEFAULT_STATE = {
     isOpen: false,
     lastReadMessage: undefined,
     messages: [],
-    privateMessageRecipient: undefined
+    privateMessageRecipient: undefined,
+    unreadMessagesCount: 0,
 };
 
 ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
@@ -73,6 +75,12 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
 
     case TOGGLE_CHAT:
         return updateChatState(state);
+
+    case SET_UNREAD_MESSAGES_COUNT:
+        return {
+            ...state,
+            unreadMessagesCount: action.unreadMessagesCount
+        };
     }
 
     return state;

@@ -41,8 +41,12 @@ export function isWelcomePageAppEnabled(stateful: Function | Object) {
  * {@code true}; otherwise, {@code false}.
  */
 export function isWelcomePageUserEnabled(stateful: Function | Object) {
-    return (
-        typeof APP === 'undefined'
-            ? true
-            : toState(stateful)['features/base/config'].enableWelcomePage);
+    // Threeveta added logic.
+    // We want the wellcome page to be allways disabled.
+    return false;
+
+    // return (
+    //     typeof APP === 'undefined'
+    //         ? true
+    //         : toState(stateful)['features/base/config'].enableWelcomePage);
 }

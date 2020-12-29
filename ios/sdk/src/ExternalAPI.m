@@ -34,6 +34,10 @@ RCT_EXPORT_MODULE();
     };
 };
 
+- (NSArray<NSString *> *)supportedEvents {
+    return @[DISPATCH_REDUX_ACTION];
+}
+
 /**
  * Dispatches an event that occurred on JavaScript to the view's delegate.
  *

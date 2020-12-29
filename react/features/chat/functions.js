@@ -62,19 +62,21 @@ export function replaceNonUnicodeEmojis(message: string) {
  * @returns {number} The number of unread messages.
  */
 export function getUnreadCount(state: Object) {
-    const { lastReadMessage, messages } = state['features/chat'];
-    const messagesCount = messages.length;
+    // const { lastReadMessage, messages } = state['features/chat'];
+    // const messagesCount = messages.length;
 
-    if (!messagesCount) {
-        return 0;
-    }
+    // if (!messagesCount) {
+    //     return 0;
+    // }
 
-    if (navigator.product === 'ReactNative') {
-        // React native stores the messages in a reversed order.
-        return messages.indexOf(lastReadMessage);
-    }
+    // if (navigator.product === 'ReactNative') {
+    //     // React native stores the messages in a reversed order.
+    //     return messages.indexOf(lastReadMessage);
+    // }
 
-    const lastReadIndex = messages.lastIndexOf(lastReadMessage);
+    // const lastReadIndex = messages.lastIndexOf(lastReadMessage);
 
-    return messagesCount - (lastReadIndex + 1);
+    // return messagesCount - (lastReadIndex + 1);
+
+    return state['features/chat'].unreadMessagesCount
 }

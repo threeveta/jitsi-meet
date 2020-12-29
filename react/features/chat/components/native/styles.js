@@ -124,6 +124,11 @@ export default {
     timeText: {
         color: 'rgb(164, 184, 209)',
         fontSize: 13
+    },
+
+    unreadText: {
+        color: 'white',
+        fontWeight: 'bold'
     }
 };
 
@@ -199,5 +204,17 @@ ColorSchemeRegistry.register('Chat', {
             fontSize: 22,
             padding: 8
         }
+    },
+
+    unreadIndicatorContainer: {
+        position: 'absolute', 
+        bottom: -5, 
+        right: -3, 
+        width: 25, 
+        height: 25, 
+        borderRadius: 13, 
+        backgroundColor: schemeColor('unreadIndicatorBackground'), 
+        alignItems: 'center', 
+        justifyContent: 'center',
     }
 });

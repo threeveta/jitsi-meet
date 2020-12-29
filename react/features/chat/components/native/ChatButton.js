@@ -1,5 +1,5 @@
 // @flow
-
+import React from 'react'
 import { CHAT_ENABLED, getFeatureFlag } from '../../../base/flags';
 import { IconChat, IconChatUnread } from '../../../base/icons';
 import { setActiveModalId } from '../../../base/modal';
@@ -9,10 +9,15 @@ import {
     AbstractButton,
     type AbstractButtonProps
 } from '../../../base/toolbox/components';
+import { ColorSchemeRegistry } from '../../../base/color-scheme';
+import ToolboxItem from '../../../base/toolbox/components/ToolboxItem'
 import { openDisplayNamePrompt } from '../../../display-name';
 import { CHAT_VIEW_MODAL_ID } from '../../constants';
 import { getUnreadCount } from '../../functions';
 import { openChat } from '../../actions.any';
+import { View, Text } from 'react-native';
+
+import styles from './styles';
 
 type Props = AbstractButtonProps & {
 
@@ -72,8 +77,40 @@ class ChatButton extends AbstractButton<Props, *> {
      * @protected
      * @returns {boolean}
      */
-    _isToggled() {
-        return Boolean(this.props._unreadMessageCount);
+    // _isToggled() {
+    //     return Boolean(this.props._unreadMessageCount);
+    // }
+
+    render(): React$Node {
+        const props = {
+            ...this.props,
+            accessibilityLabel: this.accessibilityLabel,
+            disabled: this._isDisabled(),
+            elementAfter: this._getElementAfter(),
+            icon: this._getIcon(),
+            label: this._getLabel(),
+            styles: this._getStyles(),
+            toggled: this._isToggled(),
+            tooltip: this._getTooltip()
+        };
+
+        const { _unreadMessageCount } = this.props
+
+        return (
+            <View>
+                <ToolboxItem
+                    disabled = { this._isDisabled() }
+                    onClick = { this._onClick }
+                    { ...props } />
+                {_unreadMessageCount > 0 && (
+                    <View style={this.props._styles.unreadIndicatorContainer}>
+                        <Text style={styles.unreadText}>
+                            {_unreadMessageCount > 9 ? '9+' : _unreadMessageCount}
+                        </Text>
+                    </View>
+                )}
+            </View>
+        );
     }
 }
 
@@ -137,7 +174,8 @@ function _mapStateToProps(state, ownProps) {
     return {
         _showNamePrompt: !localParticipant.name,
         _unreadMessageCount: getUnreadCount(state),
-        visible
+        visible,
+        _styles: ColorSchemeRegistry.get(state, 'Chat')
     };
 }
 

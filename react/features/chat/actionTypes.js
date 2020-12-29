@@ -57,3 +57,13 @@ export const SET_PRIVATE_MESSAGE_RECIPIENT = 'SET_PRIVATE_MESSAGE_RECIPIENT';
 export const TOGGLE_CHAT = 'TOGGLE_CHAT';
 
 export const OPEN_CHAT = 'OPEN_CHAT';
+
+/**
+ * The type of action to set the unread chat messages count. (dispatched from Threeveta code)
+ *
+ * {
+ *     type: SET_UNREAD_MESSAGES_COUNT
+ *     unreadMessagesCount: number
+ * }
+ */
+export const SET_UNREAD_MESSAGES_COUNT = 'SET_UNREAD_MESSAGES_COUNT';

@@ -166,7 +166,7 @@ class WelcomePage extends AbstractWelcomePage {
                         size={20}
                         style={{ color: "#1C8FD8", marginRight: 5 }}
                     />
-                    <Text>SPEAKERS</Text>
+                    <Text>{t('settings.speakers').toUpperCase()}</Text>
                 </View>
                 <View>
                     <TouchableOpacity

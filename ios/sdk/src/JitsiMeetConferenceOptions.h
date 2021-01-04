@@ -49,6 +49,8 @@
  */
 @property (nonatomic, readonly, nonnull) NSDictionary *featureFlags;
 
+@property (nonatomic, copy, nullable) NSString *language;
+
 /**
  * Set to YES to join the conference with audio / video muted or to start in audio
  * only mode respectively.
@@ -87,6 +89,8 @@
 @property (nonatomic, readonly) BOOL audioOnly;
 @property (nonatomic, readonly) BOOL audioMuted;
 @property (nonatomic, readonly) BOOL videoMuted;
+
+@property (nonatomic, copy, nullable, readonly) NSString *language;
 
 @property (nonatomic, readonly) BOOL welcomePageEnabled;
 

@@ -28,7 +28,7 @@ type Props = AbstractButtonProps & {
 class ParticipantsButton extends AbstractButton<Props, *> {
     accessibilityLabel = '';
     icon = IconUserGroups;
-    label = 'Participants ' + `(${this.props._participantsCount})`; //TODO translate label
+    label = this.props.t('toolbar.participants', { count: this.props._participantsCount });
 
     /**
      * Handles clicking / pressing the button.

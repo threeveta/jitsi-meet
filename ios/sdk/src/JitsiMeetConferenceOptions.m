@@ -52,6 +52,8 @@ static NSString *const WelcomePageEnabledFeatureFlag = @"welcomepage.enabled";
         _videoMuted = nil;
 
         _userInfo = nil;
+        
+        _language = nil;
     }
     
     return self;
@@ -168,6 +170,8 @@ static NSString *const WelcomePageEnabledFeatureFlag = @"welcomepage.enabled";
         _featureFlags = [NSDictionary dictionaryWithDictionary:builder.featureFlags];
 
         _userInfo = builder.userInfo;
+        
+        _language = builder.language;
     }
 
     return self;
@@ -204,6 +208,9 @@ static NSString *const WelcomePageEnabledFeatureFlag = @"welcomepage.enabled";
     }
     if (_subject != nil) {
         config[@"subject"] = self.subject;
+    }
+    if (_language != nil) {
+        config[@"language"] = self.language;
     }
 
     NSMutableDictionary *urlProps = [[NSMutableDictionary alloc] init];

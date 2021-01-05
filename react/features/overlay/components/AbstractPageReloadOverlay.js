@@ -100,7 +100,6 @@ export default class AbstractPageReloadOverlay<P: Props>
         // the value of 'fatalError' which relies on the flag should not be used
         // on web yet (until conference/connection and their errors handling is
         // not unified).
-
         return typeof APP === 'undefined'
             ? Boolean(state['features/overlay'].fatalError)
             : this.needsRenderWeb(state);

@@ -18,7 +18,6 @@ import logger from '../logger';
 import ReloadButton from './web/ReloadButton';
 
 declare var APP: Object;
-declare var interfaceConfig: Object;
 
 /**
  * The type of the React {@code Component} props of
@@ -102,10 +101,6 @@ export default class AbstractPageReloadOverlay<P: Props>
         // on web yet (until conference/connection and their errors handling is
         // not unified).
 
-        if (interfaceConfig.HIDE_RELOAD_OVERLAY) {
-            return false;
-        }
-
         return typeof APP === 'undefined'
             ? Boolean(state['features/overlay'].fatalError)
             : this.needsRenderWeb(state);
@@ -123,10 +118,6 @@ export default class AbstractPageReloadOverlay<P: Props>
         const conferenceError = state['features/base/conference'].error;
         const configError = state['features/base/config'].error;
         const connectionError = state['features/base/connection'].error;
-
-        if (interfaceConfig.HIDE_RELOAD_OVERLAY) {
-            return false;
-        }
 
         return (
             (connectionError && isFatalJitsiConnectionError(connectionError))

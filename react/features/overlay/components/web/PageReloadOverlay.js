@@ -10,6 +10,7 @@ import AbstractPageReloadOverlay, {
 } from '../AbstractPageReloadOverlay';
 
 import OverlayFrame from './OverlayFrame';
+declare var interfaceConfig: Object;
 
 /**
  * Implements a React Component for page reload overlay. Shown before the
@@ -26,6 +27,10 @@ class PageReloadOverlay extends AbstractPageReloadOverlay<Props> {
     render() {
         const { isNetworkFailure, t } = this.props;
         const { message, timeLeft, title } = this.state;
+
+        if (interfaceConfig.HIDE_RELOAD_OVERLAY) {
+            return null;
+        }
 
         return (
             <OverlayFrame isLightOverlay = { isNetworkFailure }>

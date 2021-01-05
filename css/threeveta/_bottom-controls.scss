@@ -23,6 +23,8 @@ $button-padding: 6px;
             text-transform: uppercase;
             font-weight: bold;
             width: fit-content;
+            width: -moz-fit-content;
+            width: -webkit-fit-content;
             padding: $button-padding ($button-padding * 3);
             .tvt-icon-label {
                 margin-left: 1em;

@@ -934,8 +934,8 @@
     "threeveta": {
         "toolbar": {
             "shareScreen": "Share screen",
-            "enterFullScreen": "View Full Screen",
-            "exitFullScreen": "Exit Full Screen"
+            "enterFullScreen": "View full screen",
+            "exitFullScreen": "Exit full screen"
         },
         "videothumbnail": {
             "audioAvailable": "Participant audio is available"

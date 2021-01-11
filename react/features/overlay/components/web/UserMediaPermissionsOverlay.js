@@ -25,6 +25,12 @@ class UserMediaPermissionsOverlay extends AbstractUserMediaPermissionsOverlay {
     render() {
         const { browser, t } = this.props;
 
+        if (interfaceConfig.HIDE_USER_MEDIA_PERMISSIONS_OVERLAY) {
+            console.log('GGP in the Death');
+
+            return null;
+        }
+
         return (
             <OverlayFrame>
                 <div className = 'inlay'>

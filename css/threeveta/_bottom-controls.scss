@@ -28,6 +28,7 @@ $button-padding: 6px;
             padding: $button-padding ($button-padding * 3);
             .tvt-icon-label {
                 margin-left: 1em;
+                text-transform: none;
             }
         }
         @media only screen and (max-width: 700px) {

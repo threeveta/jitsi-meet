@@ -25,6 +25,10 @@ class UserMediaPermissionsOverlay extends AbstractUserMediaPermissionsOverlay {
     render() {
         const { browser, t } = this.props;
 
+        if (interfaceConfig.HIDE_USER_MEDIA_PERMISSIONS_OVERLAY) {
+            return null;
+        }
+
         return (
             <OverlayFrame>
                 <div className = 'inlay'>

@@ -3,7 +3,7 @@
 import React from 'react';
 import { NativeModules, SafeAreaView, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { appNavigate } from '../../../app/actions';
 import { PIP_ENABLED, getFeatureFlag } from '../../../base/flags';
 import { Container, LoadingIndicator, TintedView } from '../../../base/react';
@@ -249,7 +249,7 @@ class Conference extends AbstractConference<Props, *> {
         }
 
         return (
-            <>
+            <SafeAreaProvider>
                 {/*
                   * The LargeVideo is the lowermost stacking layer.
                   */
@@ -339,7 +339,7 @@ class Conference extends AbstractConference<Props, *> {
                 { this._renderConferenceNotification() }
 
                 { this._renderConferenceModals() }
-            </>
+            </SafeAreaProvider>
         );
     }
 

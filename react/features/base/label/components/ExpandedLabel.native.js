@@ -77,7 +77,7 @@ export default class ExpandedLabel<P: Props> extends Component<P, State> {
      */
     render() {
         const arrowPosition
-            = this.props.parentPosition + (LABEL_SIZE / 2);
+            = this.props.parentPosition - LABEL_MARGIN - (LABEL_SIZE / 2);
 
         return (
             <Animated.View
@@ -92,7 +92,7 @@ export default class ExpandedLabel<P: Props> extends Component<P, State> {
                         styles.expandedLabelArrow,
                         {
                             backgroundColor: this._getColor() || DEFAULT_COLOR,
-                            marginLeft: arrowPosition + ARROW_OFFSET
+                            marginRight: arrowPosition + ARROW_OFFSET
                         }
                     ] } />
                 <View

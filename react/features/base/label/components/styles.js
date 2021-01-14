@@ -27,7 +27,7 @@ export default {
     expandedLabelArrow: {
         backgroundColor: ColorPalette.blue,
         height: 15,
-        transform: [ { rotate: '45deg' }, { translateX: 10 } ],
+        transform: [ { rotate: '45deg' }, { translateX: 11 }, { translateY: 2 } ],
         width: 15
     },
 
@@ -44,7 +44,7 @@ export default {
     },
 
     expandedLabelWrapper: {
-        // alignItems: 'flex-end',
+        alignItems: 'flex-end',
         flexDirection: 'column'
     },
 

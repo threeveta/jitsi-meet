@@ -196,6 +196,7 @@ class ReactInstanceManagerHolder {
                 new com.reactnativecommunity.asyncstorage.AsyncStoragePackage(),
                 new com.reactnativecommunity.netinfo.NetInfoPackage(),
                 new com.reactnativecommunity.webview.RNCWebViewPackage(),
+                new com.th3rdwave.safeareacontext.SafeAreaContextPackage(),
                 new com.rnimmersive.RNImmersivePackage(),
                 new com.zmxv.RNSound.RNSoundPackage(),
                 new ReactPackageAdapter() {

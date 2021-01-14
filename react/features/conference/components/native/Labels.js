@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-
+import { withSafeAreaInsets } from 'react-native-safe-area-context'
 import { JitsiRecordingConstants } from '../../../base/lib-jitsi-meet';
 import { connect } from '../../../base/redux';
 import { ASPECT_RATIO_WIDE } from '../../../base/responsive-ui/constants';
@@ -151,7 +151,7 @@ class Labels extends AbstractLabels<Props, State> {
      * @inheritdoc
      */
     render() {
-        const { _aspectRatio, _filmstripVisible, _visible } = this.props;
+        const { _aspectRatio, _filmstripVisible, _visible, insets } = this.props;
 
         if (!_visible) {
             return null;
@@ -162,14 +162,12 @@ class Labels extends AbstractLabels<Props, State> {
         return (
             <View
                 pointerEvents = 'box-none'
-                style = { styles.labelWrapper }>
+                style = {[ styles.labelWrapper, { top: insets.top, right: insets.right } ]}>
                 <View
                     onLayout = { this._onTopViewLayout }
                     pointerEvents = 'box-none'
                     style = { [
-                        styles.indicatorContainer,
-                        wide && _filmstripVisible
-                            && styles.indicatorContainerWide
+                        styles.indicatorContainer
                     ] }>
                     <TouchableOpacity
                         onLayout = { this._createOnLayout(LABEL_ID_RECORDING) }
@@ -220,8 +218,6 @@ class Labels extends AbstractLabels<Props, State> {
                 <View
                     style = { [
                         styles.indicatorContainer,
-                        wide && _filmstripVisible
-                            && styles.indicatorContainerWide
                     ] }>
                     {
                         this._renderExpandedLabel()
@@ -276,7 +272,7 @@ class Labels extends AbstractLabels<Props, State> {
 
                 // This calculation has to be changed if the labels are not
                 // positioned right anymore.
-                const right = labelLayout.x;
+                const right = containerLayout.width - labelLayout.x;
 
                 visibleExpandedLabel
                     = visibleExpandedLabel === label ? undefined : label;
@@ -362,4 +358,4 @@ function _mapStateToProps(state) {
     };
 }
 
-export default connect(_mapStateToProps)(Labels);
+export default connect(_mapStateToProps)(withSafeAreaInsets(Labels));

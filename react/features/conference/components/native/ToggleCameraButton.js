@@ -9,6 +9,7 @@ import { isLocalTrackMuted } from "../../../base/tracks";
 import { TouchableOpacity } from "react-native";
 import styles from "./styles";
 import { ColorPalette } from "../../../base/styles";
+import { ASPECT_RATIO_WIDE } from "../../../base/responsive-ui/constants";
 
 /**
  * The type of the React {@code Component} props of {@link ToggleCameraButton}.
@@ -65,9 +66,10 @@ class ToggleCameraButton extends PureComponent<Props> {
 
     render() {
         if (this._isDisabled()) return null;
+        const wide = this.props._aspectRatio === ASPECT_RATIO_WIDE;
         return (
             <TouchableOpacity
-                style={styles.toggleCameraBtn}
+                style={[styles.toggleCameraBtn, wide && { marginTop: 45 }]}
                 onPress={this._handleClick}
             >
                 <Icon
@@ -99,6 +101,7 @@ function _mapStateToProps(state): Object {
         _audioOnly: Boolean(audioOnly),
         _videoMuted: isLocalTrackMuted(tracks, MEDIA_TYPE.VIDEO),
         _toolboxVisible: isToolboxVisible(state),
+        _aspectRatio: state['features/base/responsive-ui'].aspectRatio,
     };
 }
 

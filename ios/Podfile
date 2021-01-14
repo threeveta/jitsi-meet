@@ -68,6 +68,7 @@ target 'JitsiMeet' do
   pod 'RNWatch', :path => '../node_modules/react-native-watch-connectivity'
   pod 'RNDefaultPreference', :path => '../node_modules/react-native-default-preference'
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
   # Native pod dependencies
   #

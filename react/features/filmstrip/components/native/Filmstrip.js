@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
-
+import { withSafeAreaInsets } from 'react-native-safe-area-context'
 import { Container, Platform } from '../../../base/react';
 import { connect } from '../../../base/redux';
 import { ASPECT_RATIO_NARROW } from '../../../base/responsive-ui/constants';
@@ -87,7 +87,7 @@ class Filmstrip extends Component<Props> {
      * @returns {ReactElement}
      */
     render() {
-        const { _aspectRatio, _enabled, _participants, _visible } = this.props;
+        const { _aspectRatio, _enabled, _participants, _visible, insets } = this.props;
 
         if (!_enabled) {
             return null;
@@ -98,7 +98,7 @@ class Filmstrip extends Component<Props> {
 
         return (
             <Container
-                style = { filmstripStyle }
+                style = { [filmstripStyle, { left: insets.left }] }
                 visible = { _visible }>
                 {
                     this._separateLocalThumbnail
@@ -186,4 +186,4 @@ function _mapStateToProps(state) {
     };
 }
 
-export default connect(_mapStateToProps)(Filmstrip);
+export default connect(_mapStateToProps)(withSafeAreaInsets(Filmstrip));

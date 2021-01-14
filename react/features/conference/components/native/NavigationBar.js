@@ -12,6 +12,7 @@ import { isToolboxVisible } from '../../../toolbox/functions.native';
 import ConferenceTimer from '../ConferenceTimer';
 
 import styles, { NAVBAR_GRADIENT_COLORS } from './styles';
+import { ASPECT_RATIO_WIDE } from '../../../base/responsive-ui/constants';
 
 type Props = {
 
@@ -51,11 +52,13 @@ class NavigationBar extends Component<Props> {
             return null;
         }
 
+        const wide = this.props._aspectRatio === ASPECT_RATIO_WIDE;
+
         return [
             <View
                 key = { 2 }
                 pointerEvents = 'box-none'
-                style = { styles.navBarWrapper }>
+                style = {[ styles.navBarWrapper, wide && { justifyContent: 'flex-end' } ]}>
                 {
                     this.props._conferenceTimerEnabled && <ConferenceTimer />
                 }
@@ -90,7 +93,8 @@ function _mapStateToProps(state) {
         _conferenceTimerEnabled: getFeatureFlag(state, CONFERENCE_TIMER_ENABLED, true),
         _meetingName: getConferenceName(state),
         _meetingNameEnabled: getFeatureFlag(state, MEETING_NAME_ENABLED, true),
-        _visible: isToolboxVisible(state)
+        _visible: isToolboxVisible(state),
+        _aspectRatio: state['features/base/responsive-ui'].aspectRatio,
     };
 }
 

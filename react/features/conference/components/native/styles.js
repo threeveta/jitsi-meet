@@ -61,23 +61,23 @@ export default {
      */
     indicatorContainer: {
         flex: 1,
-        flexDirection: "row",
-        // justifyContent: "flex-end",
-        margin: BoxModel.margin,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        margin: BoxModel.margin
     },
 
     /**
      * Indicator container for wide aspect ratio.
      */
     indicatorContainerWide: {
-        marginLeft: FILMSTRIP_SIZE + BoxModel.margin,
+        marginRight: FILMSTRIP_SIZE + BoxModel.margin
     },
 
     labelWrapper: {
-        flexDirection: "column",
-        position: "absolute",
-        left: 0,
-        top: 0,
+        flexDirection: 'column',
+        position: 'absolute',
+        right: 0,
+        top: 0
     },
 
     lonelyButton: {
@@ -133,7 +133,7 @@ export default {
         flexDirection: "row",
         height: 44,
         justifyContent: "space-between",
-        paddingHorizontal: 14,
+        // paddingHorizontal: 14,
     },
 
     roomTimer: {
@@ -142,6 +142,7 @@ export default {
         paddingVertical: 3,
         paddingHorizontal: 6,
         marginTop: 5,
+        marginLeft: 15,
         borderRadius: 4,
         overflow: 'hidden',
         backgroundColor: "#22222277"
@@ -179,7 +180,8 @@ export default {
         // Both on Android and iOS there is the status bar which may be visible.
         // On iPhone X there is the notch. In the two cases BoxModel.margin is
         // not enough.
-        top: BoxModel.margin * 3,
+        // top: BoxModel.margin * 3,
+        top: 0,
     },
 
     insecureRoomNameLabel: {

@@ -474,6 +474,7 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
             case 'participant-joined': {
                 this._participants[userID] = this._participants[userID] || {};
                 this._participants[userID].displayName = data.displayName;
+                this._participants[userID].avatarURL = data.avatarURL;
                 this._participants[userID].formattedDisplayName
                     = data.formattedDisplayName;
                 changeParticipantNumber(this, 1);

@@ -3,7 +3,6 @@
 import React from 'react';
 import type { Dispatch } from 'redux';
 
-import { NOTIFICATION_TYPE, showNotification, hideNotification } from '../../../../../react/features/notifications';
 import { translate } from '../../../base/i18n';
 import { Icon, IconConnectionActive, IconConnectionInactive } from '../../../base/icons';
 import { JitsiParticipantConnectionStatus } from '../../../base/lib-jitsi-meet';
@@ -11,6 +10,7 @@ import { MEDIA_TYPE } from '../../../base/media';
 import { getLocalParticipant, getParticipantById, getParticipantDisplayName } from '../../../base/participants';
 import { connect } from '../../../base/redux';
 import { getTrackByMediaTypeAndParticipant } from '../../../base/tracks';
+import { NOTIFICATION_TYPE, showNotification, hideNotification } from '../../../notifications';
 import { saveLogs } from '../../actions';
 import AbstractConnectionIndicator, {
     INDICATOR_DISPLAY_THRESHOLD,

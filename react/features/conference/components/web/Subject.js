@@ -2,12 +2,12 @@
 
 import React, { Component } from 'react';
 
-import { StatusIndicators } from '../../../../../react/features/filmstrip';
 import { getConferenceName } from '../../../base/conference/functions';
 import { getLocalParticipant, getParticipantCount } from '../../../base/participants/functions';
 import Watermarks from '../../../base/react/components/web/Watermarks';
 import { connect } from '../../../base/redux';
 import { TvtConnectionIndicator } from '../../../connection-indicator/components/web';
+import { StatusIndicators } from '../../../filmstrip/components/web';
 import { isToolboxVisible } from '../../../toolbox/functions.web';
 import ConferenceTimer from '../ConferenceTimer';
 

@@ -57,9 +57,10 @@ class Subject extends Component<Props> {
      */
     render() {
         const { _localParticipant, _showParticipantCount, _subject, _visible } = this.props;
+        const meetingType = interfaceConfig.MEETING_IS_WAITING_ROOM ? 'waiting-room' : 'conference';
 
         return (
-            <div className = { `subject ${_visible ? 'visible' : ''}` }>
+            <div className = { `subject ${meetingType} ${_visible ? 'visible' : ''}` }>
                 <span className = 'subject-text'>{ _subject }</span>
                 { _showParticipantCount && <ParticipantsCount /> }
                 {/*
@@ -105,13 +106,13 @@ class Subject extends Component<Props> {
  * }}
  */
 function _mapStateToProps(state) {
-    const participantCount = getParticipantCount(state);
+    // const participantCount = getParticipantCount(state);
     const _localParticipant = getLocalParticipant(state);
 
     return {
-        _showParticipantCount: participantCount > 2,
+        _showParticipantCount: false, // participantCount > 2
         _subject: getConferenceName(state),
-        _visible: isToolboxVisible(state) && participantCount > 1,
+        _visible: isToolboxVisible(state), // && participantCount > 1,
         _localParticipant
     };
 }

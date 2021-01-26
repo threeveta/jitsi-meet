@@ -78,14 +78,14 @@
     }
 
     &__toolbar {
-        bottom: 0;
+        top: 13px;
         height: $thumbnailToolbarHeight;
         padding: 0 5px 0 5px;
     }
 
     &__toptoolbar {
         $toolbarIconMargin: 5px;
-        top: 0;
+        top: 4px;
         padding-bottom: 0;
         /**
          * Override text-align center as icons need to be left justified.

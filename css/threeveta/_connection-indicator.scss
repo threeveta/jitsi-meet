@@ -9,7 +9,7 @@
     box-sizing: border-box;
     z-index: $zindex3;
     color: $thumbnailPictogramColor;
-    width:  2em;
+    width: 2em;
     height: 2em;
 
     .indicatoricon {
@@ -24,21 +24,18 @@
         @include transform(translate(0, -50%));
 
         &_empty,
-        &_lost
-        {
-            color: #8B8B8B;
+        &_lost {
+            color: #8b8b8b;
             overflow: hidden;
         }
 
-        &_full
-        {
+        &_full {
             @include topLeft();
-            color: #FFFFFF;
+            color: #ffffff;
             overflow: hidden;
         }
 
-        &_ninja
-        {
+        &_ninja {
             font-size: 1.5em;
         }
     }
@@ -59,25 +56,23 @@
 
 .tvt-connection-indicator {
     &.status-high {
-        background: #63CC81;
+        background: #63cc81;
     }
 
     &.status-med {
-        background: #E9DA59;
-        font-size: 10px !important;
+        background: #e9da59;
     }
-    
+
     &.status-other,
     &.status-lost,
     &.status-low {
-        font-size: 12px !important;
-        $low-status-red: #FF4848;
+        $low-status-red: #ff4848;
         background: $low-status-red;
         &::after {
             position: absolute;
             left: 0px;
             top: 0px;
-            content: ' ';
+            content: " ";
             width: 100%;
             height: 100%;
             border-radius: 50%;
@@ -91,7 +86,9 @@
                     transition: opacity 1s linear;
                 }
 
-                100% {opacity: 0;}
+                100% {
+                    opacity: 0;
+                }
             }
             box-shadow: 0 0 11px 3px #ff4848d4;
             opacity: 0;
@@ -105,17 +102,6 @@
         .videocontainer__toptoolbar {
             .tvt-connection-indicator {
                 font-size: 12px !important;
-                margin-left: 16px !important;
-                margin-top: 14px !important;
-                &.status-med {
-                    font-size: 14px !important;
-                }
-                &.status-other,
-                &.status-lost,
-                &.status-low {
-                    font-size: 16px !important;
-                }
-
             }
         }
     }

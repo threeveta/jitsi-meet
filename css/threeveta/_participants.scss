@@ -12,9 +12,9 @@ $vido-border-radius: 5px;
 
 @mixin video-container-box-shadow($color) {
     border: 1px solid $color !important;
-    -webkit-box-shadow:  inset 0 0 8px $color, 0 0 8px $color !important;
-    -moz-box-shadow:  inset 0 0 8px $color, 0 0 8px $color !important;
-    box-shadow:  inset 0 0 8px $color, 0 0 8px $color !important;
+    -webkit-box-shadow: inset 0 0 8px $color, 0 0 8px $color !important;
+    -moz-box-shadow: inset 0 0 8px $color, 0 0 8px $color !important;
+    box-shadow: inset 0 0 8px $color, 0 0 8px $color !important;
 }
 
 // Filmstrip toggle button
@@ -88,8 +88,8 @@ $vido-border-radius: 5px;
             width: $video-width;
             // Provider and cliet video containters
             & .videocontainer {
-               @include video-container;
-               @include video-container-mixin;
+                @include video-container;
+                @include video-container-mixin;
                 .moderator-icon {
                     display: none;
                 }
@@ -104,7 +104,6 @@ $vido-border-radius: 5px;
                     height: 40px !important;
                 }
                 .indicator-icon-container.toolbar-icon {
-                    bottom: 64px;
                     &.audioMuted {
                         left: 30px;
                     }
@@ -116,7 +115,7 @@ $vido-border-radius: 5px;
                     .indicator-icon-container.toolbar-icon {
                         &.audioMuted {
                             left: 35px;
-                        }            
+                        }
                     }
                 }
                 &.tvt-connection-status-low,
@@ -125,9 +124,9 @@ $vido-border-radius: 5px;
                     .indicator-icon-container.toolbar-icon {
                         &.audioMuted {
                             left: 38px;
-                        }            
+                        }
                     }
-                } 
+                }
             }
             #filmstripLocalVideo {
                 margin-bottom: 0px;
@@ -145,7 +144,7 @@ $vido-border-radius: 5px;
                     flex-direction: column !important;
                     padding-top: 17px;
                     &::before {
-                        content: ' ';
+                        content: " ";
                         height: 1px;
                         background: $main-white;
                         width: 96%;
@@ -190,9 +189,7 @@ $vido-border-radius: 5px;
         .remotevideomenu {
             display: none;
         }
-        .videocontainer__toolbar{
-            top: 15px;
-            left: 0;
+        .videocontainer__toolbar {
             .audioMuted {
                 left: 45px;
                 width: 19px !important;
@@ -212,7 +209,7 @@ $vido-border-radius: 5px;
             .indicator-icon-container.toolbar-icon {
                 &.audioMuted {
                     left: 48px;
-                }            
+                }
             }
         }
         &.tvt-connection-status-low,
@@ -221,9 +218,9 @@ $vido-border-radius: 5px;
             .indicator-icon-container.toolbar-icon {
                 &.audioMuted {
                     left: 53px;
-                }            
+                }
             }
-        } 
+        }
     }
 }
 

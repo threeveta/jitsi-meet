@@ -3,16 +3,14 @@
     .subject {
         .subject-text {display: none;}
         .subject-conference-timer {
-            width: 41px;
-            height: 23px;
+            width: fit-content;
+            height: auto;
             left: 51px;
             top: 43px;
 
-            // font-family: Source Sans Pro;
             font-style: normal;
             font-weight: bold;
-            font-size: 16px;
-            line-height: 20px;
+            font-size: 14px;
             letter-spacing: 0.4px;
             text-transform: uppercase;
         }

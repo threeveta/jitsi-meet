@@ -2,12 +2,9 @@
 
 import React, { Component } from 'react';
 
-import { getConferenceName } from '../../../base/conference/functions';
-import { getLocalParticipant, getParticipantCount } from '../../../base/participants/functions';
 import Watermarks from '../../../base/react/components/web/Watermarks';
 import { connect } from '../../../base/redux';
 import { TvtConnectionIndicator } from '../../../connection-indicator/components/web';
-import { StatusIndicators } from '../../../filmstrip/components/web';
 import { isToolboxVisible } from '../../../toolbox/functions.web';
 import ConferenceTimer from '../ConferenceTimer';
 
@@ -26,20 +23,9 @@ type Props = {
     _showParticipantCount: boolean,
 
     /**
-     * The subject or the of the conference.
-     * Falls back to conference name.
-     */
-    _subject: string,
-
-    /**
      * Indicates whether the component should be visible or not.
      */
     _visible: boolean,
-
-    /**
-     * The local participant.
-     */
-    _localParticipant: Object
 };
 
 /**
@@ -56,12 +42,11 @@ class Subject extends Component<Props> {
      * @returns {ReactElement}
      */
     render() {
-        const { _localParticipant, _showParticipantCount, _subject, _visible } = this.props;
+        const { _showParticipantCount, _visible } = this.props;
         const meetingType = interfaceConfig.MEETING_IS_WAITING_ROOM ? 'waiting-room' : 'conference';
 
         return (
             <div className = { `subject ${meetingType} ${_visible ? 'visible' : ''}` }>
-                <span className = 'subject-text'>{ _subject }</span>
                 { _showParticipantCount && <ParticipantsCount /> }
                 {/*
                     Threeveta added wrapper.
@@ -71,24 +56,22 @@ class Subject extends Component<Props> {
                     before the timer is rendered. Otherways the TvtConnectionIndicator
                     is jumping up after the timer renders.
                 */}
-                <div className = 'tvt-conference-timer-wrapper'>
+                <div className = 'tvt-subject-indicator-watermarks-wrapper'>
+                    <Watermarks />
                     {!interfaceConfig.MEETING_IS_WAITING_ROOM
                     && <ConferenceTimer />}
-                </div>
-                <div className = 'tvt-subject-indicator-watermarks-wrapper'>
                     <TvtConnectionIndicator
                         alwaysVisible = { true }
-                        iconSize = { 16.5 }
+                        iconSize = { 15.5 }
                         isLocalVideo = { true }
                         showLogs = { true } />
-                    <Watermarks />
+                    {/* {!interfaceConfig.MEETING_IS_WAITING_ROOM && (
+                        <div className = 'tvt-status-indicators-wrapper'>
+                            <StatusIndicators participantID = { _localParticipant.id } />
+                        </div>
+                    )} */}
                 </div>
 
-                {!interfaceConfig.MEETING_IS_WAITING_ROOM
-                && <div className = 'tvt-status-indicators-wrapper'>
-                    <StatusIndicators
-                        participantID = { _localParticipant.id } />
-                </div>}
             </div>
         );
     }
@@ -106,14 +89,10 @@ class Subject extends Component<Props> {
  * }}
  */
 function _mapStateToProps(state) {
-    // const participantCount = getParticipantCount(state);
-    const _localParticipant = getLocalParticipant(state);
 
     return {
-        _showParticipantCount: false, // participantCount > 2
-        _subject: getConferenceName(state),
-        _visible: isToolboxVisible(state), // && participantCount > 1,
-        _localParticipant
+        _showParticipantCount: false,
+        _visible: isToolboxVisible(state)
     };
 }
 

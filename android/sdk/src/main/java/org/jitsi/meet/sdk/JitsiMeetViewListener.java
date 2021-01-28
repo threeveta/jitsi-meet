@@ -68,4 +68,11 @@ public interface JitsiMeetViewListener {
      * @param data with "participants" array containing the updated list.
      */
     void onParticipantsChanged(Map<String, Object> data);
+
+    /**
+     * Fired Jitsi module has loaded.
+     *
+     * @param data is empty.
+     */
+    void onJitsiLoaded(Map<String, Object> data);
 }

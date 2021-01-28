@@ -76,4 +76,11 @@
 */
 - (void)participantsChanged:(NSDictionary *)data;
 
+/**
+* Called when jitsi app loads and is mounted.
+*
+* The `data` dictionary is empty.
+*/
+- (void)jitsiLoaded:(NSDictionary *)data;
+
 @end

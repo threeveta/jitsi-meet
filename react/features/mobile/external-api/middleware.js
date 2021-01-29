@@ -46,6 +46,12 @@ const CONFERENCE_TERMINATED = 'CONFERENCE_TERMINATED';
 const PARTICIPANTS_CHANGED = 'PARTICIPANTS_CHANGED';
 
 /**
+ * Event which will be emitted on the native side to indicate that jitsi module has loaded.
+ * 
+ */
+const JITSI_LOADED = 'JITSI_LOADED';
+
+/**
  * Middleware that captures Redux actions and uses the ExternalAPI module to
  * turn them into native events so the application knows about them.
  *
@@ -159,6 +165,7 @@ MiddlewareRegistry.register(store => next => action => {
         break;
     case APP_WILL_MOUNT:
         _addNativeDispatchSubscription(store)
+        sendEvent(store, JITSI_LOADED, {});
         break;
     case APP_WILL_UNMOUNT:
         _removeAllNativeDispatchSubscriptions()

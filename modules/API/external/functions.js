@@ -41,6 +41,24 @@ export function getCurrentDevices(transport: Object) {
 }
 
 /**
+ * Returns Promise that resolves with default user selected devices.
+ *
+ * @param {Transport} transport - The @code{Transport} instance responsible for
+ * the external communication.
+ * @returns {Promise}
+ */
+export function getUserSelectedDevices(transport: Object) {
+    return transport.sendRequest({
+        type: 'devices',
+        name: 'getUserSelectedDevices'
+    }).catch(e => {
+        logger.error(e);
+
+        return {};
+    });
+}
+
+/**
  * Returns Promise that resolves with true if the device change is available
  * and with false if not.
  *

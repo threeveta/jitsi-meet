@@ -265,25 +265,14 @@ export function setAudioOutputDeviceId(
         userSelection: boolean = false,
         newLabel: ?string): Promise<*> {
 
-    logger.debug(`setAudioOutputDevice: ${String(newLabel)}[${newId}]`);
+    logger.debug(`setAudioOutputDevice: ${String(newLabel)}[${newId}][${userSelection}]`);
 
     return JitsiMeetJS.mediaDevices.setAudioOutputDevice(newId)
-        .then(() => {
-            const newSettings = {
-                audioOutputDeviceId: newId,
-                userSelectedAudioOutputDeviceId: undefined,
-                userSelectedAudioOutputDeviceLabel: undefined
-            };
+        .then(() => dispatch(updateSettings({
+            audioOutputDeviceId: newId,
 
-            if (userSelection) {
-                newSettings.userSelectedAudioOutputDeviceId = newId;
-                newSettings.userSelectedAudioOutputDeviceLabel = newLabel;
-            } else {
-                // a flow workaround, I needed to add 'userSelectedAudioOutputDeviceId: undefined'
-                delete newSettings.userSelectedAudioOutputDeviceId;
-                delete newSettings.userSelectedAudioOutputDeviceLabel;
-            }
-
-            return dispatch(updateSettings(newSettings));
-        });
+            // Threeveta update: always store in settings the selected audio output
+            userSelectedAudioOutputDeviceId: newId,
+            userSelectedAudioOutputDeviceLabel: newLabel
+        })));
 }

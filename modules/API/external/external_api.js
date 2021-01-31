@@ -10,6 +10,7 @@ import {
 import {
     getAvailableDevices,
     getCurrentDevices,
+    getUserSelectedDevices,
     isDeviceChangeAvailable,
     isDeviceListAvailable,
     isMultipleAudioInputSupported,
@@ -732,6 +733,15 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
      */
     getCurrentDevices() {
         return getCurrentDevices(this._transport);
+    }
+
+    /**
+     * Returns Promise that resolves with current selected devices.
+     *
+     * @returns {Promise}
+     */
+    getUserSelectedDevices() {
+        return getUserSelectedDevices(this._transport);
     }
 
     /**

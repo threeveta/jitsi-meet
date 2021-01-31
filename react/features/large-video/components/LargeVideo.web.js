@@ -7,6 +7,7 @@ import { connect } from '../../base/redux';
 import { InviteMore, Subject } from '../../conference';
 import { fetchCustomBrandingData } from '../../dynamic-branding';
 import { Captions } from '../../subtitles/';
+import { setFullScreen } from '../../toolbox/actions.web';
 
 declare var interfaceConfig: Object;
 
@@ -28,6 +29,11 @@ type Props = {
     _fetchCustomBrandingData: Function,
 
     /**
+     * Fetches the branding data.
+     */
+    _toggleFullScreen: Function,
+
+    /**
      * Prop that indicates whether the chat is open.
      */
     _isChatOpen: boolean,
@@ -47,12 +53,33 @@ type Props = {
  */
 class LargeVideo extends Component<Props> {
     /**
+     * Initializes a new DesktopSourcePreview instance.
+     *
+     * @param {Object} props - The read-only properties with which the new
+     * instance is to be initialized.
+     */
+    constructor(props: Props) {
+        super(props);
+
+        this._onDoubleClick = this._onDoubleClick.bind(this);
+    }
+
+    /**
      * Implements React's {@link Component#componentDidMount}.
      *
      * @inheritdoc
      */
     componentDidMount() {
         this.props._fetchCustomBrandingData();
+    }
+
+    /**
+     * Toggle full screen.
+     *
+     * @returns {void}
+     */
+    _onDoubleClick() {
+        this.props._toggleFullScreen();
     }
 
     /**
@@ -99,7 +126,9 @@ class LargeVideo extends Component<Props> {
                       * another container for the background and the
                       * largeVideoWrapper in order to hide/show them.
                       */}
-                    <div id = 'largeVideoWrapper'>
+                    <div
+                        id = 'largeVideoWrapper'
+                        onDoubleClick = { this._onDoubleClick }>
                         <video
                             autoPlay = { !this.props._noAutoPlayVideo }
                             id = 'largeVideo'
@@ -159,8 +188,25 @@ function _mapStateToProps(state) {
     };
 }
 
-const _mapDispatchToProps = {
-    _fetchCustomBrandingData: fetchCustomBrandingData
-};
+/**
+ * Maps dispatching of some action to React component props.
+ *
+ * @param {Function} dispatch - Redux action dispatcher.
+ * @private
+ * @returns {{
+ *     _onUnmount: Function
+ * }}
+ */
+function _mapDispatchToProps(dispatch: Dispatch<any>) {
+    return {
+        _fetchCustomBrandingData() {
+            dispatch(fetchCustomBrandingData());
+        },
+
+        _toggleFullScreen() {
+            dispatch(setFullScreen(!document.fullscreenElement));
+        }
+    };
+}
 
 export default connect(_mapStateToProps, _mapDispatchToProps)(LargeVideo);

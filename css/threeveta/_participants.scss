@@ -228,9 +228,11 @@ $vido-border-radius: 5px;
     #filmstripRemoteVideosContainer {
         .videocontainer {
             overflow: hidden !important;
-            video {
-                object-fit: cover !important;
-            }
+
+            // Vertical video container
+            // video {
+            //     object-fit: cover !important;
+            // }
         }
     }
 }

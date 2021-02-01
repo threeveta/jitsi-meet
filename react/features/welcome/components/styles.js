@@ -350,6 +350,7 @@ export default {
         paddingHorizontal: 20,
         paddingTop: 20,
         overflow: "visible",
+        flex: 1,
     },
 
     toggleCameraBtn: {
@@ -365,7 +366,7 @@ export default {
 
     localVideTrackContainer: {
         width: "100%",
-        height: 300,
+        flex: 1,
         borderRadius: 10,
         overflow: "hidden",
     },

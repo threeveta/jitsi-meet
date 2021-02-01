@@ -12,7 +12,7 @@ import {
 import { translate } from '../../../base/i18n';
 import { Icon, IconMenuDown, IconMenuUp } from '../../../base/icons';
 import { connect } from '../../../base/redux';
-import { dockToolbox } from '../../../toolbox/actions.web';
+import { dockToolbox, setFullScreen } from '../../../toolbox/actions.web';
 import { getCurrentLayout, LAYOUTS } from '../../../video-layout';
 import { setFilmstripHovered, setFilmstripVisible } from '../../actions';
 import { shouldRemoteVideosBeVisible } from '../../functions';
@@ -98,6 +98,8 @@ class Filmstrip extends Component <Props> {
 
     _notifyOfHoveredStateUpdate: Function;
 
+    _onDoubleClick: Function;
+
     _onMouseOut: Function;
 
     _onMouseOver: Function;
@@ -123,6 +125,7 @@ class Filmstrip extends Component <Props> {
         this._isHovered = false;
 
         // Bind event handlers so they are only bound once for every instance.
+        this._onDoubleClick = this._onDoubleClick.bind(this);
         this._onMouseOut = this._onMouseOut.bind(this);
         this._onMouseOver = this._onMouseOver.bind(this);
         this._onShortcutToggleFilmstrip = this._onShortcutToggleFilmstrip.bind(this);
@@ -214,7 +217,8 @@ class Filmstrip extends Component <Props> {
                 { toolbar }
                 <div
                     className = { this.props._videosClassName }
-                    id = 'remoteVideos'>
+                    id = 'remoteVideos'
+                    onDoubleClick = { this._onDoubleClick }>
                     <div
                         className = 'filmstrip__videos'
                         id = 'filmstripLocalVideo'
@@ -266,6 +270,16 @@ class Filmstrip extends Component <Props> {
             this.props.dispatch(dockToolbox(this._isHovered));
             this.props.dispatch(setFilmstripHovered(this._isHovered));
         }
+    }
+
+    /**
+     * Toggle full screen.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onDoubleClick() {
+        this.props.dispatch(setFullScreen(!document.fullscreenElement));
     }
 
     /**

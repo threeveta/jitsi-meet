@@ -236,6 +236,7 @@ class Toolbox extends Component<Props, State> {
         // Bind event handlers so they are only bound once per instance.
         this._onMouseOut = this._onMouseOut.bind(this);
         this._onMouseOver = this._onMouseOver.bind(this);
+        this._onDoubleClick = this._onDoubleClick.bind(this);
         this._onResize = this._onResize.bind(this);
         this._onSetOverflowVisible = this._onSetOverflowVisible.bind(this);
 
@@ -379,6 +380,7 @@ class Toolbox extends Component<Props, State> {
             <div
                 className = { rootClassNames }
                 id = 'new-toolbox'
+                onDoubleClick = { this._onDoubleClick }
                 onMouseOut = { this._onMouseOut }
                 onMouseOver = { this._onMouseOver }>
                 <div className = 'toolbox-background' />
@@ -559,6 +561,18 @@ class Toolbox extends Component<Props, State> {
      */
     _onMouseOver() {
         this.props.dispatch(setToolbarHovered(true));
+    }
+
+    _onDoubleClick: () => void;
+
+    /**
+     * Dispatches an action signaling the toolbar is being double clicked.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onDoubleClick() {
+        this.props.dispatch(setFullScreen(!document.fullscreenElement));
     }
 
     _onResize: () => void;

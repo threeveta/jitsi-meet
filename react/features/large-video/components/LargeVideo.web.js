@@ -96,6 +96,7 @@ class LargeVideo extends Component<Props> {
             <div
                 className = { className }
                 id = 'largeVideoContainer'
+                onDoubleClick = { this._onDoubleClick }
                 style = { style }>
                 <Subject />
                 <InviteMore />
@@ -127,8 +128,7 @@ class LargeVideo extends Component<Props> {
                       * largeVideoWrapper in order to hide/show them.
                       */}
                     <div
-                        id = 'largeVideoWrapper'
-                        onDoubleClick = { this._onDoubleClick }>
+                        id = 'largeVideoWrapper'>
                         <video
                             autoPlay = { !this.props._noAutoPlayVideo }
                             id = 'largeVideo'

@@ -10,7 +10,7 @@ import { MEDIA_TYPE } from '../../../base/media';
 import { getLocalParticipant, getParticipantById, getParticipantDisplayName } from '../../../base/participants';
 import { connect } from '../../../base/redux';
 import { getTrackByMediaTypeAndParticipant } from '../../../base/tracks';
-import { NOTIFICATION_TYPE, showNotification, hideNotification } from '../../../notifications';
+import { showNotification, hideNotification } from '../../../notifications';
 import { saveLogs } from '../../actions';
 import AbstractConnectionIndicator, {
     INDICATOR_DISPLAY_THRESHOLD,
@@ -163,7 +163,10 @@ class TvtConnectionIndicator extends AbstractConnectionIndicator<Props, State> {
         // Bind event handlers so they are only bound once for every instance.
         this._onToggleShowMore = this._onToggleShowMore.bind(this);
         this._tvtOnColorClassChange = this._tvtOnColorClassChange.bind(this);
+        this._notificationShown = false;
     }
+
+    _notificationShown: boolean
 
     /**
      * Method used to send low connection participant notification and
@@ -182,22 +185,28 @@ class TvtConnectionIndicator extends AbstractConnectionIndicator<Props, State> {
         // Threeveta added logic.
         // We need to set the SmallVideo .videocontainer box-shadow
         // to red if the connection is poor. So we are passing update
-        // function in order to listen for chantes.
+        // function in order to listen for changes.
         this.props.onConnectionStatusUpdate({ colorClass });
 
-        const connectionIsLow = [ 'status-low', 'status-other', 'status-lost' ].indexOf(colorClass) > -1;
+        const connectionIsLow = [
+            'status-low',
+            'status-lost'
 
-        if (!connectionIsLow && this._notificationAction) {
+            // Status other is triggered when participant connection is inactive
+            // We don't include a notification for such case
+            // 'status-other',
+        ].indexOf(colorClass) > -1;
+
+        // Clear the notifications after it's being shown and connection is restored or inactive
+        if (this._notificationShown && !connectionIsLow && this._notificationAction) {
             this.props._tvtClearConnectionNotification(this._notificationAction.uid);
             this._notificationAction = null;
         }
-        if (connectionIsLow && !this._notificationAction) {
-            if (this._notificationAction) {
-                this.props._tvtClearConnectionNotification(this._notificationAction.uid);
-            }
 
+        if (!this._notificationShown && connectionIsLow && !this._notificationAction) {
             this._notificationAction = showNotification({
-                appearance: NOTIFICATION_TYPE.ERROR,
+                appearance: undefined, // Make it default style with a dismiss button
+                isDismissAllowed: true,
                 hideErrorSupportLink: true,
                 titleKey: 'threeveta.notify.participantConnectionLowTitle',
                 titleArguments: {
@@ -205,7 +214,11 @@ class TvtConnectionIndicator extends AbstractConnectionIndicator<Props, State> {
                 }
             });
 
+            // Dispatch the notification based on interface config rules
             this.props._tvtSendConnectionLowNotification(this._notificationAction);
+
+            // Show connection notification only once
+            this._notificationShown = true;
         }
     }
 

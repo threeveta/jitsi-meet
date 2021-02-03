@@ -4,6 +4,7 @@ import {
     TouchableOpacity,
     View,
     NativeModules,
+    Platform,
 } from "react-native";
 import Collapsible from "react-native-collapsible";
 import _ from "lodash";
@@ -35,6 +36,7 @@ import {
 } from "./AbstractWelcomePage";
 import styles from "./styles";
 import { ColorSchemeRegistry } from "../../base/color-scheme";
+import { updateSettings } from "../../base/settings";
 
 const { AudioMode } = NativeModules;
 
@@ -113,6 +115,12 @@ class WelcomePage extends AbstractWelcomePage {
         AudioMode.setMode(AudioMode.VIDEO_CALL).catch((err) =>
             logger.error(`Failed to set audio mode ${String(mode)}: ${err}`)
         );
+
+        // Disable call integration for android, otherwise the output device list is empty,
+        // because we are not yet in a call here
+        if (Platform.OS === 'android') {
+            this.props.dispatch(updateSettings({ disableCallIntegration: true }))
+        }
 
         this._setUpLocalVideoTrack();
 

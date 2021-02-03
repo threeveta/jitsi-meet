@@ -393,7 +393,7 @@ class AudioModeModule extends ReactContextBaseJavaModule {
      */
     void resetSelectedDevice() {
         selectedDevice = null;
-        userSelectedDevice = null;
+//        userSelectedDevice = null;
     }
 
     /**

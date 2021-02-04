@@ -43,6 +43,7 @@ static NSString *const WelcomePageEnabledFeatureFlag = @"welcomepage.enabled";
         _room = nil;
         _subject = nil;
         _token = nil;
+        _callHandle = nil;
 
         _colorScheme = nil;
         _featureFlags = [[NSMutableDictionary alloc] init];
@@ -160,6 +161,7 @@ static NSString *const WelcomePageEnabledFeatureFlag = @"welcomepage.enabled";
         _room = builder.room;
         _subject = builder.subject;
         _token = builder.token;
+        _callHandle = builder.callHandle;
 
         _colorScheme = builder.colorScheme;
 
@@ -211,6 +213,9 @@ static NSString *const WelcomePageEnabledFeatureFlag = @"welcomepage.enabled";
     }
     if (_language != nil) {
         config[@"language"] = self.language;
+    }
+    if (_callHandle != nil) {
+        config[@"callHandle"] = self.callHandle;
     }
 
     NSMutableDictionary *urlProps = [[NSMutableDictionary alloc] init];

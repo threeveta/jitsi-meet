@@ -116,12 +116,6 @@ class WelcomePage extends AbstractWelcomePage {
             logger.error(`Failed to set audio mode ${String(mode)}: ${err}`)
         );
 
-        // Disable call integration for android, otherwise the output device list is empty,
-        // because we are not yet in a call here
-        if (Platform.OS === 'android') {
-            this.props.dispatch(updateSettings({ disableCallIntegration: true }))
-        }
-
         this._setUpLocalVideoTrack();
 
         AudioMode.updateDeviceList && AudioMode.updateDeviceList();

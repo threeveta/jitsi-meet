@@ -38,6 +38,8 @@
  */
 @property (nonatomic, copy, nullable) NSString *token;
 
+@property (nonatomic, copy, nullable) NSString *callHandle;
+
 /**
  * Color scheme override, see:
  * https://github.com/jitsi/jitsi-meet/blob/master/react/features/base/color-scheme/defaultScheme.js
@@ -82,6 +84,7 @@
 @property (nonatomic, copy, nullable, readonly) NSString *room;
 @property (nonatomic, copy, nullable, readonly) NSString *subject;
 @property (nonatomic, copy, nullable, readonly) NSString *token;
+@property (nonatomic, copy, nullable, readonly) NSString *callHandle;
 
 @property (nonatomic, copy, nullable) NSDictionary *colorScheme;
 @property (nonatomic, readonly, nonnull) NSDictionary *featureFlags;

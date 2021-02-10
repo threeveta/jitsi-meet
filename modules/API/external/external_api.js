@@ -745,6 +745,15 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
     }
 
     /**
+     * Clears jitsi local storage externally.
+     *
+     * @returns {void}
+     */
+    clearJitsiStorage() {
+        return jitsiLocalStorage.clear();
+    }
+
+    /**
      * Returns the conference participants information.
      *
      * @returns {Array<Object>} - Returns an array containing participants

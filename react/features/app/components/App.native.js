@@ -130,7 +130,14 @@ export class App extends AbstractApp {
 
     componentDidUpdate(prevProps) {
         super.componentDidUpdate(prevProps)
-        const { dispatch } = this.state.store;
+
+        if (this.props.url?.config?.language !== prevProps.url?.config?.language) {
+            i18next.changeLanguage(this.props.url?.config?.language)
+        }
+
+        const dispatch = this.state.store?.dispatch;
+        if (!dispatch) return
+        
         if (typeof this.props.url !== 'undefined' && 
             this.props.url.room && 
             this.props.url.password) {
@@ -149,10 +156,6 @@ export class App extends AbstractApp {
         
         if (this.props.flags !== prevProps.flags) {
             dispatch(updateFlags(this.props.flags));
-        }
-
-        if (this.props.url?.config?.language !== prevProps.url?.config?.language) {
-            i18next.changeLanguage(this.props.url?.config?.language)
         }
     }
 

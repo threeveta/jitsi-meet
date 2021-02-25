@@ -62,8 +62,8 @@ class NavigationBar extends Component<Props> {
                 {
                     this.props._conferenceTimerEnabled && <ConferenceTimer />
                 }
-                <PictureInPictureButton
-                    styles = { styles.navBarButton } />
+                {/* <PictureInPictureButton
+                    styles = { styles.navBarButton } /> */}
                 <View
                     pointerEvents = 'box-none'
                     style = { styles.roomNameWrapper }>

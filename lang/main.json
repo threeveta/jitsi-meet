@@ -930,5 +930,18 @@
         "passwordJoinButton": "Join",
         "reject": "Reject",
         "toggleLabel": "Enable lobby"
+    },
+    "threeveta": {
+        "toolbar": {
+            "shareScreen": "Share screen",
+            "enterFullScreen": "View full screen",
+            "exitFullScreen": "Exit full screen"
+        },
+        "videothumbnail": {
+            "audioAvailable": "Participant audio is available"
+        },
+        "notify": {
+            "participantConnectionLowTitle": "{{participantDisplayName}} connection is extremely poor."
+        }
     }
 }

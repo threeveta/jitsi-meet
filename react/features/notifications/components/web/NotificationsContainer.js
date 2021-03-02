@@ -9,7 +9,9 @@ import AbstractNotificationsContainer, {
     type Props as AbstractProps
 } from '../AbstractNotificationsContainer';
 
-import Notification from './Notification';
+import Notification from './TvtNotification';
+
+declare var interfaceConfig: Object;
 
 type Props = AbstractProps & {
 
@@ -35,7 +37,7 @@ class NotificationsContainer extends AbstractNotificationsContainer<Props> {
      * @returns {ReactElement}
      */
     render() {
-        if (this.props._iAmSipGateway) {
+        if (this.props._iAmSipGateway || interfaceConfig.MEETING_IS_WAITING_ROOM) {
             return null;
         }
 

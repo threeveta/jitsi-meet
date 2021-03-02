@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 
+import VolumeMeterIcon from '../../../../threeveta/icons/VolumeMeterIcon';
 import JitsiMeetJS from '../../base/lib-jitsi-meet/_';
 
 const JitsiTrackEvents = JitsiMeetJS.events.track;
@@ -89,15 +90,19 @@ class AudioInputPreview extends Component<Props, State> {
      * @returns {ReactElement}
      */
     render() {
-        const audioMeterFill = {
-            width: `${Math.floor(this.state.audioLevel * 100)}%`
-        };
+        // const audioMeterFill = {
+        //     width: `${Math.floor(this.state.audioLevel * 100)}%`
+        // };
 
         return (
-            <div className = 'audio-input-preview' >
-                <div
-                    className = 'audio-input-preview-level'
-                    style = { audioMeterFill } />
+            <div
+                className = 'threveta-audio-input-preview'
+                // eslint-disable-next-line
+                style = {{ marginTop: '5px' }}>
+                <VolumeMeterIcon volume = { this.state.audioLevel } />
+                {/* <div */}
+                {/*     className = 'audio-input-preview-level' */}
+                {/*     style = { audioMeterFill } /> */}
             </div>
         );
     }

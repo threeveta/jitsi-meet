@@ -8,7 +8,7 @@ import {
 } from '../../analytics';
 import { TILE_VIEW_ENABLED, getFeatureFlag } from '../../base/flags';
 import { translate } from '../../base/i18n';
-import { IconTileView } from '../../base/icons';
+import { IconTileView, IconTileViewToggled } from '../../base/icons';
 import { getParticipantCount } from '../../base/participants';
 import { connect } from '../../base/redux';
 import { AbstractButton, type AbstractButtonProps } from '../../base/toolbox/components';
@@ -40,6 +40,7 @@ type Props = AbstractButtonProps & {
 class TileViewButton<P: Props> extends AbstractButton<P, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.tileView';
     icon = IconTileView;
+    toggledIcon = IconTileViewToggled;
     label = 'toolbar.enterTileView';
     toggledLabel = 'toolbar.exitTileView';
     tooltip = 'toolbar.tileViewToggle';

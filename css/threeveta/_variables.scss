@@ -1,0 +1,38 @@
+$border-radius-lg: 20px;
+$border-radius-sm: 10%;
+
+// Filmstrip indicators
+$small-icon-size: 16px;
+
+// COLORS
+$main-white: #fff;
+$main-gray: #4F4F4F;
+$gray-lighten: #828282;
+$gray-lighten2: #F5F6FA;
+$gray-lighten3: #414141;
+$gray-lighten4: #E1E3EA;
+$gray-lighten5: #F6F9FF;
+$light-gray: #ECECED;
+$inactive-gray: #BDBDBD;
+$brand: #FF6A34;
+$accent: #9141B8;
+$accent-lighten1: #bb93ce7a;
+$accent2: #5B31D4;
+$blue-lighten: #64b9f0;
+$blue-lighten1: rgba(100,185,240, 0.5);
+$error-color: #FF4848;
+$error-lighten: rgba(255,72,72, 0.8);
+$error-lighten1: rgba(255,72,72, 0.5);
+
+@mixin tvt-button-empty($color) {
+    color: $color;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 17px 0px;
+    border: 1px solid $color;
+    text-transform: uppercase;
+    &:hover {
+        box-shadow: 0 0 0 1pt $color;
+    }
+}

@@ -11,6 +11,8 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const devServerProxyTarget
     = process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://alpha.jitsi.net';
 
+// 'https://alpha.jitsi.net'; // ;'https://meet.staging.3veta.com/'
+
 const analyzeBundle = process.argv.indexOf('--analyze-bundle') !== -1;
 const detectCircularDeps = process.argv.indexOf('--detect-circular-deps') !== -1;
 
@@ -34,6 +36,7 @@ function getPerformanceHints(size) {
 // jitsi-meet such as app.bundle.js and external_api.js.
 const config = {
     devServer: {
+        disableHostCheck: true,
         https: true,
         inline: true,
         proxy: {
@@ -299,7 +302,6 @@ function devServerProxyBypass({ path }) {
             || path.startsWith('/sounds/')
             || path.startsWith('/static/')
             || path.endsWith('.wasm')) {
-
         return path;
     }
 

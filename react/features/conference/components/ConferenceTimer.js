@@ -92,7 +92,7 @@ class ConferenceTimer extends Component<Props, State> {
         const { _startTimestamp } = this.props;
 
         if (!_startTimestamp) {
-            return null;
+            return renderConferenceTimer('00:00');
         }
 
         return renderConferenceTimer(timerValue);

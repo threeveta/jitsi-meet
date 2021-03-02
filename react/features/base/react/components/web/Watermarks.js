@@ -229,10 +229,17 @@ function _mapStateToProps(state, ownProps) {
     } = state['features/dynamic-branding'];
     const isValidRoom = state['features/base/conference'].room;
     const {
-        DEFAULT_LOGO_URL,
-        JITSI_WATERMARK_LINK,
+        // DEFAULT_LOGO_URL,
+        // Custom Threeveta config property
+        DEFAULT_TVT_LOGO_URL,
+
+        // JITSI_WATERMARK_LINK,
+        // Custom Threeveta config property
+        DEFAULT_WATERMARK_URL,
         SHOW_JITSI_WATERMARK
     } = interfaceConfig;
+
+
     let _showJitsiWatermark = (
         customizationReady && !customizationFailed
         && SHOW_JITSI_WATERMARK)
@@ -245,13 +252,13 @@ function _mapStateToProps(state, ownProps) {
             // don't show logo if request fails or no logo set for vpaas meetings
             _showJitsiWatermark = !customizationFailed && Boolean(logoImageUrl);
         } else if (defaultBranding) {
-            _logoUrl = DEFAULT_LOGO_URL;
-            _logoLink = JITSI_WATERMARK_LINK;
+            _logoUrl = DEFAULT_TVT_LOGO_URL;
+            _logoLink = DEFAULT_WATERMARK_URL;
         }
     } else {
         // When there is no custom branding data use defaults
-        _logoUrl = ownProps.defaultJitsiLogoURL || DEFAULT_LOGO_URL;
-        _logoLink = JITSI_WATERMARK_LINK;
+        _logoUrl = DEFAULT_TVT_LOGO_URL || ownProps.defaultJitsiLogoURL;
+        _logoLink = DEFAULT_WATERMARK_URL;
     }
 
     return {

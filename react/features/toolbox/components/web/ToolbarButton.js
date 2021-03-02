@@ -22,7 +22,12 @@ type Props = AbstractToolbarButtonProps & {
      * From which direction the tooltip should appear, relative to the
      * button.
      */
-    tooltipPosition: string
+    tooltipPosition: string,
+
+    /**
+     * The text displayed after the icon
+     */
+    label: string
 };
 
 /**
@@ -111,8 +116,14 @@ class ToolbarButton extends AbstractToolbarButton<Props> {
      */
     _renderIcon() {
         return (
-            <div className = { `toolbox-icon ${this.props.toggled ? 'toggled' : ''}` }>
+            <div
+                className = {
+                    `toolbox-icon ${this.props.toggled ? 'toggled' : ''} ${this.props.label ? 'labeled' : ''}`
+                }>
+
                 <Icon src = { this.props.icon } />
+                {this.props.label
+                        && <span className = 'tvt-icon-label'> { this.props.label } </span>}
             </div>
         );
     }

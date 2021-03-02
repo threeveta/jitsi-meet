@@ -24,13 +24,14 @@ import {
     isLocalTrackMuted,
     isRemoteTrackMuted
 } from '../../../react/features/base/tracks';
-import { ConnectionIndicator } from '../../../react/features/connection-indicator';
+import { TvtConnectionIndicator } from '../../../react/features/connection-indicator';
 import { DisplayName } from '../../../react/features/display-name';
 import {
     DominantSpeakerIndicator,
     RaisedHandIndicator,
     StatusIndicators
 } from '../../../react/features/filmstrip';
+import { muteRemote } from '../../../react/features/remote-video-menu/actions';
 import {
     LAYOUTS,
     getCurrentLayout,
@@ -117,12 +118,14 @@ export default class SmallVideo {
          * @private
          * @type {boolean}
          */
-        this._showRaisedHand = false;
+        this._showRaisedHand = interfaceConfig.SHOW_RISE_HAND_INDICATOR || false;
 
         // Bind event handlers so they are only bound once for every instance.
         this.updateView = this.updateView.bind(this);
 
         this._onContainerClick = this._onContainerClick.bind(this);
+
+        this._onConnectionStatusUpdate = this._onConnectionStatusUpdate.bind(this);
     }
 
     /**
@@ -220,7 +223,40 @@ export default class SmallVideo {
                         participantID = { this.id } />
                 </I18nextProvider>
             </Provider>,
-            statusBarContainer);
+            statusBarContainer,
+
+            // Threeveta added logic. In this logic we are handling
+            // the custom 'TvtAudioIndicator' click eveent, available
+            // for providers/moderators, in order to mute the remote
+            // participants.
+            () => {
+                // If this.id is undefined it is the local participant and we do not need to add mute functionaliny.
+                // The local user can mute him/her self from the main bottom controls.
+                if (!this.id || !interfaceConfig.PARTICIPANT_IS_PROVIDER) {
+                    return;
+                }
+
+                statusBarContainer.addEventListener('click', e => {
+                    e.stopPropagation();
+
+                    // We need to concat the e.path in order to make it iterable
+                    const filtered = [].concat(e.path).filter(ell => {
+                        if (!ell.className || typeof ell.className !== 'string') {
+                            return false;
+                        }
+
+                        // We search for the canBeMuted Threeveta added custom class
+                        // Look for it's assignment logic in the
+                        // react/features/filmstrip/components/web/TvtAudioIndicator.js
+                        // component row: 17
+                        return ell.className.indexOf('canBeMuted') > -1;
+                    });
+
+                    if (filtered.length) {
+                        APP.store.dispatch(muteRemote(this.id));
+                    }
+                });
+            });
     }
 
     /**
@@ -473,6 +509,19 @@ export default class SmallVideo {
     }
 
     /**
+     * Threeveta added logic.
+     * Sents the color class to the container in order to show colored box-shodow
+     * if the connection is low
+     *
+     * @param colorClass indicates the connection strength
+     */
+    _onConnectionStatusUpdate({ colorClass }) {
+        this.$container.removeClass((index, classNames) =>
+            classNames.split(' ').filter(name => name.startsWith('tvt-connection-')));
+        this.$container.addClass(`tvt-connection-${colorClass}`);
+    }
+
+    /**
      * Updates the css classes of the thumbnail based on the current state.
      */
     updateView() {
@@ -591,7 +640,7 @@ export default class SmallVideo {
             return;
         }
 
-        this._showRaisedHand = show;
+        this._showRaisedHand = interfaceConfig.SHOW_RISE_HAND_INDICATOR && show;
         this.updateIndicators();
     }
 
@@ -695,18 +744,25 @@ export default class SmallVideo {
                     <div>
                         <AtlasKitThemeProvider mode = 'dark'>
                             { this._showConnectionIndicator
-                                ? <ConnectionIndicator
+                                ? <TvtConnectionIndicator
                                     alwaysVisible = { showConnectionIndicator }
                                     iconSize = { iconSize }
                                     isLocalVideo = { this.isLocal }
-                                    enableStatsDisplay = { true }
+
+                                    // Threeveta disable stats popup
+                                    enableStatsDisplay = { false }
+
+                                    // Threeveta adds internet connection
+                                    // status updates propagation
+                                    onConnectionStatusUpdate = { this._onConnectionStatusUpdate }
                                     participantId = { this.id }
                                     statsPopoverPosition = { statsPopoverPosition } />
                                 : null }
-                            <RaisedHandIndicator
+                            {this._showRaisedHand
+                            && <RaisedHandIndicator
                                 iconSize = { iconSize }
                                 participantId = { this.id }
-                                tooltipPosition = { tooltipPosition } />
+                                tooltipPosition = { tooltipPosition } />}
                             { this._showDominantSpeaker && participantCount > 2
                                 ? <DominantSpeakerIndicator
                                     iconSize = { iconSize }

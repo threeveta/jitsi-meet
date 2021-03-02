@@ -1,0 +1,226 @@
+@mixin select-items-wrapper {
+    background-color: $gray-lighten2;
+    border: none;
+    padding: 0 4px;
+    border-radius: 5px;
+    top: -5px;
+    position: relative;
+
+}
+@mixin select-item {
+    border: none;
+    border-radius: 5px;
+    color: $gray-lighten;
+    font-size: 12px;
+    margin: 3px 0;
+    &:hover {
+        background-color: $main-white;
+    }
+}
+@mixin selector-trigger {
+    background-color: $gray-lighten2;
+    border: none;
+    color: $gray-lighten !important;
+    font-size: 13px;
+    & svg path {
+        fill: $accent;
+    }
+}
+
+// Settings dialog
+.atlaskit-portal-container [class^="Modal__Dialog"] {
+    background-color: $main-white !important;
+    border-radius: 5px !important;
+    color: #4a4a4a !important;
+    [class^="Content__Title"] {
+        font-size: 19px;
+        font-weight: bold;
+    }
+    .settings-dialog {
+        // Bottom underline, whole width
+        [class^="styled__NavLine"] {
+            background-color: transparent;
+            &:after {
+                content: ' ';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                border-bottom: 1px solid $accent2;
+            }
+        }
+        // Navigation tabs container
+        [class^="styled__Nav"] {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            font-size: 14px;
+            font-weight: bold;
+            & [class^="styled__NavItem"] {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                // Selected tab
+                &[aria-selected="true"] {
+                    color: $accent2;
+                    &:focus {
+                        outline: none !important;
+                    }
+                    & span.bHNyBH {
+                        background-color: $accent2;
+                        color: $accent2;
+                    }
+                }
+                // Not selected tab
+                &[aria-selected="false"] {
+                    color: $accent2;
+                    font-weight: normal;
+                }
+            }
+        }
+        .settings-pane {
+            .device-selection {
+                width: 100%;
+                margin-top: 12px;
+                .device-selection-column.column-video {
+                    width: 50%;
+                    .device-selection-video-container {
+                        height: 216px;
+                        width: 100%;
+                        .video-input-preview {
+                            border-radius: 5px;
+                            overflow: hidden;
+                            position: relative;
+                            width: 100%;
+                            height: 100%;
+                            .video-input-preview-display {
+                                position: absolute;
+                                top: 0px;
+                                left: 0px;
+                                right: -22%;
+                                width: auto;
+                                height: 100%;
+                            }
+                        }
+                    }
+                }
+                .device-selection-column.column-selectors {
+                    margin-left: 20px;
+                    width: 45%;
+                    .device-selector-label {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        position: relative;
+                        right: 6px;
+                        & span {
+                            font-size: 12px;
+                            text-transform: uppercase;
+                            display: none;
+                        }
+                    }
+                    .device-selectors {
+                        & > div {
+                            margin-bottom: 7px;
+                            .device-selector-trigger {
+                                @include selector-trigger;
+                            }
+                            // Select items wrapper
+                            .cksvax {
+                                @include select-items-wrapper;
+                                // Item
+                                .hWFSra {
+                                    @include select-item;
+                                }
+                            }
+                            .threeveta-audio-input-preview {
+                                width: 100%;
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: center;
+                                margin-top: 5px;
+                            }
+                        }
+                    }
+                    .audio-output-preview {
+                        a {
+                            color: $accent2;
+                        }
+                    }
+                }
+            }
+        }
+        .settings-sub-pane.language-settings {
+            margin-bottom: 75px;
+            // Language select label
+            .mock-atlaskit-label {
+                font-size: 12px;
+                color: $gray-lighten3;
+                font-weight: normal;
+            }
+            // Selector trigger
+            [class^="Droplist__Trigger"] {
+                & button, & button:hover {
+                    @include selector-trigger;
+                    text-align: left;
+                }
+            }
+            // Itmes wrapper
+            [class^='Droplist__Content'] {
+                @include select-items-wrapper;
+                // Item
+                [class^="Item"] {
+                    @include select-item;
+                    background: transparent;
+                }
+            }
+        }
+    }
+    // Bottom buttons container
+    [class^="Content__Footer"] {
+        & > div {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            & > div {
+                max-width: 121px;
+                min-width: 121px;
+                & > button {
+                    width: 100%;
+                    border-radius: 3px;
+                    display: flex;
+                    justify-content: center;
+                    padding: 15px 0px;
+                    border: 1px solid $accent2;
+                }
+                &:first-child {
+                    button {
+                        background: $accent2;
+                        span {
+                            color: $main-white;
+                        }
+                        &:hover {
+                            box-shadow: 0 0 0 1pt $accent2;
+                            background: $accent2;
+                        }
+                    }
+                }
+                &:last-child {
+                    margin-left: 7px;
+                    button {
+                        background: $main-white;
+                        span {
+                            color: $accent2;
+                        }
+                        &:hover {
+                            box-shadow: 0 0 0 1pt $accent2;
+                            background: $main-white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

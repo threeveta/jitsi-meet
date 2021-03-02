@@ -2,11 +2,12 @@
 
 import React, { Component } from 'react';
 
-import { Watermarks } from '../../base/react';
+// import { Watermarks } from '../../base/react';
 import { connect } from '../../base/redux';
 import { InviteMore, Subject } from '../../conference';
 import { fetchCustomBrandingData } from '../../dynamic-branding';
 import { Captions } from '../../subtitles/';
+import { setFullScreen } from '../../toolbox/actions.web';
 
 declare var interfaceConfig: Object;
 
@@ -28,6 +29,11 @@ type Props = {
     _fetchCustomBrandingData: Function,
 
     /**
+     * Fetches the branding data.
+     */
+    _toggleFullScreen: Function,
+
+    /**
      * Prop that indicates whether the chat is open.
      */
     _isChatOpen: boolean,
@@ -47,12 +53,33 @@ type Props = {
  */
 class LargeVideo extends Component<Props> {
     /**
+     * Initializes a new DesktopSourcePreview instance.
+     *
+     * @param {Object} props - The read-only properties with which the new
+     * instance is to be initialized.
+     */
+    constructor(props: Props) {
+        super(props);
+
+        this._onDoubleClick = this._onDoubleClick.bind(this);
+    }
+
+    /**
      * Implements React's {@link Component#componentDidMount}.
      *
      * @inheritdoc
      */
     componentDidMount() {
         this.props._fetchCustomBrandingData();
+    }
+
+    /**
+     * Toggle full screen.
+     *
+     * @returns {void}
+     */
+    _onDoubleClick() {
+        this.props._toggleFullScreen();
     }
 
     /**
@@ -69,6 +96,7 @@ class LargeVideo extends Component<Props> {
             <div
                 className = { className }
                 id = 'largeVideoContainer'
+                onDoubleClick = { this._onDoubleClick }
                 style = { style }>
                 <Subject />
                 <InviteMore />
@@ -77,7 +105,10 @@ class LargeVideo extends Component<Props> {
                 </div>
                 <div id = 'etherpad' />
 
-                <Watermarks />
+                {/* Threeveta change. */}
+                {/* The watermark is moved to the Subject component. In order */}
+                {/* to be presened side by side with the TvtConnectionIndicator component. */}
+                {/* <Watermarks /> */}
 
                 <div id = 'dominantSpeaker'>
                     <div className = 'dynamic-shadow' />
@@ -122,8 +153,12 @@ class LargeVideo extends Component<Props> {
 
         styles.backgroundColor = _customBackgroundColor || interfaceConfig.DEFAULT_BACKGROUND;
 
-        if (_customBackgroundImageUrl) {
-            styles.backgroundImage = `url(${_customBackgroundImageUrl})`;
+        // Threeveta custom background image
+        // passed through the interfaceConfig
+        const tvtBg = interfaceConfig.DEFAULT_BACKGROUND_IMAGE || _customBackgroundImageUrl;
+
+        if (tvtBg) {
+            styles.backgroundImage = `url(${tvtBg})`;
             styles.backgroundSize = 'cover';
         }
 
@@ -152,8 +187,25 @@ function _mapStateToProps(state) {
     };
 }
 
-const _mapDispatchToProps = {
-    _fetchCustomBrandingData: fetchCustomBrandingData
-};
+/**
+ * Maps dispatching of some action to React component props.
+ *
+ * @param {Function} dispatch - Redux action dispatcher.
+ * @private
+ * @returns {{
+ *     _onUnmount: Function
+ * }}
+ */
+function _mapDispatchToProps(dispatch: Dispatch<any>) {
+    return {
+        _fetchCustomBrandingData() {
+            dispatch(fetchCustomBrandingData());
+        },
+
+        _toggleFullScreen() {
+            dispatch(setFullScreen(!document.fullscreenElement));
+        }
+    };
+}
 
 export default connect(_mapStateToProps, _mapDispatchToProps)(LargeVideo);

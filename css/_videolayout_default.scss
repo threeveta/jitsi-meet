@@ -29,7 +29,8 @@
     }
 }
 #largeVideoBackgroundContainer {
-    filter: blur(40px);
+    filter: blur(20px);
+    opacity: 0.4;
 }
 
 .videocontainer {
@@ -74,18 +75,19 @@
             display: inline-block;
             float: left;
             pointer-events: all;
+            padding-left: 8px;
         }
     }
 
     &__toolbar {
-        bottom: 0;
+        top: 13px;
         height: $thumbnailToolbarHeight;
         padding: 0 5px 0 5px;
     }
 
     &__toptoolbar {
         $toolbarIconMargin: 5px;
-        top: 0;
+        top: 4px;
         padding-bottom: 0;
         /**
          * Override text-align center as icons need to be left justified.

@@ -104,10 +104,15 @@ export function maybeOpenFeedbackDialog(conference: Object) {
  * @returns {Object}
  */
 export function openFeedbackDialog(conference: Object, onClose: ?Function) {
-    return openDialog(FeedbackDialog, {
-        conference,
-        onClose
-    });
+    // Threeveta removed functionality.
+    // In order to not show the jitsi FeedbackDialog we are not executing the
+    // open dialog function.
+    return;
+
+    // return openDialog(FeedbackDialog, {
+    //     conference,
+    //     onClose
+    // });
 }
 
 /**

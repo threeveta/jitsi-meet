@@ -9,9 +9,9 @@ import {
     getAvailableDevices,
     getDeviceIdByLabel,
     groupDevicesByKind,
-    setAudioInputDevice,
+    setAudioInputDeviceAndUpdateSettings,
     setAudioOutputDeviceId,
-    setVideoInputDevice
+    setVideoInputDeviceAndUpdateSettings
 } from '../base/devices';
 import JitsiMeetJS from '../base/lib-jitsi-meet';
 import { toState } from '../base/redux';
@@ -100,6 +100,13 @@ export function processExternalDeviceRequest( // eslint-disable-line max-params
     case 'isMultipleAudioInputSupported':
         responseCallback(JitsiMeetJS.isMultipleAudioInputSupported());
         break;
+    case 'getUserSelectedDevices':
+        responseCallback({
+            selectedAudioInputId: getUserSelectedMicDeviceId(state),
+            selectedAudioOutputId: getUserSelectedOutputDeviceId(state),
+            selectedVideoInputId: getUserSelectedCameraDeviceId(state)
+        });
+        break;
     case 'getCurrentDevices':
         dispatch(getAvailableDevices()).then(devices => {
             if (areDeviceLabelsInitialized(state)) {
@@ -183,14 +190,17 @@ export function processExternalDeviceRequest( // eslint-disable-line max-params
         if (deviceId) {
             switch (device.kind) {
             case 'audioinput': {
-                dispatch(setAudioInputDevice(deviceId));
+
+                // Threeveta update: always store in settings the selected audio input
+                dispatch(setAudioInputDeviceAndUpdateSettings(deviceId));
                 break;
             }
             case 'audiooutput':
                 setAudioOutputDeviceId(deviceId, dispatch);
                 break;
             case 'videoinput':
-                dispatch(setVideoInputDevice(deviceId));
+                // Threeveta update: always store in settings the selected video input
+                dispatch(setVideoInputDeviceAndUpdateSettings(deviceId));
                 break;
             default:
                 result = false;
@@ -208,4 +218,3 @@ export function processExternalDeviceRequest( // eslint-disable-line max-params
 
     return true;
 }
-

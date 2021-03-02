@@ -10,6 +10,7 @@ import {
 import {
     getAvailableDevices,
     getCurrentDevices,
+    getUserSelectedDevices,
     isDeviceChangeAvailable,
     isDeviceListAvailable,
     isMultipleAudioInputSupported,
@@ -50,7 +51,9 @@ const commands = {
     toggleFilmStrip: 'toggle-film-strip',
     toggleShareScreen: 'toggle-share-screen',
     toggleTileView: 'toggle-tile-view',
-    toggleVideo: 'toggle-video'
+    toggleVideo: 'toggle-video',
+    kickParticipant: 'kick-participant',
+    muteParticipant: 'mute-participant'
 };
 
 /**
@@ -472,6 +475,7 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
             case 'participant-joined': {
                 this._participants[userID] = this._participants[userID] || {};
                 this._participants[userID].displayName = data.displayName;
+                this._participants[userID].avatarURL = data.avatarURL;
                 this._participants[userID].formattedDisplayName
                     = data.formattedDisplayName;
                 changeParticipantNumber(this, 1);
@@ -729,6 +733,24 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
      */
     getCurrentDevices() {
         return getCurrentDevices(this._transport);
+    }
+
+    /**
+     * Returns Promise that resolves with current selected devices.
+     *
+     * @returns {Promise}
+     */
+    getUserSelectedDevices() {
+        return getUserSelectedDevices(this._transport);
+    }
+
+    /**
+     * Clears jitsi local storage externally.
+     *
+     * @returns {void}
+     */
+    clearJitsiStorage() {
+        return jitsiLocalStorage.clear();
     }
 
     /**

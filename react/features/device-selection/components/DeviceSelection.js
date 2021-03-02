@@ -6,6 +6,7 @@ import AbstractDialogTab, {
     type Props as AbstractDialogTabProps
 } from '../../base/dialog/components/web/AbstractDialogTab';
 import { translate } from '../../base/i18n/functions';
+import { IconCameraEmptySmall, IconMicEmptySmall, IconVolumeEmptySmall, Icon } from '../../base/icons';
 import JitsiMeetJS from '../../base/lib-jitsi-meet/_';
 import { createLocalTrack } from '../../base/lib-jitsi-meet/functions';
 import logger from '../logger';
@@ -14,6 +15,7 @@ import AudioInputPreview from './AudioInputPreview';
 import AudioOutputPreview from './AudioOutputPreview';
 import DeviceSelector from './DeviceSelector';
 import VideoInputPreview from './VideoInputPreview';
+
 
 /**
  * The type of the React {@code Component} props of {@link DeviceSelection}.
@@ -220,7 +222,7 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
      */
     render() {
         const {
-            hideAudioInputPreview,
+            // hideAudioInputPreview,
             hideAudioOutputSelect,
             selectedAudioOutputId
         } = this.props;
@@ -233,9 +235,6 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
                             error = { this.state.previewVideoTrackError }
                             track = { this.state.previewVideoTrack } />
                     </div>
-                    { !hideAudioInputPreview
-                        && <AudioInputPreview
-                            track = { this.state.previewAudioTrack } /> }
                 </div>
                 <div className = 'device-selection-column column-selectors'>
                     <div className = 'device-selectors'>
@@ -342,12 +341,20 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
      * @returns {ReactElement}
      */
     _renderSelector(deviceSelectorProps) {
+        const { hideAudioInputPreview } = this.props;
+
         return (
             <div key = { deviceSelectorProps.label }>
                 <div className = 'device-selector-label'>
-                    { this.props.t(deviceSelectorProps.label) }
+                    {deviceSelectorProps.labelIcon
+                            && <Icon src = { deviceSelectorProps.labelIcon } />}
+                    <span>{ this.props.t(deviceSelectorProps.label) }</span>
                 </div>
                 <DeviceSelector { ...deviceSelectorProps } />
+                {deviceSelectorProps.key === 'audioInput' && !hideAudioInputPreview
+                        && <AudioInputPreview
+                            track = { this.state.previewAudioTrack } />
+                }
             </div>
         );
     }
@@ -367,10 +374,16 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
             {
                 devices: availableDevices.videoInput,
                 hasPermission: hasVideoPermission,
-                icon: 'icon-camera',
+
+                // icon: 'icon-camera',
                 isDisabled: this.props.disableDeviceChange,
                 key: 'videoInput',
                 label: 'settings.selectCamera',
+
+                // Threeveta added displays icon on the
+                // left of the select label
+                labelIcon: IconCameraEmptySmall,
+
                 onSelect: selectedVideoInputId =>
                     super._onChange({ selectedVideoInputId }),
                 selectedDeviceId: this.state.previewVideoTrack
@@ -379,11 +392,17 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
             {
                 devices: availableDevices.audioInput,
                 hasPermission: hasAudioPermission,
-                icon: 'icon-microphone',
+
+                // icon: 'icon-microphone',
                 isDisabled: this.props.disableAudioInputChange
                     || this.props.disableDeviceChange,
                 key: 'audioInput',
                 label: 'settings.selectMic',
+
+                // Threeveta added displays icon on the
+                // left of the select label
+                labelIcon: IconMicEmptySmall,
+
                 onSelect: selectedAudioInputId =>
                     super._onChange({ selectedAudioInputId }),
                 selectedDeviceId: this.state.previewAudioTrack
@@ -395,10 +414,16 @@ class DeviceSelection extends AbstractDialogTab<Props, State> {
             configurations.push({
                 devices: availableDevices.audioOutput,
                 hasPermission: hasAudioPermission || hasVideoPermission,
-                icon: 'icon-speaker',
+
+                // icon: 'icon-speaker',
                 isDisabled: this.props.disableDeviceChange,
                 key: 'audioOutput',
                 label: 'settings.selectAudioOutput',
+
+                // Threeveta added displays icon on the
+                // left of the select label
+                labelIcon: IconVolumeEmptySmall,
+
                 onSelect: selectedAudioOutputId =>
                     super._onChange({ selectedAudioOutputId }),
                 selectedDeviceId: this.props.selectedAudioOutputId

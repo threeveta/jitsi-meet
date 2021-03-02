@@ -4,7 +4,7 @@ import React from 'react';
 import type { Dispatch } from 'redux';
 
 import { translate } from '../../../base/i18n';
-import { Icon, IconConnectionActive, IconConnectionInactive } from '../../../base/icons';
+import { Icon, IconConnectionActive } from '../../../base/icons';
 import { JitsiParticipantConnectionStatus } from '../../../base/lib-jitsi-meet';
 import { MEDIA_TYPE } from '../../../base/media';
 import { getLocalParticipant, getParticipantById, getParticipantDisplayName } from '../../../base/participants';
@@ -312,24 +312,14 @@ class TvtConnectionIndicator extends AbstractConnectionIndicator<Props, State> {
      * @returns {ReactElement}
      */
     _renderIcon() {
-        if (this.props._connectionStatus
-            === JitsiParticipantConnectionStatus.INACTIVE) {
-            return (
-                <span className = 'connection_ninja'>
-                    <Icon
-                        className = 'icon-ninja'
-                        size = '1.5em'
-                        src = { IconConnectionInactive } />
-                </span>
-            );
-        }
-
         let iconWidth;
         let emptyIconWrapperClassName = 'connection_empty';
+        const connectionLost = [
+            JitsiParticipantConnectionStatus.INTERRUPTED,
+            JitsiParticipantConnectionStatus.INACTIVE
+        ];
 
-        if (this.props._connectionStatus
-            === JitsiParticipantConnectionStatus.INTERRUPTED) {
-
+        if (connectionLost.includes(this.props._connectionStatus)) {
             // emptyIconWrapperClassName is used by the torture tests to
             // identify lost connection status handling.
             emptyIconWrapperClassName = 'connection_lost';

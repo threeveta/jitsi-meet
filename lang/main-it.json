@@ -769,6 +769,7 @@
         "noisyAudioInputTitle": "Il tuo microfono sembra rumoroso!",
         "noisyAudioInputDesc": "Sembra che il tuo microfono faccia dei rumori, prova a spegnerlo o cambiarlo per favore.",
         "openChat": "Apri una chat",
+        "participants": "Partecipanti ({{count}})",
         "pip": "Abilita visualizzazione immagine nell’immagine",
         "privateMessage": "invia un messaggio privato",
         "profile": "Modifica profilo",

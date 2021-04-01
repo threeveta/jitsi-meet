@@ -771,6 +771,7 @@
         "noisyAudioInputTitle": "Ihr Mikrofon scheint lärmintensiv zu sein!",
         "noisyAudioInputDesc": "Es klingt, als ob Ihr Mikrofon Störgeräusche verursacht. Bitte überlegen Sie, ob Sie das Gerät stummschalten oder austauschen wollen.",
         "openChat": "Chat öffnen",
+        "participants": "Teilnehmer ({{count}})",
         "pip": "Bild-in-Bild-Modus einschalten",
         "privateMessage": "Private Nachricht senden",
         "profile": "Profil bearbeiten",

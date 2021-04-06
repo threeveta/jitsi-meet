@@ -21,7 +21,7 @@
         "bluetooth": "Bluetooth",
         "headphones": "Слушалки",
         "phone": "Телефон",
-        "speaker": "Говорещ",
+        "speaker": "Високоговорител",
         "none": "Няма налични устройства за звук"
     },
     "audioOnly": {
